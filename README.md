@@ -6,7 +6,7 @@ KanColleTool
 KanColleTool is a tool for KanColle players.
 That may have been the most redundant sentence I've ever written.
 
-KanColleTool consists of two parts, the tool (KCT) and the viewer (KCTV). The Tool displays information gathered from the game, while the viewer is a wrapper around the game to let it and the Tool work more smoothly. This is the tool. The viewer is (here)[/KanColleTool/viewer].
+KanColleTool consists of two parts, the tool (KCT) and the viewer (KCTV). The Tool displays information gathered from the game, while the viewer is a wrapper around the game to let it and the Tool work more smoothly. This is the tool. The viewer is [here](/KanColleTool/viewer).
 
 Its features include:
 
