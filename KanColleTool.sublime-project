@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/uppfinnarn/Projects/Applications/KCT/tool",
+			"folder_exclude_patterns": [ "KanColleTool.app", "cache" ],
+			"file_exclude_patterns": [ ".qmake.stash", "*.o", "moc_*.cpp", "ui_*.h", "qrc_*.cpp" ]
+		}
+	]
+}
