@@ -5,4 +5,6 @@ before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
 install: sudo apt-get install -q qt5-qmake qtdeclarative5-dev qt5-default
-script: "qmake -spec linux-${CC} && make"
+script:
+  - "qmake -spec linux-${CC} && make"
+  - "cd test && qmake -spec linux-${CC} && make check"

@@ -27,6 +27,7 @@ Makefile*
 KanColleTool.app
 KanColleTool.exe
 kancolletool
+test/KanColleToolTest
 
 /targets/archlinux/*
 !/targets/archlinux/PKGBUILD
