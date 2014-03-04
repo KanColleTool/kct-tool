@@ -5,6 +5,5 @@ cache: apt
 before_install:
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-install: sudo apt-get install -q qt5-qmake libqt5webkit5-dev qtdeclarative5-dev libgstreamer-plugins-base0.10-dev libxslt1-dev libgio2.0-cil-dev libgst-dev libglib2.0-dev libxml2-dev libsqlite3-dev qt5-default
-script:
-  - "qmake -spec linux-${CC} && make"
+install: sudo apt-get install -q qt5-qmake qtdeclarative5-dev qt5-default
+script: qmake -spec linux-${CC} && make
