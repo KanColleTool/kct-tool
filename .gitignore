@@ -2,10 +2,6 @@
 .DS_Store
 
 # C++ and Qt Temporaries
-*.o
-moc_*.cpp
-qrc_*.cpp
-ui_*.h
 *.pro.user
 *.stash
 object_script*
@@ -24,13 +20,6 @@ xcuserdata
 
 # Built Products
 Makefile*
-KanColleTool.app
-KanColleTool.exe
-kancolletool
-test/KanColleToolTest
 
-/targets/archlinux/*
-!/targets/archlinux/PKGBUILD
-
-/build-*
-/dist
+/build/
+/bin/
