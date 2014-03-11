@@ -95,9 +95,9 @@ void KCClient::onDockCompleted() {
 }
 
 void KCClient::onDockShipChanged() {
-	KCDock *dock = qobject_cast<KCDock*>(QObject::sender());
+	/*KCDock *dock = qobject_cast<KCDock*>(QObject::sender());
 	if(dock->isConstruction)
-		logger->logCraftShip(dock->shipID, dock->fuel, dock->ammo, dock->steel, dock->baux, dock->devmats);
+		logger->logCraftShip(dock->shipID, dock->fuel, dock->ammo, dock->steel, dock->baux, dock->devmats);*/
 	qDebug() << "Construction Started";
 }
 

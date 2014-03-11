@@ -145,14 +145,14 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_req_battle_midnight/battle", 0 },
 	{ "/kcsapi/api_req_sortie/battleresult",
 		pf {
-			QVariantMap dataMap = data.toMap();
+			/*QVariantMap dataMap = data.toMap();
 			QVariantMap droppedShipData = dataMap.value("api_get_ship").toMap();
 			
 			int ship = droppedShipData.value("api_ship_id").toInt();
 			int world = dataMap.value("api_dests").toInt();
 			int map = dataMap.value("api_destsf").toInt();
 			
-			client->logger->logDrop(ship, world, map);
+			client->logger->logDrop(ship, world, map);*/
 		}
 	},
 	//  Practice
