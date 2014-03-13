@@ -1,7 +1,7 @@
 CONFIG += c++11
 
 # This is updated by the version bump script
-VERSION = 0.8.4
+VERSION = 0.8.5
 
 INCLUDEPATH += . ..
 WARNINGS += -Wall
