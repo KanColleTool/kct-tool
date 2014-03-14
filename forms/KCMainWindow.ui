@@ -137,17 +137,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_39">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -155,7 +152,7 @@
                  <widget class="QLabel" name="fleetLevel6">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -163,7 +160,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -213,17 +210,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_37">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -231,7 +225,7 @@
                  <widget class="QLabel" name="fleetCond6">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -239,7 +233,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -280,17 +274,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_19">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -298,7 +289,7 @@
                  <widget class="QLabel" name="fleetCond3">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -306,7 +297,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -336,17 +327,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_21">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
-                   <string>Level</string>
+                   <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -354,7 +342,7 @@
                  <widget class="QLabel" name="fleetLevel3">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -362,7 +350,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -464,17 +452,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_25">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -482,7 +467,7 @@
                  <widget class="QLabel" name="fleetCond4">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -490,7 +475,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -510,17 +495,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_27">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
-                   <string>Level</string>
+                   <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -528,7 +510,7 @@
                  <widget class="QLabel" name="fleetLevel4">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -536,7 +518,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -701,17 +683,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_33">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -719,7 +698,7 @@
                  <widget class="QLabel" name="fleetLevel5">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -727,7 +706,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -740,17 +719,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_31">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -758,7 +734,7 @@
                  <widget class="QLabel" name="fleetCond5">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -766,7 +742,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -851,17 +827,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_15">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -869,7 +842,7 @@
                  <widget class="QLabel" name="fleetLevel1">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -877,7 +850,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -890,17 +863,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_13">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -908,7 +878,7 @@
                  <widget class="QLabel" name="fleetCond1">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -916,7 +886,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -991,17 +961,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
                    <string>Cond.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -1009,7 +976,7 @@
                  <widget class="QLabel" name="fleetCond2">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -1017,7 +984,7 @@
                    <string>100</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -1030,17 +997,14 @@
                 </property>
                 <item>
                  <widget class="QLabel" name="label_10">
-                  <property name="minimumSize">
-                   <size>
-                    <width>30</width>
-                    <height>0</height>
-                   </size>
+                  <property name="styleSheet">
+                   <string notr="true">font-size:10px;</string>
                   </property>
                   <property name="text">
-                   <string>Level</string>
+                   <string>Lv.</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -1048,7 +1012,7 @@
                  <widget class="QLabel" name="fleetLevel2">
                   <property name="minimumSize">
                    <size>
-                    <width>20</width>
+                    <width>27</width>
                     <height>0</height>
                    </size>
                   </property>
@@ -1056,7 +1020,7 @@
                    <string>20</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
                   </property>
                  </widget>
                 </item>
@@ -1997,7 +1961,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
