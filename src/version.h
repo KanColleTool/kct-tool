@@ -1,2 +1,2 @@
-#define KCT_VERSION "0.8.5"
+#define KCT_VERSION "0.8.6"
 
