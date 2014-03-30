@@ -26,5 +26,5 @@ SOURCES += 	main.cpp
 target.path = $$PREFIX/bin
 INSTALLS += target
 
-OTHER_FILES += Info.plist \
-    KanColleTool.rc
+OTHER_FILES += ../Info.plist \
+	../KanColleTool.rc
