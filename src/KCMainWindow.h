@@ -75,9 +75,10 @@ private slots:
 	void on_actionShips_triggered();
 	void on_actionRepairs_triggered();
 	void on_actionConstruction_triggered();
-	void on_actionRefresh_triggered();
-	void on_actionSettings_triggered();
+	void on_refreshButton_clicked();
+	void on_settingsButton_clicked();
 
+	void on_tabBar_currentChanged(int index);
 	void on_fleetsTabBar_currentChanged(int index);
 	void on_noNetworkSettingsButton_clicked();
 

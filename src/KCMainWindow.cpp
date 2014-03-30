@@ -41,11 +41,11 @@ bool KCMainWindow::init() {
 		this->on_actionFleets_triggered();
 	} else {
 		ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
-		ui->toolBar->hide();
+		ui->topContainer->hide();
 	}
 
 	// Setup settings and stuff
-	connect(&refreshTimer, SIGNAL(timeout()), this, SLOT(on_actionRefresh_triggered()));
+	connect(&refreshTimer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	this->updateSettingThings();
 
 	// Load the translation
@@ -78,8 +78,7 @@ bool KCMainWindow::init() {
 					"	border: 1px solid #999;"
 					"	border-top: none;"
 					"}"
-					"#fleetsContainer, #toolBar { border-bottom: none; }"
-					"#toolBar, #shipsTable { border-top: 1px solid #999; }"
+					"#fleetsContainer { border-bottom: none; }"
 					);
 	}
 #endif
@@ -140,7 +139,7 @@ void KCMainWindow::_setupClient() {
 	server->setClient(client);
 
 	connect(client, SIGNAL(focusRequested()), SLOT(showApplication()));
-	connect(client, SIGNAL(credentialsGained()), SLOT(on_actionRefresh_triggered()));
+	connect(client, SIGNAL(credentialsGained()), SLOT(on_refreshButton_clicked()));
 	connect(client, SIGNAL(receivedShipTypes()), SLOT(onReceivedShipTypes()));
 	connect(client, SIGNAL(receivedShips()), SLOT(onReceivedShips()));
 	connect(client, SIGNAL(receivedFleets()), SLOT(onReceivedFleets()));
@@ -163,7 +162,7 @@ void KCMainWindow::_setupClient() {
 		} else {
 			qDebug() << "Credentials Gained";
 			client->requestShipTypes();
-			this->on_actionRefresh_triggered();
+			this->on_refreshButton_clicked();
 		}
 	}
 }
@@ -188,9 +187,15 @@ void KCMainWindow::_setupTrayIcon() {
 
 void KCMainWindow::_setupUI() {
 	// Right-align some items on the toolbar
-	QWidget *toolbarSpacer = new QWidget();
+	/*QWidget *toolbarSpacer = new QWidget();
 	toolbarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	ui->toolBar->insertWidget(ui->actionSettings, toolbarSpacer);
+	ui->toolBar->insertWidget(ui->actionSettings, toolbarSpacer);*/
+
+	// Add tabs to the tab bar
+	ui->tabBar->addTab("Fleets");
+	ui->tabBar->addTab("Ships");
+	ui->tabBar->addTab("Repairs");
+	ui->tabBar->addTab("Construction");
 
 	// Set up the Fleets page
 	{
@@ -677,7 +682,7 @@ void KCMainWindow::updateSettingThings()
 	// Don't remain on the "Livestreaming Only" page if it's disabled!
 	if(useNetwork && ui->stackedWidget->currentWidget() == ui->noNetworkPage) {
 		leaveNoNetworkPage();
-		on_actionRefresh_triggered();
+		on_refreshButton_clicked();
 	}
 
 	// Autorefreshing (if manual reloads are enabled)
@@ -690,7 +695,7 @@ void KCMainWindow::updateSettingThings()
 void KCMainWindow::leaveNoNetworkPage() {
 	if(ui->stackedWidget->currentWidget() == ui->noNetworkPage) {
 		this->setUpdatesEnabled(false);
-		ui->toolBar->show();
+		ui->topContainer->show();
 		this->on_actionFleets_triggered();
 		this->setUpdatesEnabled(true);
 	}
@@ -867,7 +872,7 @@ void KCMainWindow::on_actionConstruction_triggered()
 	ui->stackedWidget->setCurrentWidget(ui->constructionPage);
 }
 
-void KCMainWindow::on_actionRefresh_triggered()
+void KCMainWindow::on_refreshButton_clicked()
 {
 	if(!client->hasCredentials()) {
 		this->askForAPILink();
@@ -883,11 +888,23 @@ void KCMainWindow::on_actionRefresh_triggered()
 	client->requestConstructions();
 }
 
-void KCMainWindow::on_actionSettings_triggered() {
+void KCMainWindow::on_settingsButton_clicked() {
 	KCSettingsDialog *settingsDialog = new KCSettingsDialog(this);
 	connect(settingsDialog, SIGNAL(apply()), this, SLOT(updateSettingThings()));
 	connect(settingsDialog, SIGNAL(finished(int)), settingsDialog, SLOT(deleteLater()));
 	settingsDialog->show();
+}
+
+void KCMainWindow::on_tabBar_currentChanged(int index)
+{
+	if(index == 0)
+		on_actionFleets_triggered();
+	else if(index == 1)
+		on_actionShips_triggered();
+	else if(index == 2)
+		on_actionRepairs_triggered();
+	else
+		on_actionConstruction_triggered();
 }
 
 void KCMainWindow::on_fleetsTabBar_currentChanged(int index)
@@ -900,5 +917,5 @@ void KCMainWindow::on_fleetsTabBar_currentChanged(int index)
 
 void KCMainWindow::on_noNetworkSettingsButton_clicked()
 {
-	this->on_actionSettings_triggered();
+	this->on_settingsButton_clicked();
 }
