@@ -1,6 +1,8 @@
 QT += core gui network sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+windows: QT += winextras
+
 TARGET = KanColleTool
 unix:!macx: TARGET = kancolletool
 TEMPLATE = app

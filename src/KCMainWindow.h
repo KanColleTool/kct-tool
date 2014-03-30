@@ -24,6 +24,9 @@ public:
 	bool init();
 	~KCMainWindow();
 
+protected slots:
+	void postConstructorSetup();
+
 private:
 	QString translateName(const QString &name);
 

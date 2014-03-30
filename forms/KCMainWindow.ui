@@ -88,7 +88,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true">
+         <widget class="QWidget" name="fleetsContainer" native="true">
           <layout class="QGridLayout" name="gridLayout">
            <property name="leftMargin">
             <number>5</number>

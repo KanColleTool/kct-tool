@@ -16,6 +16,10 @@
 #include "KCUtil.h"
 #include "KCDefaults.h"
 
+#ifdef Q_OS_WIN
+	#include <QtWinExtras>
+#endif
+
 KCMainWindow::KCMainWindow(QWidget *parent) :
 	QMainWindow(parent), ui(new Ui::KCMainWindow),
 	trayIcon(0), trayMenu(0), client(0), server(0),
@@ -33,7 +37,7 @@ bool KCMainWindow::init() {
 	// Set the right page regardless of what the UI file says.
 	// (This saves me from accidentally releasing a version with the wrong
 	// start page due to me editing another one right beforehand)
-	if(QSettings().value("usenetwork", kDefaultUseNetwork).toBool()) {
+	if(/*QSettings().value("usenetwork", kDefaultUseNetwork).toBool()*/true) {
 		this->on_actionFleets_triggered();
 	} else {
 		ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
@@ -55,6 +59,32 @@ bool KCMainWindow::init() {
 	timerUpdateTimer.start(1000);
 	updateTimers();	// Don't wait a whole second to update timers
 
+	// Setup Windows-specific styling
+#ifdef Q_OS_WIN
+	{
+		// Move the tabs to the bottom and stick it to the bottom
+		this->centralWidget()->layout()->addWidget(ui->toolBar);
+		this->centralWidget()->layout()->setSpacing(0);
+
+		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
+		this->setAttribute(Qt::WA_TranslucentBackground);
+
+		// Fill and draw borders around things
+		this->setStyleSheet(
+					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage, #toolBar {"
+					"	background-color: #fff;"
+					"	border: 1px solid #999;"
+					"	border-bottom: none;"
+					"}"
+					"#fleetsContainer, #toolBar { border-top: none; }"
+					"#toolBar { border-bottom: 1px solid #999; }"
+					);
+	}
+#endif
+
+	// Schedule a call to postConstructorSetup
+	QTimer::singleShot(0, this, SLOT(postConstructorSetup()));
+
 	return true;
 }
 
@@ -64,6 +94,14 @@ KCMainWindow::~KCMainWindow() {
 	delete ui;
 	delete client;
 	delete server;
+}
+
+void KCMainWindow::postConstructorSetup()
+{
+#ifdef Q_OS_WIN
+	QtWin::extendFrameIntoClientArea(this->windowHandle(), -1, -1, -1, -1);
+	QtWin::enableBlurBehindWindow(this->windowHandle());
+#endif
 }
 
 QString KCMainWindow::translateName(const QString &name) {
