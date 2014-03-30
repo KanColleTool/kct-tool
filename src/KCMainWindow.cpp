@@ -62,18 +62,12 @@ bool KCMainWindow::init() {
 	// Setup Windows-specific styling
 #ifdef Q_OS_WIN
 	{
-		// Move the tabs to the bottom and stick it to the bottom
-		//this->centralWidget()->layout()->addWidget(ui->toolBar);
-		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
-		ui->fleetsPage->layout()->addWidget(ui->fleetsTabBar);
-		this->centralWidget()->layout()->setSpacing(0);
-
 		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
 		this->setAttribute(Qt::WA_TranslucentBackground);
 
 		// Fill and draw borders around things
 		this->setStyleSheet(
-					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage, #toolBar {"
+					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage {"
 					"	background-color: #fff;"
 					"	border: 1px solid #999;"
 					"	border-top: none;"
@@ -201,6 +195,9 @@ void KCMainWindow::_setupUI() {
 	{
 		// Unset the min height; it glitches stuff up
 		ui->fleetsTabBar->setMinimumHeight(0);
+
+		// Make the tabs point downwards
+		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
 
 		// Add four tabs
 		ui->fleetsTabBar->addTab("Fleet 1");
