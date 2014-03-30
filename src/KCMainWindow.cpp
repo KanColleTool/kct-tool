@@ -82,6 +82,10 @@ bool KCMainWindow::init() {
 	}
 #endif
 
+	// Auto-adjust window size and lock it there
+	this->adjustSize();
+	this->setFixedSize(this->size());
+
 	// Schedule a call to postConstructorSetup
 	QTimer::singleShot(0, this, SLOT(postConstructorSetup()));
 
