@@ -63,7 +63,9 @@ bool KCMainWindow::init() {
 #ifdef Q_OS_WIN
 	{
 		// Move the tabs to the bottom and stick it to the bottom
-		this->centralWidget()->layout()->addWidget(ui->toolBar);
+		//this->centralWidget()->layout()->addWidget(ui->toolBar);
+		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
+		ui->fleetsPage->layout()->addWidget(ui->fleetsTabBar);
 		this->centralWidget()->layout()->setSpacing(0);
 
 		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
@@ -74,10 +76,10 @@ bool KCMainWindow::init() {
 					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage, #toolBar {"
 					"	background-color: #fff;"
 					"	border: 1px solid #999;"
-					"	border-bottom: none;"
+					"	border-top: none;"
 					"}"
-					"#fleetsContainer, #toolBar { border-top: none; }"
-					"#toolBar { border-bottom: 1px solid #999; }"
+					"#fleetsContainer, #toolBar { border-bottom: none; }"
+					"#toolBar, #shipsTable { border-top: 1px solid #999; }"
 					);
 	}
 #endif
