@@ -184,10 +184,13 @@ void KCMainWindow::_setupUI() {
 		ui->fleetsTabBar->setDocumentMode(true);
 		
 		// Style stuff
+		ui->tabBar->layout()->setSpacing(0);
 		this->setStyleSheet(
 			"#tabBar QToolButton {"				// Make the buttons on the tab bar blend in
 			"	border: none;"
 			"	background: none;"
+			"	color: #111;"
+			"	padding-right: 7px;"
 			"}"
 			"#tabBar QToolButton:pressed {"		// Make them white when clicked
 			"	color: #fff;"
