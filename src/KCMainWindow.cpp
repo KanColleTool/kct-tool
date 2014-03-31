@@ -59,24 +59,6 @@ bool KCMainWindow::init() {
 	timerUpdateTimer.start(1000);
 	updateTimers();	// Don't wait a whole second to update timers
 
-	// Setup Windows-specific styling
-#ifdef Q_OS_WIN
-	{
-		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
-		this->setAttribute(Qt::WA_TranslucentBackground);
-
-		// Fill and draw borders around things
-		this->setStyleSheet(
-					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage {"
-					"	background-color: #fff;"
-					"	border: 1px solid #999;"
-					"	border-top: none;"
-					"}"
-					"#fleetsContainer { border-bottom: none; }"
-					);
-	}
-#endif
-
 	// Auto-adjust window size and lock it there
 	this->adjustSize();
 	this->setFixedSize(this->size());
@@ -190,6 +172,45 @@ void KCMainWindow::_setupUI() {
 	ui->tabBar->addTab("Ships");
 	ui->tabBar->addTab("Repairs");
 	ui->tabBar->addTab("Construction");
+	
+	// Set up Mac-specific styling
+#ifdef Q_OS_MAC
+	{
+		// This doesn't work for some reason; it just blacks the window contents out...
+		//this->setAttribute(Qt::WA_MacBrushedMetal, true);
+		
+		// Set the tab bars to Document Mode, otherwise it looks awful on OSX
+		ui->tabBar->setDocumentMode(true);
+		ui->fleetsTabBar->setDocumentMode(true);
+		
+		// Style stuff
+		this->setStyleSheet(
+			"#tabBar QToolButton {"				// Make the buttons on the tab bar blend in
+			"	border: none;"
+			"	background: none;"
+			"}"
+			"#tabBar QToolButton:pressed {"		// Make them white when clicked
+			"	color: #fff;"
+			"}"
+			);
+	}
+#endif
+
+	// Setup Windows-specific styling
+#ifdef Q_OS_WIN
+	{
+		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
+		this->setAttribute(Qt::WA_TranslucentBackground);
+		this->setStyleSheet(
+					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage {"
+					"	background-color: #fff;"
+					"	border: 1px solid #999;"
+					"	border-top: none;"
+					"}"
+					"#fleetsContainer { border-bottom: none; }"
+					);
+	}
+#endif
 
 	// Set up the Fleets page
 	{
