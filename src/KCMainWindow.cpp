@@ -195,6 +195,9 @@ void KCMainWindow::_setupUI() {
 			"#tabBar QToolButton:pressed {"		// Make them white when clicked
 			"	color: #fff;"
 			"}"
+			"#tabBar QToolButton:disabled {"
+			"	color: #555;"
+			"}"
 			);
 	}
 #endif
@@ -699,6 +702,7 @@ void KCMainWindow::updateSettingThings()
 	// Enable manual reloads
 	useNetwork = settings.value("usenetwork", kDefaultUseNetwork).toBool();
 	ui->actionRefresh->setEnabled(useNetwork);
+	ui->refreshButton->setEnabled(useNetwork);
 
 	// Don't remain on the "Livestreaming Only" page if it's disabled!
 	if(useNetwork && ui->stackedWidget->currentWidget() == ui->noNetworkPage) {
