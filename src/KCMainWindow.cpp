@@ -256,11 +256,8 @@ void KCMainWindow::_setupUI()
 		// Make the tabs point downwards
 		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
 
-		// Add four tabs
+		// Add a tab for Fleet 1, the only fleet we can be sure is there
 		ui->fleetsTabBar->addTab("Fleet 1");
-		ui->fleetsTabBar->addTab("Fleet 2");
-		ui->fleetsTabBar->addTab("Fleet 3");
-		ui->fleetsTabBar->addTab("Fleet 4");
 	}
 
 	// Set up the Constructions page
@@ -343,9 +340,8 @@ void KCMainWindow::keyPressEvent(QKeyEvent *event)
 			default: break;
 		}
 
-		if(moveToTab != -1)
-			if(ui->fleetsTabBar->isTabEnabled(moveToTab))
-				ui->fleetsTabBar->setCurrentIndex(moveToTab);
+		if(moveToTab != -1 && moveToTab < ui->fleetsTabBar->count())
+			ui->fleetsTabBar->setCurrentIndex(moveToTab);
 	}
 
 	QMainWindow::keyPressEvent(event);
@@ -775,16 +771,16 @@ void KCMainWindow::onReceivedShips() {
 void KCMainWindow::onReceivedFleets() {
 	qDebug() << "Received Player Fleet Data" << client->fleets.size();
 
+	// If we don't have enough tabs, add some more
+	for(int i = ui->fleetsTabBar->count(); i < client->fleets.size(); i++)
+		ui->fleetsTabBar->addTab(QString("Fleet %1").arg(i + 1));
+
 	// If we're on an active tab, update it
 	if(ui->fleetsTabBar->currentIndex() < client->fleets.size()) {
 		updateFleetsPage();
 		updateTimers();
 	}
 
-	// Disable locked fleets; if the user is on an invalid page, this will
-	// move them to Fleet #1, and trigger updateFleetsPage from currentChanged
-	for(int i = 0; i < ui->fleetsTabBar->count(); i++)
-		ui->fleetsTabBar->setTabEnabled(i, i < client->fleets.size());
 	leaveNoNetworkPage();
 }
 
