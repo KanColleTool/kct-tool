@@ -352,7 +352,7 @@ bool KCMainWindow::isApplicationActive()
 #ifdef __APPLE__
 	return (macApplicationIsActive() && this->isVisible());
 #else
-	return this->hasFocus();
+	return QApplication::activeWindow() != 0 || QApplication::focusWidget() != 0;
 #endif
 }
 
