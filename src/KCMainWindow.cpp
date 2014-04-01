@@ -237,8 +237,8 @@ void KCMainWindow::_setupUI()
 	// Setup Windows-specific styling
 #ifdef Q_OS_WIN
 	{
-		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
-		this->setAttribute(Qt::WA_TranslucentBackground);
+		// Make the window translucent
+		this->setAttribute(Qt::WA_NoSystemBackground);
 		
 		// Style stuff
 		this->setStyleSheet(
