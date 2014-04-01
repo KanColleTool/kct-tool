@@ -877,6 +877,8 @@ void KCMainWindow::onMissionCompleted(KCFleet *fleet)
 
 void KCMainWindow::on_actionFleets_triggered()
 {
+	ui->tabBar->setCurrentIndex(0);
+
 	ui->actionFleets->setEnabled(false);
 	ui->actionShips->setEnabled(true);
 	ui->actionRepairs->setEnabled(true);
@@ -886,6 +888,8 @@ void KCMainWindow::on_actionFleets_triggered()
 
 void KCMainWindow::on_actionShips_triggered()
 {
+	ui->tabBar->setCurrentIndex(1);
+
 	ui->actionFleets->setEnabled(true);
 	ui->actionShips->setEnabled(false);
 	ui->actionRepairs->setEnabled(true);
@@ -895,6 +899,8 @@ void KCMainWindow::on_actionShips_triggered()
 
 void KCMainWindow::on_actionRepairs_triggered()
 {
+	ui->tabBar->setCurrentIndex(2);
+
 	ui->actionFleets->setEnabled(true);
 	ui->actionShips->setEnabled(true);
 	ui->actionRepairs->setEnabled(false);
@@ -904,6 +910,8 @@ void KCMainWindow::on_actionRepairs_triggered()
 
 void KCMainWindow::on_actionConstruction_triggered()
 {
+	ui->tabBar->setCurrentIndex(3);
+
 	ui->actionFleets->setEnabled(true);
 	ui->actionShips->setEnabled(true);
 	ui->actionRepairs->setEnabled(true);
