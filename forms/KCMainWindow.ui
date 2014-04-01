@@ -1188,6 +1188,9 @@
         </property>
         <item>
          <widget class="QTableWidget" name="shipsTable">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::NoEditTriggers</set>
           </property>
