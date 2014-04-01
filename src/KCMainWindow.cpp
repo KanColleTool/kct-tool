@@ -161,21 +161,19 @@ void KCMainWindow::_setupTrayIcon() {
 #endif
 }
 
-void KCMainWindow::_setupUI() {
-	// Right-align some items on the toolbar
-	/*QWidget *toolbarSpacer = new QWidget();
-	toolbarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	ui->toolBar->insertWidget(ui->actionSettings, toolbarSpacer);*/
-
-	// Add tabs to the tab bar
-	ui->tabBar->addTab("Fleets");
-	ui->tabBar->addTab("Ships");
-	ui->tabBar->addTab("Repairs");
-	ui->tabBar->addTab("Construction");
-	
+void KCMainWindow::_setupUI()
+{
 	// Set up Mac-specific styling
 #ifdef Q_OS_MAC
 	{
+		// Right-align Settings and Refresh on the toolbar
+		QWidget *toolbarSpacer = new QWidget();
+		toolbarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+		ui->toolBar->insertWidget(ui->actionSettings, toolbarSpacer);
+		
+		// Remove the tab bar; the toolbar replaces it
+		ui->tabBar->hide();
+		
 		// This doesn't work for some reason; it just blacks the window contents out...
 		//this->setAttribute(Qt::WA_MacBrushedMetal, true);
 		
@@ -199,6 +197,28 @@ void KCMainWindow::_setupUI() {
 			"	color: #555;"
 			"}"
 			);
+		
+		// Make the window join all spaces (why isn't there a Qt call for this...)
+		macSetWindowOnAllWorkspaces(this);
+		
+		// Cmd+R (given to Qt as Ctrl+R and remapped) makes more sense for the
+		// refresh command than F5 on OSX, where you generally avoid F-keys
+		ui->actionRefresh->setShortcut(Qt::CTRL|Qt::Key_R);
+	}
+#else
+	{
+		// Only OSX uses the toolbar; hide it everywhere else
+		ui->toolBar->hide();
+		
+		// Add tabs to the tab bar
+		ui->tabBar->addTab("Fleets");
+		ui->tabBar->addTab("Ships");
+		ui->tabBar->addTab("Repairs");
+		ui->tabBar->addTab("Construction");
+		
+		// On OSX, we get Ctrl+Q for free, on everything else, set it up manually
+		QShortcut *quitShortcut = new QShortcut(QKeySequence("Ctrl+Q"), this);
+		connect(quitShortcut, SIGNAL(activated()), qApp, SLOT(quit()));
 	}
 #endif
 
@@ -207,6 +227,8 @@ void KCMainWindow::_setupUI() {
 	{
 		// Make the window translucent (note: WA_NoSystemBackground doesn't clear properly)
 		this->setAttribute(Qt::WA_TranslucentBackground);
+		
+		// Style stuff
 		this->setStyleSheet(
 					"#fleetsContainer, #shipsTable, #repairsPage, #constructionPage {"
 					"	background-color: #fff;"
@@ -217,6 +239,8 @@ void KCMainWindow::_setupUI() {
 					);
 	}
 #endif
+
+
 
 	// Set up the Fleets page
 	{
@@ -241,22 +265,6 @@ void KCMainWindow::_setupUI() {
 		connect(ui->constructionSpoil3, SIGNAL(toggled(bool)), this, SLOT(updateConstructionsPage()));
 		connect(ui->constructionSpoil4, SIGNAL(toggled(bool)), this, SLOT(updateConstructionsPage()));
 	}
-
-#ifdef __APPLE__
-	// On Mac, make the window join all spaces
-	// (why isn't there a Qt call for this...)
-	macSetWindowOnAllWorkspaces(this);
-
-	// Cmd+R (given to Qt as Ctrl+R and remapped) makes more sense for the
-	// refresh command than F5 on OSX, where you generally avoid F-keys
-	ui->actionRefresh->setShortcut(Qt::CTRL|Qt::Key_R);
-#endif
-
-	// On Mac, we get Cmd+Q to quit for free. On anything else, set it up like this
-#if !defined(__APPLE__)
-	QShortcut *quitShortcut = new QShortcut(QKeySequence("Ctrl+Q"), this);
-	connect(quitShortcut, SIGNAL(activated()), qApp, SLOT(quit()));
-#endif
 }
 
 void KCMainWindow::_showDisclaimer()
@@ -897,7 +905,7 @@ void KCMainWindow::on_actionConstruction_triggered()
 	ui->stackedWidget->setCurrentWidget(ui->constructionPage);
 }
 
-void KCMainWindow::on_refreshButton_clicked()
+void KCMainWindow::on_actionRefresh_triggered()
 {
 	if(!client->hasCredentials()) {
 		this->askForAPILink();
@@ -913,11 +921,22 @@ void KCMainWindow::on_refreshButton_clicked()
 	client->requestConstructions();
 }
 
-void KCMainWindow::on_settingsButton_clicked() {
+void KCMainWindow::on_refreshButton_clicked()
+{
+	on_actionRefresh_triggered();
+}
+
+void KCMainWindow::on_actionSettings_triggered()
+{
 	KCSettingsDialog *settingsDialog = new KCSettingsDialog(this);
 	connect(settingsDialog, SIGNAL(apply()), this, SLOT(updateSettingThings()));
 	connect(settingsDialog, SIGNAL(finished(int)), settingsDialog, SLOT(deleteLater()));
 	settingsDialog->show();
+}
+
+void KCMainWindow::on_settingsButton_clicked()
+{
+	on_actionRefresh_triggered();
 }
 
 void KCMainWindow::on_tabBar_currentChanged(int index)
