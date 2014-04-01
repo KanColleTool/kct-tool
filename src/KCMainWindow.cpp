@@ -216,6 +216,12 @@ void KCMainWindow::_setupUI()
 		ui->tabBar->addTab("Repairs");
 		ui->tabBar->addTab("Construction");
 		
+		// Set up shortcuts for them
+		new QShortcut(QKeySequence("Ctrl+1"), this, SLOT(on_actionFleets_triggered()));
+		new QShortcut(QKeySequence("Ctrl+2"), this, SLOT(on_actionShips_triggered()));
+		new QShortcut(QKeySequence("Ctrl+3"), this, SLOT(on_actionRepairs_triggered()));
+		new QShortcut(QKeySequence("Ctrl+4"), this, SLOT(on_actionConstruction_triggered()));
+		
 		// On OSX, we get Ctrl+Q for free, on everything else, set it up manually
 		QShortcut *quitShortcut = new QShortcut(QKeySequence("Ctrl+Q"), this);
 		connect(quitShortcut, SIGNAL(activated()), qApp, SLOT(quit()));
