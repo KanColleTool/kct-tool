@@ -155,7 +155,13 @@ void KCMainWindow::_setupTrayIcon() {
 	// (since left-click also brings up the menu there)
 #if !defined(__APPLE__)
 	trayMenu = new QMenu("KanColleTool", this);
+	trayMenu->addAction("Fleets", this, SLOT(on_actionFleets_triggered()));
+	trayMenu->addAction("Ships", this, SLOT(on_actionShips_triggered()));
+	trayMenu->addAction("Repairs", this, SLOT(on_actionRepairs_triggered()));
+	trayMenu->addAction("Construction", this, SLOT(on_actionConstruction_triggered()));
+	trayMenu->addSeparator();
 	trayMenu->addAction("Show", this, SLOT(showApplication()));
+	trayMenu->addAction("Hide", this, SLOT(hideApplication()));
 	trayMenu->addAction("Exit", qApp, SLOT(quit()));
 	trayIcon->setContextMenu(this->trayMenu);
 #endif
@@ -873,6 +879,7 @@ void KCMainWindow::onMissionCompleted(KCFleet *fleet)
 
 void KCMainWindow::on_actionFleets_triggered()
 {
+	this->showApplication();
 	ui->tabBar->setCurrentIndex(0);
 
 	ui->actionFleets->setEnabled(false);
@@ -884,6 +891,7 @@ void KCMainWindow::on_actionFleets_triggered()
 
 void KCMainWindow::on_actionShips_triggered()
 {
+	this->showApplication();
 	ui->tabBar->setCurrentIndex(1);
 
 	ui->actionFleets->setEnabled(true);
@@ -895,6 +903,7 @@ void KCMainWindow::on_actionShips_triggered()
 
 void KCMainWindow::on_actionRepairs_triggered()
 {
+	this->showApplication();
 	ui->tabBar->setCurrentIndex(2);
 
 	ui->actionFleets->setEnabled(true);
@@ -906,6 +915,7 @@ void KCMainWindow::on_actionRepairs_triggered()
 
 void KCMainWindow::on_actionConstruction_triggered()
 {
+	this->showApplication();
 	ui->tabBar->setCurrentIndex(3);
 
 	ui->actionFleets->setEnabled(true);
