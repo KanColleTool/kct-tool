@@ -946,7 +946,7 @@ void KCMainWindow::on_actionSettings_triggered()
 
 void KCMainWindow::on_settingsButton_clicked()
 {
-	on_actionRefresh_triggered();
+	on_actionSettings_triggered();
 }
 
 void KCMainWindow::on_tabBar_currentChanged(int index)
