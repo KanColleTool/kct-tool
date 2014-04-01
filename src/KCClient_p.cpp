@@ -145,6 +145,8 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_req_battle_midnight/battle", 0 },
 	{ "/kcsapi/api_req_sortie/battleresult",
 		pf {
+			Q_UNUSED(client);
+			Q_UNUSED(data);
 			/*QVariantMap dataMap = data.toMap();
 			QVariantMap droppedShipData = dataMap.value("api_get_ship").toMap();
 			
