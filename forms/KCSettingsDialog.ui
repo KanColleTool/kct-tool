@@ -68,11 +68,6 @@
    </item>
    <item>
     <widget class="QLabel" name="label_2">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>Streaming requires the game to be running in the accompanying viewer.&lt;br /&gt;Disable if it causes issues.</string>
      </property>
@@ -102,7 +97,6 @@
     <widget class="QLabel" name="label">
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -173,11 +167,6 @@ Nothing will most likely happen, but you should still know this.</string>
    </item>
    <item>
     <widget class="QLabel" name="label_5">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
      <property name="text">
       <string>If this is not checked, data will only be loaded from livestreaming</string>
      </property>
