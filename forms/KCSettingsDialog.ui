@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>759</width>
-    <height>464</height>
+    <height>345</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -118,31 +118,6 @@ If you would like to provide an alternate translation, contact us and we'll work
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Preferred</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>10</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>&lt;strong&gt;WARNING:&lt;/strong&gt;&lt;br /&gt;
-The following features call API endpoints directly and may be detectable.&lt;br /&gt;
-Nothing will most likely happen, but you should still know this.</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -161,14 +136,15 @@ Nothing will most likely happen, but you should still know this.</string>
    <item>
     <widget class="QCheckBox" name="useNetworkCheckbox">
      <property name="text">
-      <string>Get current information from network</string>
+      <string>Enable Direct Loading</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>If this is not checked, data will only be loaded from livestreaming</string>
+      <string>If this is checked, data will be loaded from the game servers directly.
+Uncheck it if you're paranoid, which will make it use only data from livestreaming.</string>
      </property>
     </widget>
    </item>
