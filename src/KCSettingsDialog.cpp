@@ -40,6 +40,7 @@ KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
 	// look everywhere good manually. Takes into account font size differences
 	// and stuff too, so yeah.
 	this->adjustSize();
+	this->setFixedSize(this->size());
 }
 
 KCSettingsDialog::~KCSettingsDialog() {
