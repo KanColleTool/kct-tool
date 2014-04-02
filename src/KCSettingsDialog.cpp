@@ -22,9 +22,12 @@ KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
 	ui->autorefreshInterval->setValue(
 		settings.value("autorefreshInterval", kDefaultAutorefreshInterval).toInt() / 60);
 
+	// Disable the "?"-button on Windows
+	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
 	// This whole thing makes no sense on OSX, so just hide the whole box there
 	// The application is always running (only) in the menu bar there
-#ifdef __APPLE__
+#ifdef Q_OS_MAC
 	ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
 	ui->minimizeToTrayContainer->hide();
 #endif
