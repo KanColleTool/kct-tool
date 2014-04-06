@@ -25,7 +25,8 @@ KCMainWindow::KCMainWindow(QWidget *parent) :
 	trayIcon(0), trayMenu(0), client(0), server(0),
 	apiLinkDialogOpen(false) {}
 
-bool KCMainWindow::init() {
+bool KCMainWindow::init()
+{
 	ui->setupUi(this);
 
 	if(!this->_setupServer()) return false;
@@ -69,7 +70,8 @@ bool KCMainWindow::init() {
 	return true;
 }
 
-KCMainWindow::~KCMainWindow() {
+KCMainWindow::~KCMainWindow()
+{
 	delete trayIcon;
 	delete trayMenu;
 	delete ui;
@@ -85,14 +87,16 @@ void KCMainWindow::postConstructorSetup()
 #endif
 }
 
-QString KCMainWindow::translateName(const QString &name) {
+QString KCMainWindow::translateName(const QString &name)
+{
 	if(translation)
 		return QString("%1 (%2)").arg(kcTranslate(name), name);
 	else
 		return name;
 }
 
-bool KCMainWindow::_setupServer() {
+bool KCMainWindow::_setupServer()
+{
 	server = new KCToolServer(this);
 
 	if(!server->listen(QHostAddress::LocalHost, 54321)) {
@@ -110,7 +114,8 @@ bool KCMainWindow::_setupServer() {
 	return true;
 }
 
-void KCMainWindow::_setupClient() {
+void KCMainWindow::_setupClient()
+{
 	client = new KCClient(this);
 	server->setClient(client);
 
@@ -143,7 +148,8 @@ void KCMainWindow::_setupClient() {
 	}
 }
 
-void KCMainWindow::_setupTrayIcon() {
+void KCMainWindow::_setupTrayIcon()
+{
 	// Create the Tray Icon
 	trayIcon = new QSystemTrayIcon(QIcon(":/KanColleTool.png"), this);
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
@@ -362,14 +368,16 @@ bool KCMainWindow::isApplicationActive()
 #endif
 }
 
-void KCMainWindow::toggleApplication() {
+void KCMainWindow::toggleApplication()
+{
 	if(!this->isApplicationActive())
 		this->showApplication();
 	else
 		this->hideApplication();
 }
 
-void KCMainWindow::showApplication() {
+void KCMainWindow::showApplication()
+{
 #ifdef __APPLE__
 	macApplicationActivate();
 	this->show();
@@ -381,11 +389,13 @@ void KCMainWindow::showApplication() {
 #endif
 }
 
-void KCMainWindow::hideApplication() {
+void KCMainWindow::hideApplication()
+{
 	this->hide();
 }
 
-void KCMainWindow::askForAPILink() {
+void KCMainWindow::askForAPILink()
+{
 	if(apiLinkDialogOpen)
 		return;
 
@@ -397,7 +407,8 @@ void KCMainWindow::askForAPILink() {
 	client->setCredentials(url.host(), query.queryItemValue("api_token"));
 }
 
-void KCMainWindow::updateFleetsPage() {
+void KCMainWindow::updateFleetsPage()
+{
 	ui->fleetsPage->setUpdatesEnabled(false);
 
 	// Hide all the boxes by default, then show the ones we use below
@@ -451,7 +462,8 @@ void KCMainWindow::updateFleetsPage() {
 	ui->fleetsPage->setUpdatesEnabled(true);
 }
 
-void KCMainWindow::updateShipsPage() {
+void KCMainWindow::updateShipsPage()
+{
 	ui->shipsPage->setUpdatesEnabled(false);
 
 	ui->shipsTable->setSortingEnabled(false);
@@ -733,8 +745,10 @@ void KCMainWindow::updateSettingThings()
 		refreshTimer.stop();
 }
 
-void KCMainWindow::leaveNoNetworkPage() {
-	if(ui->stackedWidget->currentWidget() == ui->noNetworkPage) {
+void KCMainWindow::leaveNoNetworkPage()
+{
+	if(ui->stackedWidget->currentWidget() == ui->noNetworkPage)
+	{
 		this->setUpdatesEnabled(false);
 		ui->topContainer->show();
 		this->on_actionFleets_triggered();
@@ -742,7 +756,8 @@ void KCMainWindow::leaveNoNetworkPage() {
 	}
 }
 
-void KCMainWindow::onTranslationLoadFinished() {
+void KCMainWindow::onTranslationLoadFinished()
+{
 	qDebug() << "Received Translation Data!";
 	// Update all the things!
 	updateFleetsPage();
@@ -751,14 +766,16 @@ void KCMainWindow::onTranslationLoadFinished() {
 	updateConstructionsPage();
 }
 
-void KCMainWindow::onTranslationLoadFailed(QString error) {
+void KCMainWindow::onTranslationLoadFailed(QString error)
+{
 	qDebug() << "Failed to load Translation Data..." << error;
 	QMessageBox::StandardButton button = QMessageBox::warning(this, "Couldn't load Translation", "You may choose to continue without translation data, but everything will be in Japanese.", QMessageBox::Ok|QMessageBox::Retry, QMessageBox::Retry);
 	if(button == QMessageBox::Retry)
 		KCTranslator::instance()->loadTranslation();
 }
 
-void KCMainWindow::onReceivedShipTypes() {
+void KCMainWindow::onReceivedShipTypes()
+{
 	qDebug() << "Received Master Ship Data" << client->shipTypes.size();
 	updateFleetsPage();
 	updateShipsPage();
@@ -766,7 +783,8 @@ void KCMainWindow::onReceivedShipTypes() {
 	updateConstructionsPage();
 }
 
-void KCMainWindow::onReceivedShips() {
+void KCMainWindow::onReceivedShips()
+{
 	qDebug() << "Received Player Ship Data" << client->ships.size();
 	updateFleetsPage();
 	updateShipsPage();
@@ -774,7 +792,8 @@ void KCMainWindow::onReceivedShips() {
 	leaveNoNetworkPage();
 }
 
-void KCMainWindow::onReceivedFleets() {
+void KCMainWindow::onReceivedFleets()
+{
 	qDebug() << "Received Player Fleet Data" << client->fleets.size();
 
 	// If we don't have enough tabs, add some more
@@ -782,7 +801,8 @@ void KCMainWindow::onReceivedFleets() {
 		ui->fleetsTabBar->addTab(QString("Fleet %1").arg(i + 1));
 
 	// If we're on an active tab, update it
-	if(ui->fleetsTabBar->currentIndex() < client->fleets.size()) {
+	if(ui->fleetsTabBar->currentIndex() < client->fleets.size())
+	{
 		updateFleetsPage();
 		updateTimers();
 	}
@@ -790,19 +810,22 @@ void KCMainWindow::onReceivedFleets() {
 	leaveNoNetworkPage();
 }
 
-void KCMainWindow::onReceivedRepairs() {
+void KCMainWindow::onReceivedRepairs()
+{
 	qDebug() << "Received Player Repairs Data" << client->repairDocks.size();
 	updateRepairsPage();
 	leaveNoNetworkPage();
 }
 
-void KCMainWindow::onReceivedConstructions() {
+void KCMainWindow::onReceivedConstructions()
+{
 	qDebug() << "Received Player Constructions Data" << client->constructionDocks.size();
 	updateConstructionsPage();
 	leaveNoNetworkPage();
 }
 
-void KCMainWindow::onRequestError(KCClient::ErrorCode error) {
+void KCMainWindow::onRequestError(KCClient::ErrorCode error)
+{
 	switch(error)
 	{
 		case KCClient::JsonError:
@@ -833,7 +856,8 @@ void KCMainWindow::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
 
 void KCMainWindow::onDockCompleted(KCDock *dock)
 {
-	if(dock->isConstruction) {
+	if(dock->isConstruction)
+	{
 		KCShipType *type = client->shipTypes[dock->shipID];
 
 		// Only name the ship if the player has asked for a spoiler already
@@ -927,7 +951,8 @@ void KCMainWindow::on_actionConstruction_triggered()
 
 void KCMainWindow::on_actionRefresh_triggered()
 {
-	if(!client->hasCredentials()) {
+	if(!client->hasCredentials())
+	{
 		this->askForAPILink();
 
 		// Cancel the refresh if the user pressed Cancel, instead of erroring out
