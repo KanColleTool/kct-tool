@@ -34,7 +34,7 @@ public:
 	int equipmentSlots;
 
 	struct { int steel, fuel; } repairCost;
-	int repairTime;	// In Seconds
+	QTime repairTime;
 	QString repairTimeStr;
 
 	bool heartLock;

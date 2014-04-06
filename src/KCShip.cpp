@@ -1,5 +1,5 @@
 #include "KCShip.h"
-
+#include <QDebug>
 #include "KCShipType.h"
 
 KCShip::KCShip(const QVariantMap &data, int loadId, QObject *parent) :
@@ -31,7 +31,6 @@ void KCShip::loadFrom(const QVariantMap &data, int loadId) {
 	extract(data, fuel, "api_fuel");
 	extract(data, ammo, "api_bull");
 	extract(data, equipmentSlots, "api_slotnum");
-	extract(data, repairTime, "api_ndock_time");
 	extract(data, repairCost.steel, "api_ndock_item", 0);
 	extract(data, repairCost.fuel, "api_ndock_item", 1);
 	extract(data, condition, "api_cond");
@@ -43,6 +42,10 @@ void KCShip::loadFrom(const QVariantMap &data, int loadId) {
 	extract(data, antisub, "api_taisen", 0);
 	extract(data, lineOfSight, "api_sakuteki", 0);
 	extract(data, luck, "api_lucky", 0);
+	
+	int repairTime_;
+	extract(data, repairTime_, "api_ndock_time");
+	repairTime = QTime(0,0).addMSecs(repairTime_);
 	
 	if(data.contains("api_locked"))
 	{
