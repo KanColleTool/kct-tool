@@ -423,9 +423,11 @@ void KCMainWindow::updateFleetsPage()
 
 	// Otherwise, retreive it
 	KCFleet *fleet = client->fleets[ui->fleetsTabBar->currentIndex()+1];
-	if(fleet) {
+	if(fleet)
+	{
 		// Loop through all the ships in the fleet and put their info up
-		for(int i = 0; i < fleet->shipCount; i++) {
+		for(int i = 0; i < fleet->shipCount; i++)
+		{
 			KCShip *ship = client->ships[fleet->ships[i]];
 			if(!ship) continue;
 			KCShipType *type = client->shipTypes[ship->type];
@@ -438,6 +440,11 @@ void KCMainWindow::updateFleetsPage()
 			QProgressBar *fuelBar = findChild<QProgressBar*>(QString("fleetFuelBar") + iS);
 			QLabel *levelLabel = findChild<QLabel*>(QString("fleetLevel") + iS);
 			QLabel *condLabel = findChild<QLabel*>(QString("fleetCond") + iS);
+			
+			if(ship->hp.cur < ship->hp.max)
+				hpBar->setToolTip(QString("Repair Time: %1, Repair Cost: %2 Steel, %3 Fuel").arg(ship->repairTime.toString("H:mm:ss"), QString::number(ship->repairCost.steel), QString::number(ship->repairCost.fuel)));
+			else
+				hpBar->setToolTip("Healthy");
 
 			box->show();
 			hpBar->setRange(0, ship->hp.max);
