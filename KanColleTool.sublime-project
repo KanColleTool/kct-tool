@@ -3,7 +3,7 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": [ "KanColleTool.app", "cache" ],
+			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build" ],
 			"file_exclude_patterns": [ ".qmake.stash", "*.o", "moc_*.cpp", "ui_*.h", "qrc_*.cpp" ]
 		}
 	]
