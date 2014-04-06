@@ -19,7 +19,6 @@ HEADERS  += \
 	../src/KCFleet.h \
 	../src/KCDock.h \
 	../src/KCTranslator.h \
-	../src/KCLogger.h \
 	../src/KCDefaults.h
 
 SOURCES += \
@@ -32,8 +31,7 @@ SOURCES += \
 	../src/KCShipType.cpp \
 	../src/KCFleet.cpp \
 	../src/KCDock.cpp \
-	../src/KCTranslator.cpp \
-	../src/KCLogger.cpp
+	../src/KCTranslator.cpp
 
 UI_DIR = ../build/uics
 RCC_DIR = ../build/rccs

@@ -12,7 +12,6 @@
 #include "KCShip.h"
 #include "KCFleet.h"
 #include "KCDock.h"
-#include "KCLogger.h"
 
 class KCToolServer;
 class KCClient : public QObject
@@ -38,7 +37,6 @@ public:
 	virtual ~KCClient();
 
 	QString server, apiToken;
-	KCLogger *logger;
 
 	QMap<int, KCShipType*> shipTypes;
 	QMap<int, KCShip*> ships;

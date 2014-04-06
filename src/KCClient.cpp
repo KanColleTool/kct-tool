@@ -26,7 +26,6 @@ KCClient::KCClient(QObject *parent) :
 	QObject(parent)
 {
 	manager = new QNetworkAccessManager(this);
-	logger = new KCLogger(this);
 
 	QSettings settings;
 	server = settings.value("server").toString();
@@ -95,9 +94,6 @@ void KCClient::onDockCompleted() {
 }
 
 void KCClient::onDockShipChanged() {
-	/*KCDock *dock = qobject_cast<KCDock*>(QObject::sender());
-	if(dock->isConstruction)
-		logger->logCraftShip(dock->shipID, dock->fuel, dock->ammo, dock->steel, dock->baux, dock->devmats);*/
 	qDebug() << "Construction Started";
 }
 
