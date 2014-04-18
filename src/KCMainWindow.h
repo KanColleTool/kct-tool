@@ -40,6 +40,11 @@ protected:
 	virtual void closeEvent(QCloseEvent *event);
 	virtual void keyPressEvent(QKeyEvent *event);
 
+	// Workaround for a Qt/Windows bug
+#ifdef Q_OS_WIN
+	virtual void paintEvent(QPaintEvent *event);
+#endif
+
 public:
 	bool isApplicationActive();
 

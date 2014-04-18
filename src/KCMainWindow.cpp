@@ -359,6 +359,32 @@ void KCMainWindow::keyPressEvent(QKeyEvent *event)
 	QMainWindow::keyPressEvent(event);
 }
 
+#ifdef Q_OS_WIN
+void KCMainWindow::paintEvent(QPaintEvent *event)
+{
+	Q_UNUSED(event);
+
+	//
+	// This deserves some explaining:
+	//
+	// Due to what is possibly a Qt bug (I'm not sure), translucent windows on
+	// Windows 7+ won't clear their backgrounds properly, and thus anything that
+	// changes the shape of the translucent area will leave ghost images behind.
+	//
+	// This manually creates a QPainter, sets the composition mode to "ignore the
+	// color I'm painting with and clear instead" and paints a black rectangle over
+	// the whole window, thus forcing it all to go fully transparent.
+	//
+	// Without this, Windows' style of highlighting a tab by enlarging it will bug
+	// out, and the larger frame will stay filled when another tab is activated.
+	//
+
+	QPainter painter(this);
+	painter.setCompositionMode(QPainter::CompositionMode_Clear);
+	painter.fillRect(0, 0, this->width(), this->height(), QColor(0,0,0));
+}
+#endif
+
 bool KCMainWindow::isApplicationActive()
 {
 #ifdef __APPLE__
