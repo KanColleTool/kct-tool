@@ -19,7 +19,8 @@ HEADERS  += \
 	../src/KCFleet.h \
 	../src/KCDock.h \
 	../src/KCTranslator.h \
-	../src/KCDefaults.h
+	../src/KCDefaults.h \
+	../src/KCUtil.h
 
 SOURCES += \
 	../src/KCMainWindow.cpp \
