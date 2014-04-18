@@ -23,8 +23,12 @@ public slots:
 
 private slots:
 	void on_buttonBox_clicked(QAbstractButton *button);
-	void on_useNetworkCheckbox_stateChanged(int state);
-	void on_autorefreshCheckbox_stateChanged(int state);
+	void on_useNetworkCheckbox_toggled(bool checked);
+	void on_autorefreshCheckbox_toggled(bool checked);
+	void on_notifyCheckbox_toggled(bool checked);
+	void on_notifyExpeditionReminderCheckbox_toggled(bool checked);
+	void on_notifyExpeditionReminderRepeatCheckbox_toggled(bool checked);
+	void on_notifyExpeditionReminderSuspendCheckbox_toggled(bool checked);
 
 signals:
 	void apply();
