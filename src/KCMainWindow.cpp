@@ -165,15 +165,15 @@ void KCMainWindow::_setupTrayIcon()
 	// On Mac, it's more convenient to have a click bring up the main window
 	// (since left-click also brings up the menu there)
 #if !defined(__APPLE__)
-	trayMenu = new QMenu("KanColleTool", this);
-	trayMenu->addAction("Fleets", this, SLOT(on_actionFleets_triggered()));
-	trayMenu->addAction("Ships", this, SLOT(on_actionShips_triggered()));
-	trayMenu->addAction("Repairs", this, SLOT(on_actionRepairs_triggered()));
-	trayMenu->addAction("Construction", this, SLOT(on_actionConstruction_triggered()));
+	trayMenu = new QMenu(tr("KanColleTool"), this);
+	trayMenu->addAction(tr("Fleets"), this, SLOT(on_actionFleets_triggered()));
+	trayMenu->addAction(tr("Ships"), this, SLOT(on_actionShips_triggered()));
+	trayMenu->addAction(tr("Repairs"), this, SLOT(on_actionRepairs_triggered()));
+	trayMenu->addAction(tr("Construction"), this, SLOT(on_actionConstruction_triggered()));
 	trayMenu->addSeparator();
-	trayMenu->addAction("Show", this, SLOT(showApplication()));
-	trayMenu->addAction("Hide", this, SLOT(hideApplication()));
-	trayMenu->addAction("Exit", qApp, SLOT(quit()));
+	trayMenu->addAction(tr("Show"), this, SLOT(showApplication()));
+	trayMenu->addAction(tr("Hide"), this, SLOT(hideApplication()));
+	trayMenu->addAction(tr("Exit"), qApp, SLOT(quit()));
 	trayIcon->setContextMenu(this->trayMenu);
 #endif
 }
@@ -228,10 +228,10 @@ void KCMainWindow::_setupUI()
 		ui->toolBar->hide();
 		
 		// Add tabs to the tab bar
-		ui->tabBar->addTab("Fleets");
-		ui->tabBar->addTab("Ships");
-		ui->tabBar->addTab("Repairs");
-		ui->tabBar->addTab("Construction");
+		ui->tabBar->addTab(tr("Fleets"));
+		ui->tabBar->addTab(tr("Ships"));
+		ui->tabBar->addTab(tr("Repairs"));
+		ui->tabBar->addTab(tr("Construction"));
 		
 		// Set up shortcuts for them
 		new QShortcut(QKeySequence("Ctrl+1"), this, SLOT(on_actionFleets_triggered()));
@@ -274,7 +274,7 @@ void KCMainWindow::_setupUI()
 		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
 
 		// Add a tab for Fleet 1, the only fleet we can be sure is there
-		ui->fleetsTabBar->addTab("Fleet 1");
+		ui->fleetsTabBar->addTab(tr("Fleet %1").arg("1"));
 	}
 
 	// Set up the Constructions page
@@ -296,21 +296,26 @@ void KCMainWindow::_showDisclaimer()
 	// big changes to it sometime; shouldn't happen though...
 	if(settings.value("disclaimerShown", 0).toInt() <= 0)
 	{
-		QMessageBox::information(this, "Disclaimer",
-			"<p>"
+		QMessageBox::information(this, tr("Disclaimer"),
 #if __APPLE__
-			"Disclaimer:"
-			"</p>"
-			"<p>"
+			tr(
+				"<p>"
+				"Disclaimer:"
+				"</p>"
+			) + 
 #endif
-			"It's important to note that KanColleTool is not a cheat tool.<br /> "
-			"It will not let you do anything the game would not usually let you do."
-			"</p>"
-			"<p>"
-			"Using KanColleTool will not increase your chances of getting banned.<br />"
-			"If you're a foreign player, that's already reason enough to ban you, but KCT "
-			"is impossible to differentiate from a web browser on their end."
-			"</p>");
+			tr(
+				"<p>"
+				"It's important to note that KanColleTool is not a cheat tool.<br /> "
+				"It will not let you do anything the game would not usually let you do."
+				"</p>"
+				"<p>"
+				"Using KanColleTool will not increase your chances of getting banned.<br />"
+				"If you're a foreign player, that's already reason enough to ban you, but KCT "
+				"is impossible to differentiate from a web browser on their end."
+				"</p>"
+			)
+		);
 		settings.setValue("disclaimerShown", 1);
 	}
 }
@@ -328,7 +333,7 @@ void KCMainWindow::closeEvent(QCloseEvent *event)
 #if !defined(__APPLE__)
 		if(!settings.value("closeToTrayNotificationShown").toBool())
 		{
-			trayIcon->showMessage("Still running!", "KanColleTool is still running in the tray.\nYou can disable that in the settings.");
+			trayIcon->showMessage(tr("Still running!"), tr("KanColleTool is still running in the tray.\nYou can disable that in the settings."));
 			settings.setValue("closeToTrayNotificationShown", true);
 		}
 #endif
@@ -431,7 +436,10 @@ void KCMainWindow::askForAPILink()
 		return;
 
 	apiLinkDialogOpen = true;
-	QUrl url = QInputDialog::getText(this, "Enter API Link", "<p>Enter your API Link.<br />It should look something like:</p><p><code>http://125.6.189.xxx/kcs/mainD2.swf?api_token=xxxxxxxxxxxxxxxxxxxx...</code></p>");
+	QUrl url = QInputDialog::getText(this,
+		tr("Enter API Link"),
+		tr("<p>Enter your API Link.<br />It should look something like:</p><p><code>http://125.6.189.xxx/kcs/mainD2.swf?api_token=xxxxxxxxxxxxxxxxxxxx...</code></p>")
+	);
 	QUrlQuery query(url);
 	apiLinkDialogOpen = false;
 
@@ -473,9 +481,9 @@ void KCMainWindow::updateFleetsPage()
 			QLabel *condLabel = findChild<QLabel*>(QString("fleetCond") + iS);
 			
 			if(ship->hp.cur < ship->hp.max)
-				hpBar->setToolTip(QString("Repair Time: %1, Repair Cost: %2 Steel, %3 Fuel").arg(ship->repairTime.toString("H:mm:ss"), QString::number(ship->repairCost.steel), QString::number(ship->repairCost.fuel)));
+				hpBar->setToolTip(QString(tr("Repair Time: %1, Repair Cost: %2 Steel, %3 Fuel")).arg(ship->repairTime.toString("H:mm:ss"), QString::number(ship->repairCost.steel), QString::number(ship->repairCost.fuel)));
 			else
-				hpBar->setToolTip("Healthy");
+				hpBar->setToolTip(tr("Healthy"));
 
 			box->show();
 			hpBar->setRange(0, ship->hp.max);
@@ -490,7 +498,7 @@ void KCMainWindow::updateFleetsPage()
 				fuelBar->setRange(0, type->maxFuel);
 				fuelBar->setValue(ship->fuel);
 			} else {
-				box->setTitle("(Loading...)");
+				box->setTitle(tr("(Loading...)"));
 				ammoBar->setRange(0, 0);
 				fuelBar->setRange(0, 0);
 			}
@@ -524,7 +532,7 @@ void KCMainWindow::updateShipsPage()
 		if(type) {
 			TABLE_SET_ITEM(ui->shipsTable, row, 8, translateName(type->name));
 		} else {
-			TABLE_SET_ITEM(ui->shipsTable, row, 8, "(Loading...)");
+			TABLE_SET_ITEM(ui->shipsTable, row, 8, tr("(Loading...)"));
 		}
 
 		++row;
@@ -552,13 +560,13 @@ void KCMainWindow::updateRepairsPage()
 		if(dock->state == KCDock::Locked)
 		{
 			box->setEnabled(false);
-			nameLabel->setText("(Locked)");
+			nameLabel->setText(tr("(Locked)"));
 			repairTimerLabel->setText("");
 		}
 		else if(dock->state == KCDock::Empty)
 		{
 			box->setEnabled(true);
-			nameLabel->setText("(Empty)");
+			nameLabel->setText(tr("(Empty)"));
 			repairTimerLabel->setText("‒:‒‒:‒‒");
 		}
 		else if(dock->state == KCDock::Occupied)
@@ -570,7 +578,7 @@ void KCMainWindow::updateRepairsPage()
 				if(type)
 					nameLabel->setText(translateName(type->name));
 				else
-					nameLabel->setText("(Loading...)");
+					nameLabel->setText(tr("(Loading...)"));
 				repairTimerLabel->setText(delta(dock->complete).toString("H:mm:ss"));
 			}
 		}
@@ -602,14 +610,14 @@ void KCMainWindow::updateConstructionsPage()
 		if(dock->state == KCDock::Locked)
 		{
 			box->setEnabled(false);
-			nameLabel->setText("(Locked)");
+			nameLabel->setText(tr("(Locked)"));
 			buildTimerLabel->setText("");
 			spoilCheckbox->hide();
 		}
 		else if(dock->state == KCDock::Empty)
 		{
 			box->setEnabled(true);
-			nameLabel->setText("(Empty)");
+			nameLabel->setText(tr("(Empty)"));
 			buildTimerLabel->setText("‒:‒‒:‒‒");
 			spoilCheckbox->hide();
 			spoilCheckbox->setChecked(false);	// Uncheck it!
@@ -624,10 +632,10 @@ void KCMainWindow::updateConstructionsPage()
 				if(ship)
 					nameLabel->setText(translateName(ship->name));
 				else
-					nameLabel->setText("(Loading...)");
+					nameLabel->setText(tr("(Loading...)"));
 			}
 			else
-				nameLabel->setText("???");
+				nameLabel->setText(tr("???"));
 
 			if(dock->state == KCDock::Occupied || dock->state == KCDock::Building)
 				buildTimerLabel->setText(delta(dock->complete).toString("H:mm:ss"));
@@ -655,14 +663,14 @@ void KCMainWindow::updateTimers()
 			ui->fleetStatus->show();
 
 			bool busy = false;
-			QString status = "Combat-Ready";
+			QString status = tr("Combat-Ready");
 			QTime dT;
 
 			// Check if the fleet is out on an expedition
 			if(fleet->mission.page > 0 && fleet->mission.no > 0 && fleet->mission.complete > QDateTime::currentDateTime())
 			{
 				busy = true;
-				status = QString("Doing Expedition %1-%2").arg(fleet->mission.page).arg(fleet->mission.no);
+				status = QString(tr("Doing Expedition %1-%2")).arg(fleet->mission.page).arg(fleet->mission.no);
 				dT = delta(fleet->mission.complete);
 			}
 
@@ -687,9 +695,9 @@ void KCMainWindow::updateTimers()
 						KCShipType *type = client->shipTypes[ship->type];
 						busy = true;
 						if(type)
-							status = QString("%1 is taking a bath").arg(translateName(type->name));
+							status = QString(tr("%1 is taking a bath")).arg(translateName(type->name));
 						else
-							status = "(Loading...) is taking a bath";
+							status = tr("(Loading...) is taking a bath");
 						dT = dT2;
 					}
 				}
@@ -821,7 +829,11 @@ void KCMainWindow::onTranslationLoadFinished()
 void KCMainWindow::onTranslationLoadFailed(QString error)
 {
 	qDebug() << "Failed to load Translation Data..." << error;
-	QMessageBox::StandardButton button = QMessageBox::warning(this, "Couldn't load Translation", "You may choose to continue without translation data, but everything will be in Japanese.", QMessageBox::Ok|QMessageBox::Retry, QMessageBox::Retry);
+	QMessageBox::StandardButton button = QMessageBox::warning(this,
+		tr("Couldn't load Translation"),
+		tr("You may choose to continue without translation data, but everything will be in Japanese."),
+		QMessageBox::Ok|QMessageBox::Retry, QMessageBox::Retry
+	);
 	if(button == QMessageBox::Retry)
 		KCTranslator::instance()->loadTranslation();
 }
@@ -851,7 +863,7 @@ void KCMainWindow::onReceivedFleets()
 
 	// If we don't have enough tabs, add some more
 	for(int i = ui->fleetsTabBar->count(); i < client->fleets.size(); i++)
-		ui->fleetsTabBar->addTab(QString("Fleet %1").arg(i + 1));
+		ui->fleetsTabBar->addTab(tr("Fleet %1").arg(i + 1));
 
 	// If we're on an active tab, update it
 	if(ui->fleetsTabBar->currentIndex() < client->fleets.size())
@@ -888,17 +900,23 @@ void KCMainWindow::onRequestError(KCClient::ErrorCode error)
 	switch(error)
 	{
 		case KCClient::JsonError:
-			QMessageBox::warning(this, "JSON Error", "The response was malformed JSON and could not be parsed. This could mean that there's something messing with your internet connection.");
+			QMessageBox::warning(this,
+				tr("JSON Error"),
+				tr("The response was malformed JSON and could not be parsed. This could mean that there's something messing with your internet connection."));
 			break;
 		case KCClient::InvalidAPIVersion:
-			QMessageBox::critical(this, "Invalid API Version", "KanColle changed their API, and this program is outdated.");
+			QMessageBox::critical(this,
+				tr("Invalid API Version"),
+				tr("KanColle changed their API, and this program is outdated."));
 			qApp->quit();
 			break;	// OCD
 		case KCClient::InvalidCredentials:
 			this->askForAPILink();
 			break;
 		default:
-			QMessageBox::warning(this, "Unknown Error", "An unknown error occurred.");
+			QMessageBox::warning(this,
+				tr("Unknown Error"),
+				tr("An unknown error occurred."));
 	}
 }
 
@@ -926,11 +944,13 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 				spoil = findChild<QCheckBox*>(QString("constructionSpoil%1").arg(i+1))->isChecked();
 
 		if(type && spoil)
-			trayIcon->showMessage("Construction Completed!",
-				QString("Say hello to %1!").arg(translateName(type->name)));
+			trayIcon->showMessage(
+				tr("Construction Completed!"),
+				tr("Say hello to %1!").arg(translateName(type->name)));
 		else
-			trayIcon->showMessage("Construction Completed!",
-				QString("Say hello to your new shipgirl!"));
+			trayIcon->showMessage(
+				tr("Construction Completed!"),
+				tr("Say hello to your new shipgirl!"));
 
 		updateConstructionsPage();
 	} else {
@@ -940,11 +960,13 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 		if(ship) ship->hp.cur = ship->hp.max;
 
 		if(ship && type)
-			trayIcon->showMessage("Repair Completed!",
-				QString("%1 is all healthy again!").arg(translateName(type->name)));
+			trayIcon->showMessage(
+				tr("Repair Completed!"),
+				tr("%1 is all healthy again!").arg(translateName(type->name)));
 		else
-			trayIcon->showMessage("Repair Completed!",
-				QString("Your shipgirl is all healthy again!"));
+			trayIcon->showMessage(
+				tr("Repair Completed!"),
+				tr("Your shipgirl is all healthy again!"));
 
 		updateFleetsPage();
 		updateRepairsPage();
@@ -956,9 +978,9 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 void KCMainWindow::onMissionCompleted(KCFleet *fleet)
 {
 	int id = client->fleets.key(fleet);
-	trayIcon->showMessage("Expedition Complete",
-		QString("Fleet %1 returned from Expedition %2-%3"
-			).arg(id).arg(fleet->mission.page).arg(fleet->mission.no));
+	trayIcon->showMessage(
+		tr("Expedition Complete"),
+		tr("Fleet %1 returned from Expedition %2-%3").arg(id).arg(fleet->mission.page).arg(fleet->mission.no));
 	updateTimers();
 
 	lastActivityAt = QDateTime::currentDateTime();
@@ -1101,7 +1123,9 @@ void KCMainWindow::checkExpeditionStatus()
 
 void KCMainWindow::onExpeditionReminderTimeout()
 {
-	trayIcon->showMessage("Remember your expeditions!", "You currently don't have any expeditions out.\nYou can disable these messages in the settings.");
+	trayIcon->showMessage(
+		tr("Remember your expeditions!"),
+		tr("You currently don't have any expeditions out.\nYou can disable these messages in the settings."));
 
 	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat &&
 			(!notifyExpeditionReminderSuspend || lastActivityAt.secsTo(QDateTime::currentDateTime()) < notifyExpeditionReminderSuspendInterval))
