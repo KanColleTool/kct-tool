@@ -791,18 +791,7 @@ void KCMainWindow::updateSettingThings()
 	notifyExpeditionReminderSuspend = settings.value("notifyExpeditionReminderSuspend", kDefaultNotifyExpeditionSuspend).toBool();
 	notifyExpeditionReminderSuspendInterval = settings.value("notifyExpeditionReminderSuspendInterval", kDefaultNotifyExpeditionSuspendInterval).toInt();
 
-	// Start the Expedition reminder timer if needed
-	if(notify && notifyExpeditionReminder)
-	{
-		bool youShouldPutOutExpeditions = true;
-		foreach(KCFleet *fleet, client->fleets)
-			if(fleet->mission.page != 0 && fleet->mission.no != 0 && fleet->mission.complete > QDateTime::currentDateTime())
-				youShouldPutOutExpeditions = false;
-
-		if(youShouldPutOutExpeditions)
-			expeditionReminderTimer.start(notifyExpeditionReminderInterval * 1000);
-	}
-	else expeditionReminderTimer.stop();
+	this->checkExpeditionStatus();
 }
 
 void KCMainWindow::leaveNoNetworkPage()
@@ -866,6 +855,9 @@ void KCMainWindow::onReceivedFleets()
 		updateFleetsPage();
 		updateTimers();
 	}
+
+	// Start expedition reminder timers if applicable
+	checkExpeditionStatus();
 
 	leaveNoNetworkPage();
 }
@@ -1069,9 +1061,25 @@ void KCMainWindow::on_noNetworkSettingsButton_clicked()
 	this->on_settingsButton_clicked();
 }
 
+void KCMainWindow::checkExpeditionStatus()
+{
+	if(notify && notifyExpeditionReminder)
+	{
+		bool youShouldPutOutExpeditions = true;
+		foreach(KCFleet *fleet, client->fleets)
+			if(fleet && fleet->mission.page != 0 && fleet->mission.no != 0 && fleet->mission.complete > QDateTime::currentDateTime())
+				youShouldPutOutExpeditions = false;
+
+		if(youShouldPutOutExpeditions)
+			expeditionReminderTimer.start(notifyExpeditionReminderInterval * 1000);
+	}
+	else
+		expeditionReminderTimer.stop();
+}
+
 void KCMainWindow::onExpeditionReminderTimeout()
 {
-	trayIcon->showMessage("Remember to put out expeditions!", "Click to disable these messages until next time you play.");
+	trayIcon->showMessage("Remember your expeditions!", "You currently don't have any expeditions out.\nYou can disable these messages in the settings.");
 
 	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat)
 		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval);

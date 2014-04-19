@@ -89,6 +89,7 @@ private slots:
 	void on_fleetsTabBar_currentChanged(int index);
 	void on_noNetworkSettingsButton_clicked();
 
+	void checkExpeditionStatus();
 	void onExpeditionReminderTimeout();
 
 private:
