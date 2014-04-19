@@ -23,6 +23,9 @@ RESOURCES += ../resources/resources.qrc
 
 SOURCES += 	main.cpp
 
+TRANSLATIONS += \
+	../translations/KanColleTool_en_UK.ts
+
 target.path = $$PREFIX/bin
 INSTALLS += target
 
