@@ -91,11 +91,11 @@ void KCSettingsDialog::applySettings()
 	settings.setValue("notifyConstruction", ui->notifyConstructionCheckbox->isChecked());
 	settings.setValue("notifyExpedition", ui->notifyExpeditionCheckbox->isChecked());
 	settings.setValue("notifyExpeditionReminder", ui->notifyExpeditionReminderCheckbox->isChecked());
-	settings.setValue("notifyExpeditionReminderInterval", ui->notifyExpeditionReminderInterval->value());
+	settings.setValue("notifyExpeditionReminderInterval", ui->notifyExpeditionReminderInterval->value() * 60);
 	settings.setValue("notifyExpeditionReminderRepeat", ui->notifyExpeditionReminderRepeatCheckbox->isChecked());
-	settings.setValue("notifyExpeditionReminderRepeatInterval", ui->notifyExpeditionReminderRepeatInterval->value());
+	settings.setValue("notifyExpeditionReminderRepeatInterval", ui->notifyExpeditionReminderRepeatInterval->value() * 60);
 	settings.setValue("notifyExpeditionReminderSuspend", ui->notifyExpeditionReminderSuspendCheckbox->isChecked());
-	settings.setValue("notifyExpeditionReminderSuspendInterval", ui->notifyExpeditionReminderSuspendInterval->value());
+	settings.setValue("notifyExpeditionReminderSuspendInterval", ui->notifyExpeditionReminderSuspendInterval->value() * 60);
 
 	settings.sync();
 

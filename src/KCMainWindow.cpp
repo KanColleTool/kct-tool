@@ -859,6 +859,7 @@ void KCMainWindow::onReceivedFleets()
 	// Start expedition reminder timers if applicable
 	checkExpeditionStatus();
 
+	// Disable the "No Network" page
 	leaveNoNetworkPage();
 }
 
@@ -1067,11 +1068,16 @@ void KCMainWindow::checkExpeditionStatus()
 	{
 		bool youShouldPutOutExpeditions = true;
 		foreach(KCFleet *fleet, client->fleets)
-			if(fleet && fleet->mission.page != 0 && fleet->mission.no != 0 && fleet->mission.complete > QDateTime::currentDateTime())
+		{
+			if(!fleet) continue;	// There will be NULLs in there
+			if(fleet->mission.complete > QDateTime::currentDateTime())
 				youShouldPutOutExpeditions = false;
+		}
 
 		if(youShouldPutOutExpeditions)
 			expeditionReminderTimer.start(notifyExpeditionReminderInterval * 1000);
+		else
+			expeditionReminderTimer.stop();
 	}
 	else
 		expeditionReminderTimer.stop();
@@ -1082,5 +1088,5 @@ void KCMainWindow::onExpeditionReminderTimeout()
 	trayIcon->showMessage("Remember your expeditions!", "You currently don't have any expeditions out.\nYou can disable these messages in the settings.");
 
 	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat)
-		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval);
+		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval * 1000);
 }
