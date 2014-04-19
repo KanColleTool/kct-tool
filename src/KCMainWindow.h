@@ -89,6 +89,8 @@ private slots:
 	void on_fleetsTabBar_currentChanged(int index);
 	void on_noNetworkSettingsButton_clicked();
 
+	void onExpeditionReminderTimeout();
+
 private:
 	Ui::KCMainWindow *ui;
 
@@ -101,8 +103,12 @@ private:
 	QNetworkAccessManager manager;
 
 	bool apiLinkDialogOpen;
-	bool useNetwork;
-	bool translation;
+	bool useNetwork, translation;
+	bool notify, notifyRepairs, notifyConstruction, notifyExpedition;
+	bool notifyExpeditionReminder, notifyExpeditionReminderRepeat, notifyExpeditionReminderSuspend;
+	int notifyExpeditionReminderInterval, notifyExpeditionReminderRepeatInterval, notifyExpeditionReminderSuspendInterval;
+
+	QTimer expeditionReminderTimer;
 };
 
 #endif // KCMAINWINDOW_H

@@ -47,6 +47,8 @@ bool KCMainWindow::init()
 
 	// Setup settings and stuff
 	connect(&refreshTimer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
+	connect(&expeditionReminderTimer, SIGNAL(timeout()), this, SLOT(onExpeditionReminderTimeout()));
+	expeditionReminderTimer.setSingleShot(true);
 	this->updateSettingThings();
 
 	// Load the translation
@@ -776,6 +778,31 @@ void KCMainWindow::updateSettingThings()
 		refreshTimer.start(settings.value("autorefreshInterval", kDefaultAutorefreshInterval).toInt()*1000);
 	else
 		refreshTimer.stop();
+
+	// Notification flags
+	notify = settings.value("notify", kDefaultNotify).toBool();
+	notifyRepairs = settings.value("notifyRepairs", kDefaultNotifyRepairs).toBool();
+	notifyConstruction = settings.value("notifyConstruction", kDefaultNotifyConstruction).toBool();
+	notifyExpedition = settings.value("notifyExpedition", kDefaultNotifyExpedition).toBool();
+	notifyExpeditionReminder = settings.value("notifyExpeditionReminder", kDefaultNotifyExpeditionReminder).toBool();
+	notifyExpeditionReminderInterval = settings.value("notifyExpeditionReminderInterval", kDefaultNotifyExpeditionReminderInterval).toInt();
+	notifyExpeditionReminderRepeat = settings.value("notifyExpeditionReminderRepeat", kDefaultNotifyExpeditionRepeat).toBool();
+	notifyExpeditionReminderRepeatInterval = settings.value("notifyExpeditionReminderRepeatInterval", kDefaultNotifyExpeditionRepeatInterval).toInt();
+	notifyExpeditionReminderSuspend = settings.value("notifyExpeditionReminderSuspend", kDefaultNotifyExpeditionSuspend).toBool();
+	notifyExpeditionReminderSuspendInterval = settings.value("notifyExpeditionReminderSuspendInterval", kDefaultNotifyExpeditionSuspendInterval).toInt();
+
+	// Start the Expedition reminder timer if needed
+	if(notify && notifyExpeditionReminder)
+	{
+		bool youShouldPutOutExpeditions = true;
+		foreach(KCFleet *fleet, client->fleets)
+			if(fleet->mission.page != 0 && fleet->mission.no != 0 && fleet->mission.complete > QDateTime::currentDateTime())
+				youShouldPutOutExpeditions = false;
+
+		if(youShouldPutOutExpeditions)
+			expeditionReminderTimer.start(notifyExpeditionReminderInterval * 1000);
+	}
+	else expeditionReminderTimer.stop();
 }
 
 void KCMainWindow::leaveNoNetworkPage()
@@ -1040,4 +1067,12 @@ void KCMainWindow::on_fleetsTabBar_currentChanged(int index)
 void KCMainWindow::on_noNetworkSettingsButton_clicked()
 {
 	this->on_settingsButton_clicked();
+}
+
+void KCMainWindow::onExpeditionReminderTimeout()
+{
+	trayIcon->showMessage("Remember to put out expeditions!", "Click to disable these messages until next time you play.");
+
+	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat)
+		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval);
 }
