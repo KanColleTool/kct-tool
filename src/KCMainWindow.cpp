@@ -23,7 +23,10 @@
 KCMainWindow::KCMainWindow(QWidget *parent) :
 	QMainWindow(parent), ui(new Ui::KCMainWindow),
 	trayIcon(0), trayMenu(0), client(0), server(0),
-	apiLinkDialogOpen(false) {}
+	apiLinkDialogOpen(false), lastActivityAt(QDateTime::currentDateTime())
+{
+
+}
 
 bool KCMainWindow::init()
 {
@@ -839,6 +842,7 @@ void KCMainWindow::onReceivedShips()
 	updateShipsPage();
 	updateRepairsPage();
 	leaveNoNetworkPage();
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::onReceivedFleets()
@@ -859,8 +863,8 @@ void KCMainWindow::onReceivedFleets()
 	// Start expedition reminder timers if applicable
 	checkExpeditionStatus();
 
-	// Disable the "No Network" page
 	leaveNoNetworkPage();
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::onReceivedRepairs()
@@ -868,6 +872,7 @@ void KCMainWindow::onReceivedRepairs()
 	qDebug() << "Received Player Repairs Data" << client->repairDocks.size();
 	updateRepairsPage();
 	leaveNoNetworkPage();
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::onReceivedConstructions()
@@ -875,6 +880,7 @@ void KCMainWindow::onReceivedConstructions()
 	qDebug() << "Received Player Constructions Data" << client->constructionDocks.size();
 	updateConstructionsPage();
 	leaveNoNetworkPage();
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::onRequestError(KCClient::ErrorCode error)
@@ -943,6 +949,8 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 		updateFleetsPage();
 		updateRepairsPage();
 	}
+
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::onMissionCompleted(KCFleet *fleet)
@@ -952,6 +960,8 @@ void KCMainWindow::onMissionCompleted(KCFleet *fleet)
 		QString("Fleet %1 returned from Expedition %2-%3"
 			).arg(id).arg(fleet->mission.page).arg(fleet->mission.no));
 	updateTimers();
+
+	lastActivityAt = QDateTime::currentDateTime();
 }
 
 void KCMainWindow::on_actionFleets_triggered()
@@ -1093,6 +1103,7 @@ void KCMainWindow::onExpeditionReminderTimeout()
 {
 	trayIcon->showMessage("Remember your expeditions!", "You currently don't have any expeditions out.\nYou can disable these messages in the settings.");
 
-	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat)
+	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat &&
+			(!notifyExpeditionReminderSuspend || lastActivityAt.secsTo(QDateTime::currentDateTime()) < notifyExpeditionReminderSuspendInterval))
 		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval * 1000);
 }

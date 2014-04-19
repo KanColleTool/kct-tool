@@ -110,6 +110,7 @@ private:
 	int notifyExpeditionReminderInterval, notifyExpeditionReminderRepeatInterval, notifyExpeditionReminderSuspendInterval;
 
 	QTimer expeditionReminderTimer;
+	QDateTime lastActivityAt;
 };
 
 #endif // KCMAINWINDOW_H
