@@ -1075,9 +1075,15 @@ void KCMainWindow::checkExpeditionStatus()
 		}
 
 		if(youShouldPutOutExpeditions)
+		{
+			qDebug() << "Starting Expedition Reminder Timer";
 			expeditionReminderTimer.start(notifyExpeditionReminderInterval * 1000);
+		}
 		else
+		{
+			qDebug() << "Stopping Expedition Reminder Timer";
 			expeditionReminderTimer.stop();
+		}
 	}
 	else
 		expeditionReminderTimer.stop();
