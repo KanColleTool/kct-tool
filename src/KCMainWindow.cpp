@@ -142,7 +142,7 @@ void KCMainWindow::_setupClient()
 				qApp->quit();
 		} else {
 			qDebug() << "Credentials Gained";
-			client->requestShipTypes();
+			client->safeShipTypes();
 			this->on_refreshButton_clicked();
 		}
 	}
@@ -967,8 +967,7 @@ void KCMainWindow::on_actionRefresh_triggered()
 			return;
 	}
 
-	client->requestShips();
-	client->requestFleets();
+	client->requestPort();
 	client->requestRepairs();
 	client->requestConstructions();
 }

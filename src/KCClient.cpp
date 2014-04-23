@@ -64,18 +64,8 @@ void KCClient::safeShipTypes() {
 	connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
 }
 
-void KCClient::requestShipTypes() {
-	QNetworkReply *reply = this->call("/api_get_master/ship");
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
-}
-
-void KCClient::requestShips() {
-	QNetworkReply *reply = this->call("/api_get_member/ship");
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
-}
-
-void KCClient::requestFleets() {
-	QNetworkReply *reply = this->call("/api_get_member/deck");
+void KCClient::requestPort() {
+	QNetworkReply *reply = this->call("/api_port/port");
 	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
 }
 
@@ -131,7 +121,7 @@ void KCClient::onRequestFinished() {
 		ErrorCode error;
 		QVariant data = this->dataFromRawResponse(reply->readAll(), &error);
 		if(data.isValid()) callPFunc(reply->url().path(), data);
-		else { qDebug() << error; emit requestError(error); }
+		else { qDebug() << reply->request().url() << error; emit requestError(error); }
 	} else if(reply->error() == QNetworkReply::UnknownNetworkError) {
 		qWarning() << "Connection Failed:" << reply->errorString();
 	}

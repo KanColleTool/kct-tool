@@ -60,45 +60,26 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_get_member/slotitem", 0 }, // Current items
 	{ "/kcsapi/api_get_member/unsetslot", 0 }, // Remove item
 	{ "/kcsapi/api_get_member/useitem", 0 },
-	//  Ships
-	{ "/kcsapi/api_get_member/ship",
+	// ALL OF THE DATA
+	{ "/kcsapi/api_port/port",
 		pf {
-			modelizeResponse(data, client->ships, client);
-			emit client->receivedShips();
-		}
-	},
-	{ "/kcsapi/api_get_member/ship2", // Ships and fleets.
-	  pf {
-			modelizeResponse(data, client->ships, client, 1);
-			emit client->receivedShips();
-
-			// TODO: handle the weird api_data_deck
-		}
-	},
-	{ "/kcsapi/api_get_member/ship3", // Ships, fleets, and something else I don't quite remember
-	  pf {
 			QVariantMap map = data.toMap();
-			modelizeResponse(map.value("api_ship_data"), client->ships, client, 1);
-			modelizeResponse(map.value("api_deck_data"), client->fleets, client);
+			modelizeResponse(map.value("api_deck_port"), client->fleets, client);
+			modelizeResponse(map.value("api_ndock"), client->repairDocks, client);
+			modelizeResponse(map.value("api_ship"), client->ships, client);
+			emit client->receivedFleets();
+			emit client->receivedRepairs();
 			emit client->receivedShips();
-			emit client->receivedFleets();
 		}
 	},
-	{ "/kcsapi/api_get_member/material", 0 }, // Resources
 	//  Various statuses
-	{ "/kcsapi/api_get_member/deck", // Fleets
-		pf {
-			modelizeResponse(data, client->fleets, client);
-			emit client->receivedFleets();
-		}
-	},
-	{ "/kcsapi/api_get_member/ndock", // Dock (repair)
+	{ "/kcsapi/api_get_member/ndock", // Repair Docks
 		pf {
 			modelizeResponse(data, client->repairDocks, client);
 			emit client->receivedRepairs();
 		}
 	},
-	{ "/kcsapi/api_get_member/kdock", // Construction
+	{ "/kcsapi/api_get_member/kdock", // Construction Docks
 		pf {
 			modelizeResponse(data, client->constructionDocks, client);
 			emit client->receivedConstructions();

@@ -64,9 +64,7 @@ public slots:
 	void setCredentials(QString server, QString apiToken);
 
 	void safeShipTypes();
-	void requestShipTypes();
-	void requestShips();
-	void requestFleets();
+	void requestPort();
 	void requestRepairs();
 	void requestConstructions();
 
