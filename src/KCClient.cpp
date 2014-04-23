@@ -115,8 +115,8 @@ QNetworkReply* KCClient::call(QString endpoint, QUrlQuery params) {
 #endif
 	QNetworkRequest request(this->urlForEndpoint(endpoint));
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-	request.setRawHeader("Referer", QString("http://%1/kcs/mainD2.swf").arg(server).toUtf8());
-	request.setRawHeader("User-Agent", QString("Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36").toUtf8());
+	request.setRawHeader("Referer", QString("http://%1/kcs/Core.swf?version=2.0.0").arg(server).toUtf8());
+	request.setRawHeader("User-Agent", QString("Mozilla/5.0 (Windows NT 6.1; Win64; x86; rv:28.0) Gecko/20100101 Firefox/28.0").toUtf8());
 
 	params.addQueryItem("api_verno", "1");
 	params.addQueryItem("api_token", apiToken);
