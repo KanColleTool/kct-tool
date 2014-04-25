@@ -9,6 +9,7 @@
 #include "KCShip.h"
 #include "KCShipType.h"
 #include "KCFleet.h"
+#include "KCUtil.h"
 
 #define kClientUseCache 0
 
@@ -65,7 +66,12 @@ void KCClient::safeShipTypes() {
 }
 
 void KCClient::requestPort() {
-	QNetworkReply *reply = this->call("/api_port/port");
+	QUrlQuery params;
+	params.addQueryItem("spi_sort_order", "2");
+	params.addQueryItem("api_port", apiPortSignature(0));	// TODO: Get the UID; it won't work without
+	params.addQueryItem("api_sort_key", "5");
+	
+	QNetworkReply *reply = this->call("/api_port/port", params);
 	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
 }
 
