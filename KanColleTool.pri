@@ -20,7 +20,8 @@ HEADERS  += \
 	../src/KCDock.h \
 	../src/KCAdmiral.h \
 	../src/KCTranslator.h \
-	../src/KCDefaults.h
+	../src/KCDefaults.h \
+	../src/KCUtil.h
 
 SOURCES += \
 	../src/KCMainWindow.cpp \

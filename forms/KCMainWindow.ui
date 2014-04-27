@@ -136,7 +136,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="fleetsPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -231,7 +231,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -298,7 +298,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -362,7 +362,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -442,7 +442,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -523,7 +523,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -586,7 +586,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -655,7 +655,7 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>0:00:00</string>
+                 <string notr="true">0:00:00</string>
                 </property>
                </widget>
               </item>
@@ -815,7 +815,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -851,7 +851,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -915,7 +915,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -978,7 +978,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -1076,7 +1076,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>20</string>
+                   <string notr="true">20</string>
                   </property>
                  </widget>
                 </item>
@@ -1119,7 +1119,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>100</string>
+                   <string notr="true">100</string>
                   </property>
                  </widget>
                 </item>
@@ -1294,7 +1294,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1325,7 +1325,7 @@
               </font>
              </property>
              <property name="text">
-              <string>‒:‒‒:‒‒</string>
+              <string notr="true">‒:‒‒:‒‒</string>
              </property>
             </widget>
            </item>
@@ -1363,7 +1363,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1394,7 +1394,7 @@
               </font>
              </property>
              <property name="text">
-              <string>‒:‒‒:‒‒</string>
+              <string notr="true">‒:‒‒:‒‒</string>
              </property>
             </widget>
            </item>
@@ -1432,7 +1432,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1463,7 +1463,7 @@
               </font>
              </property>
              <property name="text">
-              <string>‒:‒‒:‒‒</string>
+              <string notr="true">‒:‒‒:‒‒</string>
              </property>
             </widget>
            </item>
@@ -1504,7 +1504,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1535,7 +1535,7 @@
               </font>
              </property>
              <property name="text">
-              <string>‒:‒‒:‒‒</string>
+              <string notr="true">‒:‒‒:‒‒</string>
              </property>
             </widget>
            </item>
@@ -1578,7 +1578,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1630,7 +1630,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>‒:‒‒:‒‒</string>
+                <string notr="true">‒:‒‒:‒‒</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1694,7 +1694,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1746,7 +1746,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>‒:‒‒:‒‒</string>
+                <string notr="true">‒:‒‒:‒‒</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1810,7 +1810,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1862,7 +1862,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>‒:‒‒:‒‒</string>
+                <string notr="true">‒:‒‒:‒‒</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1926,7 +1926,7 @@
               </font>
              </property>
              <property name="text">
-              <string>???</string>
+              <string notr="true">???</string>
              </property>
             </widget>
            </item>
@@ -1978,7 +1978,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>‒:‒‒:‒‒</string>
+                <string notr="true">‒:‒‒:‒‒</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

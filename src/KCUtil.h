@@ -50,6 +50,10 @@ QString unescape(QString str)
 inline
 QTime delta(const QDateTime &d1, const QDateTime &d2 = QDateTime::currentDateTimeUtc())
 {
+	// If it's already passed, normalize it to 0:00:00
+	if(d1 < d2)
+		return QTime(0,0,0,0);
+
 	// Make sure both dates are in UTC, before taking the epoch-offset delta.
 	qint64 msecs = d1.toUTC().toMSecsSinceEpoch() - d2.toUTC().toMSecsSinceEpoch();
 	// Make a time at exactly 0:0:0:0, and add the millisecond delta to it.

@@ -8,6 +8,7 @@ KCDock::KCDock(const QVariantMap &data, int loadId, KCClient *parent) :
 	KCGameObject(parent), shipID(0) {
 	connect(this, SIGNAL(completed()), parent, SLOT(onDockCompleted()));
 	connect(this, SIGNAL(shipChanged()), parent, SLOT(onDockShipChanged()));
+	connect(&timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
 	loadFrom(data, loadId);
 }
 
