@@ -1,13 +1,13 @@
 #ifndef KCFLEET_H
 #define KCFLEET_H
 
+#include "KCGameObject.h"
+
 #include <QObject>
 #include <QVariant>
 #include <QMap>
 #include <QDateTime>
 #include <QTimer>
-
-#include "KCGameObject.h"
 
 class KCClient;
 class KCFleet : public KCGameObject {

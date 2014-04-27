@@ -24,7 +24,8 @@ void KCClient::callPFunc(const QString &path, const QVariant &data)
 }
 
 KCClient::KCClient(QObject *parent) :
-	QObject(parent)
+	QObject(parent),
+	admiral(0)
 {
 	manager = new QNetworkAccessManager(this);
 
@@ -65,10 +66,19 @@ void KCClient::safeShipTypes() {
 	connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
 }
 
+void KCClient::requestAdmiral() {
+	QNetworkReply *reply = this->call("/api_get_member/basic");
+	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+}
+
 void KCClient::requestPort() {
+	// We need the Admiral's ID for this to work
+	if(!admiral)
+		return;
+	
 	QUrlQuery params;
 	params.addQueryItem("spi_sort_order", "2");
-	params.addQueryItem("api_port", apiPortSignature(0));	// TODO: Get the UID; it won't work without
+	params.addQueryItem("api_port", apiPortSignature(admiral->id));
 	params.addQueryItem("api_sort_key", "5");
 	
 	QNetworkReply *reply = this->call("/api_port/port", params);

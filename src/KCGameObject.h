@@ -20,10 +20,10 @@ class KCGameObject : public QObject {
 	Q_OBJECT
 
 public:
-	KCGameObject(QObject *parent=0) : QObject(parent) {}
+	KCGameObject(QObject *parent = 0) : QObject(parent) {}
 	virtual ~KCGameObject() {}
 
-	virtual void loadFrom(const QVariantMap &data, int loadId=0)=0;
+	virtual void loadFrom(const QVariantMap &data, int loadId = 0)=0;
 
 	// Extract a single item from a variant map into a T&
 	template<typename T>

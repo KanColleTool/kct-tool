@@ -54,7 +54,17 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_get_master/maparea", 0 },
 
 	// Member info -------------------------------------------------------------
-	{ "/kcsapi/api_get_member/basic", 0 },
+	{ "/kcsapi/api_get_member/basic", 
+		pf {
+			if(!client->admiral)
+			{
+				client->admiral = new KCAdmiral(data.toMap(), 0, client);
+				client->requestPort();
+			}
+			else client->admiral->loadFrom(data.toMap());
+			emit client->receivedAdmiral();
+		}
+	},
 	{ "/kcsapi/api_get_member/record", 0 },
 	//  Items
 	{ "/kcsapi/api_get_member/slotitem", 0 }, // Current items

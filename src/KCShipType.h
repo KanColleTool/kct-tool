@@ -1,19 +1,18 @@
 #ifndef KCSHIPMASTER_H
 #define KCSHIPMASTER_H
 
+#include "KCGameObject.h"
 #include <QObject>
 #include <QVariant>
-
-#include "KCGameObject.h"
 
 class KCShipType : public KCGameObject {
 	Q_OBJECT
 
 public:
-	KCShipType(const QVariantMap &data, int loadId=0, QObject *parent=0);
+	KCShipType(const QVariantMap &data, int loadId = 0, QObject *parent = 0);
 	virtual ~KCShipType();
 
-	void loadFrom(const QVariantMap &data, int loadId) override;
+	virtual void loadFrom(const QVariantMap &data, int loadId) override;
 
 	static constexpr int expToLv[150] = {
 		0,       100,     300,     600,     1000,    1500,    2100,    2800,    3600,    4500,

@@ -121,6 +121,7 @@ void KCMainWindow::_setupClient()
 
 	connect(client, SIGNAL(focusRequested()), SLOT(showApplication()));
 	connect(client, SIGNAL(credentialsGained()), SLOT(on_refreshButton_clicked()));
+	connect(client, SIGNAL(receivedAdmiral()), SLOT(onReceivedAdmiral()));
 	connect(client, SIGNAL(receivedShipTypes()), SLOT(onReceivedShipTypes()));
 	connect(client, SIGNAL(receivedShips()), SLOT(onReceivedShips()));
 	connect(client, SIGNAL(receivedFleets()), SLOT(onReceivedFleets()));
@@ -781,6 +782,15 @@ void KCMainWindow::onTranslationLoadFailed(QString error)
 		KCTranslator::instance()->loadTranslation();
 }
 
+void KCMainWindow::onReceivedAdmiral()
+{
+	qDebug() << "Received Admiral Data" << client->admiral->nickname;
+	updateFleetsPage();
+	updateShipsPage();
+	updateRepairsPage();
+	updateConstructionsPage();
+}
+
 void KCMainWindow::onReceivedShipTypes()
 {
 	qDebug() << "Received Master Ship Data" << client->shipTypes.size();
@@ -967,7 +977,11 @@ void KCMainWindow::on_actionRefresh_triggered()
 			return;
 	}
 
-	client->requestPort();
+	if(!client->admiral)
+		client->requestAdmiral();
+	else
+		client->requestPort();
+	
 	client->requestRepairs();
 	client->requestConstructions();
 }

@@ -1,20 +1,19 @@
 #ifndef KCSHIP_H
 #define KCSHIP_H
 
+#include "KCGameObject.h"
 #include <QObject>
 #include <QVariant>
 #include <QMap>
-
-#include "KCGameObject.h"
 
 class KCShip : public KCGameObject {
 	Q_OBJECT
 
 public:
-	KCShip(const QVariantMap &data, int loadId=0, QObject *parent=0);
+	KCShip(const QVariantMap &data, int loadId = 0, QObject *parent = 0);
 	virtual ~KCShip();
 
-	void loadFrom(const QVariantMap &data, int loadId) override;
+	virtual void loadFrom(const QVariantMap &data, int loadId) override;
 
 	int type;
 

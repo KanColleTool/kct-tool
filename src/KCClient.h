@@ -8,6 +8,7 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 
+#include "KCAdmiral.h"
 #include "KCShipType.h"
 #include "KCShip.h"
 #include "KCFleet.h"
@@ -38,6 +39,7 @@ public:
 
 	QString server, apiToken;
 
+	KCAdmiral *admiral;
 	QMap<int, KCShipType*> shipTypes;
 	QMap<int, KCShip*> ships;
 	QMap<int, KCFleet*> fleets;
@@ -50,6 +52,7 @@ signals:
 	void focusRequested();
 
 	void credentialsGained();
+	void receivedAdmiral();
 	void receivedShipTypes();
 	void receivedShips();
 	void receivedFleets();
@@ -64,6 +67,7 @@ public slots:
 	void setCredentials(QString server, QString apiToken);
 
 	void safeShipTypes();
+	void requestAdmiral();
 	void requestPort();
 	void requestRepairs();
 	void requestConstructions();

@@ -18,6 +18,7 @@ HEADERS  += \
 	../src/KCShipType.h \
 	../src/KCFleet.h \
 	../src/KCDock.h \
+	../src/KCAdmiral.h \
 	../src/KCTranslator.h \
 	../src/KCDefaults.h
 
@@ -31,6 +32,7 @@ SOURCES += \
 	../src/KCShipType.cpp \
 	../src/KCFleet.cpp \
 	../src/KCDock.cpp \
+	../src/KCAdmiral.cpp \
 	../src/KCTranslator.cpp
 
 UI_DIR = ../build/uics
