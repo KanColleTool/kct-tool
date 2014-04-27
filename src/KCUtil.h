@@ -68,14 +68,9 @@ QString apiPortSignature(unsigned int u)
 	unsigned int loc[] = {1171, 1841, 2517, 3101, 4819, 5233, 6311, 7977, 8103, 9377, 1000};
 	
 	// This is overcomplicated as fuck, and really not secure in any way
+	// Note for p2: f = don't use e-notation, 0 = no decimals
 	QString p1 = QString::number(loc[10] + u % loc[10]);
-	QString p2 = QString::number(
-		(
-			(9999999999 - floor(QDateTime::currentMSecsSinceEpoch() / (float)loc[10])
-			- u) * loc[u % 10])
-		,
-		'f',	// = Without this, it'll use e-notation if it's more compact
-		0);		// = Truncate all decimals!
+	QString p2 = QString::number((9999999999 - floor(QDateTime::currentMSecsSinceEpoch() / (float)loc[10]) - u) * loc[u % 10], 'f', 0);
 	QString p3 =
 		QString::number(dist(engine)) +
 		QString::number(dist(engine)) +
