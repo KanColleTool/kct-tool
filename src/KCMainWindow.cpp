@@ -41,7 +41,7 @@ bool KCMainWindow::init()
 	// Set the right page regardless of what the UI file says.
 	// (This saves me from accidentally releasing a version with the wrong
 	// start page due to me editing another one right beforehand)
-	if(/*QSettings().value("usenetwork", kDefaultUseNetwork).toBool()*/true) {
+	if(QSettings().value("usenetwork", kDefaultUseNetwork).toBool()) {
 		this->on_actionFleets_triggered();
 	} else {
 		ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
