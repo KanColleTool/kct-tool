@@ -67,13 +67,23 @@ QString apiPortSignature(unsigned int u)
 	// Constants used by the game (deobfuscated; they were originally strings in Base 31 >_>)
 	unsigned int loc[] = {1171, 1841, 2517, 3101, 4819, 5233, 6311, 7977, 8103, 9377, 1000};
 	
-	// This is overcomplicated as fuck; also % is 
-	return QString::number(loc[10] + u % loc[10]) +
-		QString::number((9.999999999E9 - floor((float)QDateTime::currentMSecsSinceEpoch() / loc[10]) - u) * loc[u % 10]) +
+	// This is overcomplicated as fuck, and really not secure in any way
+	QString p1 = QString::number(loc[10] + u % loc[10]);
+	QString p2 = QString::number(
+		(
+			(9999999999 - floor(QDateTime::currentMSecsSinceEpoch() / (float)loc[10])
+			- u) * loc[u % 10])
+		,
+		'f',	// = Without this, it'll use e-notation if it's more compact
+		0);		// = Truncate all decimals!
+	QString p3 =
 		QString::number(dist(engine)) +
 		QString::number(dist(engine)) +
 		QString::number(dist(engine)) +
 		QString::number(dist(engine));
+	QString signature = p1 + p2 + p3;
+	
+	return signature;
 }
 
 #define TABLE_SET_ITEM(_table, _row, _col, _value) \
