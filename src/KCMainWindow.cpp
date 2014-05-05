@@ -46,6 +46,7 @@ bool KCMainWindow::init()
 	} else {
 		ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
 		ui->topContainer->hide();
+		ui->toolBar->hide();
 	}
 
 	// Setup settings and stuff
@@ -811,7 +812,11 @@ void KCMainWindow::leaveNoNetworkPage()
 	if(ui->stackedWidget->currentWidget() == ui->noNetworkPage)
 	{
 		this->setUpdatesEnabled(false);
+#ifdef Q_OS_MAC
+		ui->toolBar->show();
+#else
 		ui->topContainer->show();
+#endif
 		this->on_actionFleets_triggered();
 		this->setUpdatesEnabled(true);
 	}
