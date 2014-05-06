@@ -1,6 +1,7 @@
 #include "KCToolServer.h"
 #include <QTcpSocket>
 #include "KCClient.h"
+#include "KCToolServerResponder.h"
 
 KCToolServer::KCToolServer(QObject *parent) :
 	QTcpServer(parent), enabled(true), client(0) {
@@ -52,7 +53,8 @@ void KCToolServer::handleRequest(QTcpSocket *socket) {
 void KCToolServer::onNewConnection() {
 	while(this->hasPendingConnections()) 	{
 		QTcpSocket *socket = this->nextPendingConnection();
-		connect(socket, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
+		new KCToolServerResponder(socket, this);
+		//connect(socket, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
 	}
 }
 
