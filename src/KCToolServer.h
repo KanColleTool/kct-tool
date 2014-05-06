@@ -1,47 +1,30 @@
 #ifndef KCTOOLSERVER_H
 #define KCTOOLSERVER_H
 
-#include <qhttpserver.h>
-#include "KCClient.h"
+#include <QTcpServer>
 
-class KCToolServer : public QHttpServer
-{
+class QTcpSocket;
+class KCClient;
+class KCToolServer : public QTcpServer {
 	Q_OBJECT
-	
-	friend class KCToolServerResponder;
-	
+
 public:
 	KCToolServer(QObject *parent = 0);
 	virtual ~KCToolServer();
-	
+
+	void setClient(KCClient *c);
+
 	bool enabled;
-	
-	inline void setClient(KCClient *client) { this->client = client; }
-	
+
+protected:
+	void handleRequest(QTcpSocket *socket);
+
 protected slots:
-	void onNewRequest(QHttpRequest *req, QHttpResponse *res);
-	
+	void onNewConnection();
+	void onSocketReadyRead();
+
 protected:
 	KCClient *client;
-};
-
-
-
-class KCToolServerResponder : QObject
-{
-	Q_OBJECT
-	
-public:
-	KCToolServerResponder(QHttpRequest *req, QHttpResponse *res, KCToolServer *parent);
-	virtual ~KCToolServerResponder();
-	
-protected slots:
-	void onRequestEnd();
-	
-protected:
-	QHttpRequest *req;
-	QHttpResponse *res;
-	KCToolServer *server;
 };
 
 #endif

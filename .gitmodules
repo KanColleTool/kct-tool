@@ -1,3 +1,0 @@
-[submodule "lib/qhttpserver"]
-	path = lib/qhttpserver
-	url = git@github.com:nikhilm/qhttpserver.git
