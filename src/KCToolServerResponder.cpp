@@ -92,12 +92,6 @@ void KCToolServerResponder::onSocketReadyRead()
 
 void KCToolServerResponder::respond(QTcpSocket *socket)
 {
-	qDebug() << "Responding to" << http_method_str(method) << url;
-	// Always respond with a HTTP 204 No Content for now
-	// This might change later, who knows
-	//socket->write("HTTP/1.1 204 No Content\r\n");
-	//socket->write("\r\n");
-	
 	// Call a handler function; for now, only POSTs are supported
 	if(method == HTTP_POST)
 	{
@@ -105,12 +99,14 @@ void KCToolServerResponder::respond(QTcpSocket *socket)
 		server->client->callPFunc(url.path(), body);
 	}
 	
-	this->writeStatusLine(200, "OK");
-	this->writeBody("Test", "text/plain");
+	// Always respond with a HTTP 204 No Content for now
+	// This might change later, who knows
+	this->writeStatusLine(204, "No Content");
+	this->writeBody();
 	
 	// Close the connection if requested to do so
 	// Note: headers are lowercased
-	//if(headers.value("connection") == "close")
+	if(headers.value("connection") == "close")
 		socket->disconnectFromHost();
 }
 
