@@ -5,8 +5,10 @@
 
 class QTcpSocket;
 class KCClient;
-class KCToolServer : public QTcpServer {
+class KCToolServer : public QTcpServer
+{
 	Q_OBJECT
+	friend class KCToolServerResponder;
 
 public:
 	KCToolServer(QObject *parent = 0);
@@ -17,11 +19,11 @@ public:
 	bool enabled;
 
 protected:
-	void handleRequest(QTcpSocket *socket);
+	//void handleRequest(QTcpSocket *socket);
 
 protected slots:
 	void onNewConnection();
-	void onSocketReadyRead();
+	//void onSocketReadyRead();
 
 protected:
 	KCClient *client;

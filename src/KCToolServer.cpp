@@ -16,7 +16,7 @@ void KCToolServer::setClient(KCClient *c) {
 	client = c;
 }
 
-void KCToolServer::handleRequest(QTcpSocket *socket) {
+/*void KCToolServer::handleRequest(QTcpSocket *socket) {
 	// Get the data out of it
 	QString method = socket->property("method").toString();
 	QString path = socket->property("path").toString();
@@ -48,17 +48,19 @@ void KCToolServer::handleRequest(QTcpSocket *socket) {
 		// Otherwise, close it behind us
 		socket->close();
 	}
-}
+}*/
 
-void KCToolServer::onNewConnection() {
-	while(this->hasPendingConnections()) 	{
+void KCToolServer::onNewConnection()
+{
+	while(this->hasPendingConnections())
+	{
 		QTcpSocket *socket = this->nextPendingConnection();
 		new KCToolServerResponder(socket, this);
 		//connect(socket, SIGNAL(readyRead()), this, SLOT(onSocketReadyRead()));
 	}
 }
 
-void KCToolServer::onSocketReadyRead()
+/*void KCToolServer::onSocketReadyRead()
 {
 	QTcpSocket *socket = qobject_cast<QTcpSocket*>(QObject::sender());
 
@@ -113,4 +115,4 @@ void KCToolServer::onSocketReadyRead()
 	} else if(contentLength == -1 || contentLength == 0) {
 		this->handleRequest(socket);
 	}
-}
+}*/

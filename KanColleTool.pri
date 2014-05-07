@@ -46,4 +46,3 @@ OBJECTS_DIR = ../build/objs
 DESTDIR = ../bin
 
 INCLUDEPATH += ../lib/http-parser
-#LIBS += -L../lib/http-parser -lhttp_parser

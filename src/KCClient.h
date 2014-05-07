@@ -19,6 +19,7 @@ class KCClient : public QObject
 {
 	Q_OBJECT
 	friend class KCToolServer;
+	friend class KCToolServerResponder;
 
 public:
 	typedef std::function<void(KCClient *client, const QVariant&)> processFunc;
