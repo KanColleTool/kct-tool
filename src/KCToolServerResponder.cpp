@@ -30,6 +30,7 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 		// If we were parsing another header, put that into the pile and clear
 		if(responder->currentHeaderValue.length() > 0)
 		{
+			//qDebug() << "Got Header:" << responder->currentHeaderField << ":" << responder->currentHeaderValue;
 			responder->headers.insert(responder->currentHeaderField.toLower(), responder->currentHeaderValue.toLower());
 			responder->currentHeaderField.clear();
 			responder->currentHeaderValue.clear();
@@ -52,12 +53,17 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 		responder->url = responder->currentUrlString;
 		responder->headers.insert(responder->currentHeaderField.toLower(), responder->currentHeaderValue.toLower());
 		
+		//qDebug() << "Final Header:" << responder->currentHeaderField << ":" << responder->currentHeaderValue;
+		//qDebug() << "Method:" << http_method_str(responder->method);
+		//qDebug() << "URL:" << responder->url;
+		
 		return 0;
 	};
 	settings.on_body = [](http_parser *parser, const char *data, size_t size) -> int
 	{
 		KCToolServerResponder *responder = static_cast<KCToolServerResponder*>(parser->data);
 		responder->body += QByteArray::fromRawData(data, size);
+		//qDebug() << "Got" << size << "body bytes";
 		
 		return 0;
 	};
@@ -65,6 +71,7 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 	{
 		KCToolServerResponder *responder = static_cast<KCToolServerResponder*>(parser->data);
 		responder->dataComplete = true;
+		//qDebug() << "-- Message Complete --";
 		
 		return 0;
 	};
@@ -96,7 +103,7 @@ void KCToolServerResponder::respond(QTcpSocket *socket)
 	if(method == HTTP_POST)
 	{
 		QVariant data = server->client->dataFromRawResponse(body);
-		server->client->callPFunc(url.path(), body);
+		server->client->callPFunc(url.path(), data);
 	}
 	
 	// Always respond with a HTTP 204 No Content for now

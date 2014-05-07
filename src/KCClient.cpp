@@ -155,12 +155,14 @@ QVariant KCClient::dataFromRawResponse(QString text, ErrorCode *error) {
 	QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8(), &jsonErr);
 	if(jsonErr.error != QJsonParseError::NoError) {
 		if(error) *error = JsonError;
+		else qWarning() << "JSON Error:" << jsonErr.errorString() << "\n" << text;
 		return QVariant();
 	}
 
 	QMap<QString, QVariant> data = doc.toVariant().toMap();
 	if(data.value("api_result").toInt() != NoError) {
 		if(error) *error = (ErrorCode)data.value("api_result").toInt();
+		else qWarning() << "API Error:" << jsonErr.errorString() << "\n" << text;
 		return QVariant();
 	}
 

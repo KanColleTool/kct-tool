@@ -56,12 +56,13 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	// Member info -------------------------------------------------------------
 	{ "/kcsapi/api_get_member/basic", 
 		pf {
+			QVariantMap map = data.toMap();
 			if(!client->admiral)
 			{
-				client->admiral = new KCAdmiral(data.toMap(), 0, client);
+				client->admiral = new KCAdmiral(map, 0, client);
 				client->requestPort();
 			}
-			else client->admiral->loadFrom(data.toMap());
+			else client->admiral->loadFrom(map);
 			emit client->receivedAdmiral();
 		}
 	},
