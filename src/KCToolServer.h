@@ -18,12 +18,8 @@ public:
 
 	bool enabled;
 
-protected:
-	//void handleRequest(QTcpSocket *socket);
-
 protected slots:
 	void onNewConnection();
-	//void onSocketReadyRead();
 
 protected:
 	KCClient *client;
