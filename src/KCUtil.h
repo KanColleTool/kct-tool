@@ -2,6 +2,7 @@
 #define KCUTIL_H
 
 #include <random>
+#include <ctime>
 #include <QString>
 #include <QRegularExpression>
 #include <QTime>
