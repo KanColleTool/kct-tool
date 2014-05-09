@@ -28,7 +28,13 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	},
 
 	{ "/kcsapi/api_req_member/get_incentive", 0 }, // Login
-	{ "/kcsapi/api_start", 0 },
+	{ "/kcsapi/api_start2",
+		pf {
+			QVariantMap map = data.toMap();
+			modelizeResponse(map["api_mst_ship"], client->shipTypes, client);
+			emit client->receivedShipTypes();
+		}
+	},
 
 	// Global info -------------------------------------------------------------
 	{ "/kctool/mastership.json", // Ships from our server
