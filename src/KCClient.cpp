@@ -68,9 +68,9 @@ void KCClient::onMissionCompleted() {
 }
 
 void KCClient::load(QString endpoint, int page) {
-	QString cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+	QString cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/userdata");
 	
-	QString path(cacheDir + "/userdata" + endpoint);
+	QString path(cacheDir + endpoint);
 	if(page != 0) path += "__" + QString::number(page);
 	path += ".json";
 	
