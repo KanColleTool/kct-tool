@@ -1,12 +1,15 @@
 language: cpp
-compiler: clang
+compiler: gcc
 cache: apt
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-install: sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
+install:
+  - sudo apt-get install -qq g++-4.8
+  - sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
 script:
   - "qmake -spec linux-${CC} && make"
   - "cd test && qmake -spec linux-${CC} && make check"
