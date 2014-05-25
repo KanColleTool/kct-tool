@@ -11,9 +11,19 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 {
 	http_parser_init(&parser, HTTP_REQUEST);
 	parser.data = this;
-	
-	// settings.on_message_begin wouldn't do anything anyways
+
 	// settings.on_status is never called for requests
+
+	settings.on_message_begin = [](http_parser *parser) -> int
+	{
+		KCToolServerResponder *responder = static_cast<KCToolServerResponder*>(parser->data);
+		responder->url.clear();
+		responder->headers.clear();
+		responder->body.clear();
+		responder->dataComplete = false;
+
+		return 0;
+	};
 	settings.on_url = [](http_parser *parser, const char *data, size_t size) -> int
 	{
 		KCToolServerResponder *responder = static_cast<KCToolServerResponder*>(parser->data);
@@ -52,7 +62,11 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 		responder->method = (http_method)parser->method;
 		responder->url = responder->currentUrlString;
 		responder->headers.insert(responder->currentHeaderField.toLower(), responder->currentHeaderValue.toLower());
-		
+
+		responder->currentUrlString.clear();
+		responder->currentHeaderField.clear();
+		responder->currentHeaderValue.clear();
+
 		//qDebug() << "Final Header:" << responder->currentHeaderField << ":" << responder->currentHeaderValue;
 		//qDebug() << "Method:" << http_method_str(responder->method);
 		//qDebug() << "URL:" << responder->url;
@@ -71,7 +85,6 @@ KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *p
 	{
 		KCToolServerResponder *responder = static_cast<KCToolServerResponder*>(parser->data);
 		responder->dataComplete = true;
-		//qDebug() << "-- Message Complete --";
 		
 		return 0;
 	};
