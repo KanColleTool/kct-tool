@@ -32,16 +32,16 @@ bool KCMainWindow::init()
 {
 	ui->setupUi(this);
 
+	// Always start at the "No Network" page
+	ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
+	ui->topContainer->hide();
+	ui->toolBar->hide();
+
 	if(!this->_setupServer()) return false;
 	this->_setupClient();
 	this->_setupTrayIcon();
 	this->_setupUI();
 	this->_showDisclaimer();
-
-	// Always start at the "No Network" page
-	ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
-	//ui->topContainer->hide();
-	//ui->toolBar->hide();
 
 	// Setup settings and stuff
 	connect(&expeditionReminderTimer, SIGNAL(timeout()), this, SLOT(onExpeditionReminderTimeout()));
