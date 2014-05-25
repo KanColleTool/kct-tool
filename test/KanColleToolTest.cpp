@@ -6,3 +6,4 @@ void KanColleToolTest::dummy()
 }
 
 QTEST_MAIN(KanColleToolTest)
+

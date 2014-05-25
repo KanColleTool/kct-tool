@@ -13,3 +13,4 @@ install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 script:
   - "qmake -spec linux-${CXX} && make check"
+
