@@ -88,6 +88,12 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			emit client->receivedShips();
 		}
 	},
+	// Ships
+	{ "/kcsapi/api_get_member/ship2",
+		pf {
+		  modelizeResponse(data, client->ships, client);
+	  }
+	},
 	//  Various statuses
 	{ "/kcsapi/api_get_member/ndock", // Repair Docks
 		pf {
