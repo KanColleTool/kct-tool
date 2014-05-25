@@ -1,6 +1,11 @@
 #ifndef KCUTIL_H
 #define KCUTIL_H
 
+<<<<<<< HEAD
+=======
+#include <random>
+#include <ctime>
+>>>>>>> 4b72354873efa9dd71da826e9016e05f17817500
 #include <QString>
 #include <QRegularExpression>
 #include <QTime>
