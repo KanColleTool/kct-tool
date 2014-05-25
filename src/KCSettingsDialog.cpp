@@ -13,14 +13,6 @@ KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
 		settings.value("minimizeToTray", kDefaultMinimizeToTray).toBool());
 	ui->translationCheckbox->setChecked(
 		settings.value("toolTranslation", kDefaultTranslation).toBool());
-	ui->livestreamCheckbox->setChecked(
-		settings.value("livestream", kDefaultLivestream).toBool());
-	ui->useNetworkCheckbox->setChecked(
-		settings.value("usenetwork", kDefaultUseNetwork).toBool());
-	ui->autorefreshCheckbox->setChecked(
-		settings.value("autorefresh", kDefaultAutorefresh).toBool());
-	ui->autorefreshInterval->setValue(
-		settings.value("autorefreshInterval", kDefaultAutorefreshInterval).toInt() / 60);
 	ui->notifyCheckbox->setChecked(
 		settings.value("notify", kDefaultNotify).toBool());
 	ui->notifyRepairsCheckbox->setChecked(
@@ -45,16 +37,17 @@ KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
 	// Disable the "?"-button on Windows
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
-	// This whole thing makes no sense on OSX, so just hide the whole box there
-	// The application is always running (only) in the menu bar there
 #ifdef Q_OS_MAC
-	ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	// The application is always running only in the menu bar on OSX, so having
+	// it *not* minimize to the tray would make no sense there
 	ui->minimizeToTrayContainer->hide();
+	
+	// OSX also doesn't use Apply buttons; preferrably, everything should take
+	// effect immediately, but that's hard to do with Qt (no setting bindings)
+	ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
 #endif
 
 	// Pretend this changed just to update the enabledness of that container
-	this->on_useNetworkCheckbox_toggled(ui->useNetworkCheckbox->isChecked());
-	this->on_autorefreshCheckbox_toggled(ui->autorefreshCheckbox->isChecked());
 	this->on_notifyCheckbox_toggled(ui->notifyCheckbox->isChecked());
 	this->on_notifyExpeditionReminderCheckbox_toggled(ui->notifyExpeditionReminderCheckbox->isChecked());
 	this->on_notifyExpeditionReminderRepeatCheckbox_toggled(ui->notifyExpeditionReminderRepeatCheckbox->isChecked());
@@ -82,10 +75,6 @@ void KCSettingsDialog::applySettings()
 {
 	settings.setValue("minimizeToTray", ui->minimizeToTrayCheckbox->isChecked());
 	settings.setValue("toolTranslation", ui->translationCheckbox->isChecked());
-	settings.setValue("livestream", ui->livestreamCheckbox->isChecked());
-	settings.setValue("usenetwork", ui->useNetworkCheckbox->isChecked());
-	settings.setValue("autorefresh", ui->autorefreshCheckbox->isChecked());
-	settings.setValue("autorefreshInterval", ui->autorefreshInterval->value() * 60);
 	settings.setValue("notify", ui->notifyCheckbox->isChecked());
 	settings.setValue("notifyRepairs", ui->notifyRepairsCheckbox->isChecked());
 	settings.setValue("notifyConstruction", ui->notifyConstructionCheckbox->isChecked());
@@ -96,7 +85,6 @@ void KCSettingsDialog::applySettings()
 	settings.setValue("notifyExpeditionReminderRepeatInterval", ui->notifyExpeditionReminderRepeatInterval->value() * 60);
 	settings.setValue("notifyExpeditionReminderSuspend", ui->notifyExpeditionReminderSuspendCheckbox->isChecked());
 	settings.setValue("notifyExpeditionReminderSuspendInterval", ui->notifyExpeditionReminderSuspendInterval->value() * 60);
-
 	settings.sync();
 
 	emit apply();
@@ -106,16 +94,6 @@ void KCSettingsDialog::on_buttonBox_clicked(QAbstractButton *button)
 {
 	if(ui->buttonBox->buttonRole(button) == QDialogButtonBox::ApplyRole)
 		applySettings();
-}
-
-void KCSettingsDialog::on_useNetworkCheckbox_toggled(bool checked)
-{
-	ui->autorefreshContainer->setEnabled(checked);
-}
-
-void KCSettingsDialog::on_autorefreshCheckbox_toggled(bool checked)
-{
-	ui->autorefreshInterval->setEnabled(checked);
 }
 
 void KCSettingsDialog::on_notifyCheckbox_toggled(bool checked)

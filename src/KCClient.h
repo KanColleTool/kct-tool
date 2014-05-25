@@ -38,8 +38,6 @@ public:
 	explicit KCClient(QObject *parent = 0);
 	virtual ~KCClient();
 
-	QString server, apiToken;
-
 	KCAdmiral *admiral;
 	QMap<int, KCShipType*> shipTypes;
 	QMap<int, KCShip*> ships;
@@ -47,11 +45,7 @@ public:
 	QMap<int, KCDock*> repairDocks;
 	QMap<int, KCDock*> constructionDocks;
 
-	bool hasCredentials();
-
 public slots:
-	void setCredentials(QString server, QString apiToken);
-	
 	void loadMasterData();
 	void loadAdmiral();
 	void loadPort();

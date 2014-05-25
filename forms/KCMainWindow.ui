@@ -114,19 +114,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QToolButton" name="refreshButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>Refresh</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -136,7 +123,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="fleetsPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -2022,14 +2009,14 @@
            </font>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Livestreaming Only!&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Your settings currently disallow loading of data from the network.&lt;br/&gt;Start the game in the accompanying viewer or enable direct loading to use the Tool.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Waiting for Data&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the game in the accompanying viewer to use the tool.&lt;br/&gt;Data will be analyzed and displayed as it arrives.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignBottom">
+        <item>
          <widget class="QPushButton" name="noNetworkSettingsButton">
           <property name="text">
            <string>Settings</string>
@@ -2066,7 +2053,6 @@
    <addaction name="actionRepairs"/>
    <addaction name="actionConstruction"/>
    <addaction name="actionSettings"/>
-   <addaction name="actionRefresh"/>
   </widget>
   <action name="actionFleets">
    <property name="text">
@@ -2098,14 +2084,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+2</string>
-   </property>
-  </action>
-  <action name="actionRefresh">
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-   <property name="shortcut">
-    <string>F5</string>
    </property>
   </action>
   <action name="actionSettings">

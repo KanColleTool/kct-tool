@@ -4,16 +4,14 @@
 #include "KCToolServerResponder.h"
 
 KCToolServer::KCToolServer(QObject *parent) :
-	QTcpServer(parent), enabled(true), client(0) {
+	QTcpServer(parent), client(0)
+{
 	connect(this, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
 }
 
-KCToolServer::~KCToolServer() {
-
-}
-
-void KCToolServer::setClient(KCClient *c) {
-	client = c;
+KCToolServer::~KCToolServer()
+{
+	
 }
 
 void KCToolServer::onNewConnection()

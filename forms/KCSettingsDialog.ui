@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>761</width>
-    <height>594</height>
+    <width>781</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,33 +60,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="livestreamCheckbox">
-     <property name="text">
-      <string>Livestream data from the game if possible</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Streaming requires the game to be running in the accompanying viewer.&lt;br /&gt;Disable if it causes issues.</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-     <property name="wordWrap">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="translationCheckbox">
      <property name="text">
       <string>Enable English Translation</string>
@@ -108,80 +81,6 @@ If you would like to provide an alternate translation, contact us and we'll work
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="useNetworkCheckbox">
-     <property name="text">
-      <string>Enable Direct Loading</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>If this is checked, data will be loaded from the game servers directly.
-Uncheck it if you're paranoid, in which case only data from  livestreaming will be used.</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="autorefreshContainer" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="leftMargin">
-       <number>20</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QCheckBox" name="autorefreshCheckbox">
-        <property name="text">
-         <string>When not streaming, refresh every:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QSpinBox" name="autorefreshInterval">
-        <property name="maximum">
-         <number>86400</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>minutes</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
     </widget>
    </item>
    <item>

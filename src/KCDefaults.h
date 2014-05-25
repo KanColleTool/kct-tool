@@ -3,10 +3,6 @@
 
 static const bool kDefaultMinimizeToTray =  true;
 static const bool kDefaultTranslation = true;
-static const bool kDefaultLivestream = true;
-static const bool kDefaultUseNetwork = false;
-static const bool kDefaultAutorefresh = false;
-static const int  kDefaultAutorefreshInterval = 60*60;
 static const bool kDefaultNotify = true;
 static const bool kDefaultNotifyRepairs = true;
 static const bool kDefaultNotifyConstruction = true;

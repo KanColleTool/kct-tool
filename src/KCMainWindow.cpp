@@ -23,9 +23,9 @@
 KCMainWindow::KCMainWindow(QWidget *parent) :
 	QMainWindow(parent), ui(new Ui::KCMainWindow),
 	trayIcon(0), trayMenu(0), client(0), server(0),
-	apiLinkDialogOpen(false), lastActivityAt(QDateTime::currentDateTime())
+	lastActivityAt(QDateTime::currentDateTime())
 {
-
+	
 }
 
 bool KCMainWindow::init()
@@ -38,19 +38,12 @@ bool KCMainWindow::init()
 	this->_setupUI();
 	this->_showDisclaimer();
 
-	// Set the right page regardless of what the UI file says.
-	// (This saves me from accidentally releasing a version with the wrong
-	// start page due to me editing another one right beforehand)
-	if(QSettings().value("usenetwork", kDefaultUseNetwork).toBool()) {
-		this->on_actionFleets_triggered();
-	} else {
-		ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
-		ui->topContainer->hide();
-		ui->toolBar->hide();
-	}
+	// Always start at the "No Network" page
+	ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
+	ui->topContainer->hide();
+	ui->toolBar->hide();
 
 	// Setup settings and stuff
-	connect(&refreshTimer, SIGNAL(timeout()), this, SLOT(on_refreshButton_clicked()));
 	connect(&expeditionReminderTimer, SIGNAL(timeout()), this, SLOT(onExpeditionReminderTimeout()));
 	expeditionReminderTimer.setSingleShot(true);
 	this->updateSettingThings();
@@ -126,7 +119,6 @@ void KCMainWindow::_setupClient()
 	server->setClient(client);
 
 	connect(client, SIGNAL(focusRequested()), SLOT(showApplication()));
-	connect(client, SIGNAL(credentialsGained()), SLOT(on_refreshButton_clicked()));
 	connect(client, SIGNAL(receivedAdmiral()), SLOT(onReceivedAdmiral()));
 	connect(client, SIGNAL(receivedShipTypes()), SLOT(onReceivedShipTypes()));
 	connect(client, SIGNAL(receivedShips()), SLOT(onReceivedShips()));
@@ -137,22 +129,7 @@ void KCMainWindow::_setupClient()
 	connect(client, SIGNAL(dockCompleted(KCDock *)), SLOT(onDockCompleted(KCDock *)));
 	connect(client, SIGNAL(missionCompleted(KCFleet*)), SLOT(onMissionCompleted(KCFleet*)));
 
-	client->loadMasterData();
-
-	QSettings settings;
-	if(settings.value("usenetwork", kDefaultUseNetwork).toBool()) {
-		if(!client->hasCredentials()) {
-			this->askForAPILink();
-
-			// Quit if the user pressed Cancel, instead of erroring out
-			if(!client->hasCredentials())
-				qApp->quit();
-		} else {
-			qDebug() << "Credentials Gained";
-			client->loadMasterData();
-			this->on_refreshButton_clicked();
-		}
-	}
+	this->loadData();
 }
 
 void KCMainWindow::_setupTrayIcon()
@@ -185,7 +162,7 @@ void KCMainWindow::_setupUI()
 	// Set up Mac-specific styling
 #ifdef Q_OS_MAC
 	{
-		// Right-align Settings and Refresh on the toolbar
+		// Right-align Settings on the toolbar
 		QWidget *toolbarSpacer = new QWidget();
 		toolbarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 		ui->toolBar->insertWidget(ui->actionSettings, toolbarSpacer);
@@ -219,10 +196,6 @@ void KCMainWindow::_setupUI()
 		
 		// Make the window join all spaces (why isn't there a Qt call for this...)
 		macSetWindowOnAllWorkspaces(this);
-		
-		// Cmd+R (given to Qt as Ctrl+R and remapped) makes more sense for the
-		// refresh command than F5 on OSX, where you generally avoid F-keys
-		ui->actionRefresh->setShortcut(Qt::CTRL|Qt::Key_R);
 	}
 #else
 	{
@@ -427,22 +400,6 @@ void KCMainWindow::showApplication()
 void KCMainWindow::hideApplication()
 {
 	this->hide();
-}
-
-void KCMainWindow::askForAPILink()
-{
-	if(apiLinkDialogOpen)
-		return;
-
-	apiLinkDialogOpen = true;
-	QUrl url = QInputDialog::getText(this,
-		tr("Enter API Link"),
-		tr("<p>Enter your API Link.<br />It should look something like:</p><p><code>http://125.6.189.xxx/kcs/mainD2.swf?api_token=xxxxxxxxxxxxxxxxxxxx...</code></p>")
-	);
-	QUrlQuery query(url);
-	apiLinkDialogOpen = false;
-
-	client->setCredentials(url.host(), query.queryItemValue("api_token"));
 }
 
 void KCMainWindow::updateFleetsPage()
@@ -769,26 +726,6 @@ void KCMainWindow::updateSettingThings()
 		this->updateConstructionsPage();
 	}
 
-	// Server for Viewer data livestreaming
-	server->enabled = settings.value("livestream", kDefaultLivestream).toBool();
-
-	// Enable manual reloads
-	useNetwork = settings.value("usenetwork", kDefaultUseNetwork).toBool();
-	ui->actionRefresh->setEnabled(useNetwork);
-	ui->refreshButton->setEnabled(useNetwork);
-
-	// Don't remain on the "Livestreaming Only" page if it's disabled!
-	if(useNetwork && ui->stackedWidget->currentWidget() == ui->noNetworkPage) {
-		leaveNoNetworkPage();
-		on_refreshButton_clicked();
-	}
-
-	// Autorefreshing (if manual reloads are enabled)
-	if(useNetwork && settings.value("autorefresh", kDefaultAutorefresh).toBool())
-		refreshTimer.start(settings.value("autorefreshInterval", kDefaultAutorefreshInterval).toInt()*1000);
-	else
-		refreshTimer.stop();
-
 	// Notification flags
 	notify = settings.value("notify", kDefaultNotify).toBool();
 	notifyRepairs = settings.value("notifyRepairs", kDefaultNotifyRepairs).toBool();
@@ -802,6 +739,14 @@ void KCMainWindow::updateSettingThings()
 	notifyExpeditionReminderSuspendInterval = settings.value("notifyExpeditionReminderSuspendInterval", kDefaultNotifyExpeditionSuspendInterval).toInt();
 
 	this->checkExpeditionStatus();
+}
+
+void KCMainWindow::loadData()
+{
+	client->loadAdmiral();
+	client->loadPort();
+	client->loadRepairs();
+	client->loadConstructions();
 }
 
 void KCMainWindow::leaveNoNetworkPage()
@@ -923,7 +868,9 @@ void KCMainWindow::onRequestError(KCClient::ErrorCode error)
 			qApp->quit();
 			break;	// OCD
 		case KCClient::InvalidCredentials:
-			this->askForAPILink();
+			QMessageBox::warning(this,
+				tr("Expired API Token"),
+				tr("Your API Token has expired, and you need a new one."));
 			break;
 		default:
 			QMessageBox::warning(this,
@@ -1046,28 +993,6 @@ void KCMainWindow::on_actionConstruction_triggered()
 	ui->stackedWidget->setCurrentWidget(ui->constructionPage);
 }
 
-void KCMainWindow::on_actionRefresh_triggered()
-{
-	if(!client->hasCredentials())
-	{
-		this->askForAPILink();
-
-		// Cancel the refresh if the user pressed Cancel, instead of erroring out
-		if(!client->hasCredentials())
-			return;
-	}
-
-	client->loadAdmiral();
-	client->loadPort();
-	client->loadRepairs();
-	client->loadConstructions();
-}
-
-void KCMainWindow::on_refreshButton_clicked()
-{
-	on_actionRefresh_triggered();
-}
-
 void KCMainWindow::on_actionSettings_triggered()
 {
 	KCSettingsDialog *settingsDialog = new KCSettingsDialog(this);
@@ -1079,6 +1004,11 @@ void KCMainWindow::on_actionSettings_triggered()
 void KCMainWindow::on_settingsButton_clicked()
 {
 	on_actionSettings_triggered();
+}
+
+void KCMainWindow::on_noNetworkSettingsButton_clicked()
+{
+	this->on_settingsButton_clicked();
 }
 
 void KCMainWindow::on_tabBar_currentChanged(int index)
@@ -1099,11 +1029,6 @@ void KCMainWindow::on_fleetsTabBar_currentChanged(int index)
 	Q_UNUSED(index);
 	updateFleetsPage();
 	updateTimers();
-}
-
-void KCMainWindow::on_noNetworkSettingsButton_clicked()
-{
-	this->on_settingsButton_clicked();
 }
 
 void KCMainWindow::checkExpeditionStatus()

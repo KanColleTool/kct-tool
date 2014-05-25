@@ -27,35 +27,12 @@ KCClient::KCClient(QObject *parent) :
 	QObject(parent),
 	admiral(0)
 {
-	QSettings settings;
-	server = settings.value("server").toString();
-	apiToken = settings.value("apiToken").toString();
+	
 }
 
 KCClient::~KCClient()
 {
 
-}
-
-bool KCClient::hasCredentials()
-{
-	return (!server.isEmpty() && !server.isEmpty());
-}
-
-void KCClient::setCredentials(QString server, QString apiToken)
-{
-	this->server = server;
-	this->apiToken = apiToken;
-
-	if(this->hasCredentials())
-	{
-		QSettings settings;
-		settings.setValue("server", server);
-		settings.setValue("apiToken", apiToken);
-		settings.sync();
-
-		emit credentialsGained();
-	}
 }
 
 void KCClient::loadMasterData() {

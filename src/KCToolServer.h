@@ -14,9 +14,7 @@ public:
 	KCToolServer(QObject *parent = 0);
 	virtual ~KCToolServer();
 
-	void setClient(KCClient *c);
-
-	bool enabled;
+	inline void setClient(KCClient *c) { this->client = c; }
 
 protected slots:
 	void onNewConnection();
