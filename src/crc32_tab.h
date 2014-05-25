@@ -5,7 +5,6 @@
 
 /*
  * Constant table for our CRC32 function, taken from the Mac OS X Kernel.
- * 
  * http://www.opensource.apple.com/source/xnu/xnu-1456.1.26/bsd/libkern/crc32.c
  */
 
