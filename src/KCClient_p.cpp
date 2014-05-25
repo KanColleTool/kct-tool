@@ -64,11 +64,10 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 		pf {
 			QVariantMap map = data.toMap();
 			if(!client->admiral)
-			{
 				client->admiral = new KCAdmiral(map, 0, client);
-				client->requestPort();
-			}
-			else client->admiral->loadFrom(map);
+			else
+				client->admiral->loadFrom(map);
+			
 			emit client->receivedAdmiral();
 		}
 	},

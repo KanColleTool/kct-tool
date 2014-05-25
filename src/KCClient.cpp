@@ -1,11 +1,11 @@
 #include "KCClient.h"
 #include <stdexcept>
-#include <QDebug>
 #include <QSettings>
-#include <QEventLoop>
+#include <QStandardPaths>
 #include <QUrlQuery>
 #include <QJsonDocument>
 #include <QFile>
+#include <QDebug>
 #include "KCShip.h"
 #include "KCShipType.h"
 #include "KCFleet.h"
@@ -27,8 +27,6 @@ KCClient::KCClient(QObject *parent) :
 	QObject(parent),
 	admiral(0)
 {
-	manager = new QNetworkAccessManager(this);
-
 	QSettings settings;
 	server = settings.value("server").toString();
 	apiToken = settings.value("apiToken").toString();
@@ -60,39 +58,24 @@ void KCClient::setCredentials(QString server, QString apiToken)
 	}
 }
 
-void KCClient::safeShipTypes() {
-	QNetworkRequest request(QString("http://kancolletool.github.io/kctool/mastership.json"));
-	QNetworkReply *reply = manager->get(request);
-	connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+void KCClient::loadMasterData() {
+	this->load("/kcsapi/api_start2");
 }
 
-void KCClient::requestAdmiral() {
-	QNetworkReply *reply = this->call("/api_get_member/basic");
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+void KCClient::loadAdmiral() {
+	this->load("/kcsapi/api_get_member/basic");
 }
 
-void KCClient::requestPort() {
-	// We need the Admiral's ID for this to work
-	if(!admiral)
-		return;
-	
-	QUrlQuery params;
-	params.addQueryItem("spi_sort_order", "2");
-	params.addQueryItem("api_port", apiPortSignature(admiral->id));
-	params.addQueryItem("api_sort_key", "5");
-	
-	QNetworkReply *reply = this->call("/api_port/port", params);
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+void KCClient::loadPort() {
+	this->load("/kcsapi/api_port/port");
 }
 
-void KCClient::requestRepairs() {
-	QNetworkReply *reply = this->call("/api_get_member/ndock");
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+void KCClient::loadRepairs() {
+	this->load("/kcsapi/api_get_member/ndock");
 }
 
-void KCClient::requestConstructions() {
-	QNetworkReply *reply = this->call("/api_get_member/kdock");
-	if(reply) connect(reply, SIGNAL(finished()), SLOT(onRequestFinished()));
+void KCClient::loadConstructions() {
+	this->load("/kcsapi/api_get_member/kdock");
 }
 
 void KCClient::onDockCompleted() {
@@ -107,44 +90,26 @@ void KCClient::onMissionCompleted() {
 	emit missionCompleted(qobject_cast<KCFleet*>(QObject::sender()));
 }
 
-QNetworkReply* KCClient::call(QString endpoint, QUrlQuery params) {
-#if kClientUseCache
-	QFile file(QString("cache%1.json").arg(endpoint));
+void KCClient::load(QString endpoint, int page) {
+	QString cacheDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+	
+	QString path(cacheDir + "/userdata" + endpoint);
+	if(page != 0) path += "__" + QString::number(page);
+	path += ".json";
+	
+	QFile file(path);
 	if(file.open(QIODevice::ReadOnly)) {
-		qDebug() << "Loading Fixture:" << endpoint;
-		QVariant response = this->dataFromRawResponse(file.readAll());
-
-		callPFunc(endpoint, response);
-
-		return 0;
-	}
-#endif
-	QNetworkRequest request(this->urlForEndpoint(endpoint));
-	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-	request.setRawHeader("Referer", QString("http://%1/kcs/Core.swf?version=2.0.0").arg(server).toUtf8());
-	request.setRawHeader("User-Agent", QString("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0").toUtf8());
-
-	params.addQueryItem("api_verno", "1");
-	params.addQueryItem("api_token", apiToken);
-	QString query = params.toString(QUrl::FullyEncoded);
-
-	return manager->post(request, query.toUtf8());
-}
-
-void KCClient::onRequestFinished() {
-	QNetworkReply *reply = qobject_cast<QNetworkReply*>(QObject::sender());
-	if(reply->error() == QNetworkReply::NoError) {
 		ErrorCode error;
-		QVariant data = this->dataFromRawResponse(reply->readAll(), &error);
-		if(data.isValid()) callPFunc(reply->url().path(), data);
-		else { qDebug() << reply->request().url() << error; emit requestError(error); }
-	} else if(reply->error() == QNetworkReply::UnknownNetworkError) {
-		qWarning() << "Connection Failed:" << reply->errorString();
+		QVariant data = this->dataFromRawResponse(file.readAll(), &error);
+		if(data.isValid()) {
+			callPFunc(endpoint, data);
+		} else {
+			qDebug() << "Error loading" << endpoint << ":" << error;
+			emit requestError(error);
+		}
+	} else {
+		qDebug() << "Couldn't open" << endpoint << "(" << path << "):" << file.error();
 	}
-}
-
-QUrl KCClient::urlForEndpoint(QString endpoint) {
-	return QUrl(QString("http://%1/kcsapi%2").arg(server, endpoint));
 }
 
 QVariant KCClient::dataFromRawResponse(QString text, ErrorCode *error) {

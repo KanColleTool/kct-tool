@@ -137,7 +137,7 @@ void KCMainWindow::_setupClient()
 	connect(client, SIGNAL(dockCompleted(KCDock *)), SLOT(onDockCompleted(KCDock *)));
 	connect(client, SIGNAL(missionCompleted(KCFleet*)), SLOT(onMissionCompleted(KCFleet*)));
 
-	client->safeShipTypes();
+	client->loadMasterData();
 
 	QSettings settings;
 	if(settings.value("usenetwork", kDefaultUseNetwork).toBool()) {
@@ -149,7 +149,7 @@ void KCMainWindow::_setupClient()
 				qApp->quit();
 		} else {
 			qDebug() << "Credentials Gained";
-			client->safeShipTypes();
+			client->loadMasterData();
 			this->on_refreshButton_clicked();
 		}
 	}
@@ -1060,13 +1060,10 @@ void KCMainWindow::on_actionRefresh_triggered()
 			return;
 	}
 
-	if(!client->admiral)
-		client->requestAdmiral();
-	else
-		client->requestPort();
-	
-	client->requestRepairs();
-	client->requestConstructions();
+	client->loadAdmiral();
+	client->loadPort();
+	client->loadRepairs();
+	client->loadConstructions();
 }
 
 void KCMainWindow::on_refreshButton_clicked()

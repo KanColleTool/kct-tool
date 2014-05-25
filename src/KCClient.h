@@ -49,6 +49,15 @@ public:
 
 	bool hasCredentials();
 
+public slots:
+	void setCredentials(QString server, QString apiToken);
+	
+	void loadMasterData();
+	void loadAdmiral();
+	void loadPort();
+	void loadRepairs();
+	void loadConstructions();
+
 signals:
 	void focusRequested();
 
@@ -64,28 +73,14 @@ signals:
 	void dockCompleted(KCDock *dock);
 	void missionCompleted(KCFleet *fleet);
 
-public slots:
-	void setCredentials(QString server, QString apiToken);
-
-	void safeShipTypes();
-	void requestAdmiral();
-	void requestPort();
-	void requestRepairs();
-	void requestConstructions();
-
 protected slots:
-	void onRequestFinished();
-
 	void onDockCompleted();
 	void onDockShipChanged();
 	void onMissionCompleted();
 
 protected:
-	QNetworkReply* call(QString endpoint, QUrlQuery params = QUrlQuery());
-	QUrl urlForEndpoint(QString endpoint);
+	void load(QString endpoint, int page = 0);
 	QVariant dataFromRawResponse(QString text, ErrorCode *error = 0);
-
-	QNetworkAccessManager *manager;
 
 private:
 	static const std::map<QString, processFunc> processFuncs;
