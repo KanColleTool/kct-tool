@@ -10,6 +10,7 @@ before_install:
 install:
   - sudo apt-get install -qq g++-4.8
   - sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 script:
   - "qmake -spec linux-${CXX} && make"
   - "cd test && qmake -spec linux-${CC} && make check"
