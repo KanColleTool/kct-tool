@@ -40,8 +40,8 @@ bool KCMainWindow::init()
 
 	// Always start at the "No Network" page
 	ui->stackedWidget->setCurrentWidget(ui->noNetworkPage);
-	ui->topContainer->hide();
-	ui->toolBar->hide();
+	//ui->topContainer->hide();
+	//ui->toolBar->hide();
 
 	// Setup settings and stuff
 	connect(&expeditionReminderTimer, SIGNAL(timeout()), this, SLOT(onExpeditionReminderTimeout()));
@@ -650,10 +650,7 @@ void KCMainWindow::updateTimers()
 						KCShip *ship = client->ships[fleet->ships[i]];
 						KCShipType *type = client->shipTypes[ship->type];
 						busy = true;
-						if(type)
-							status = QString(tr("%1 is taking a bath")).arg(translateName(type->name));
-						else
-							status = tr("(Loading...) is taking a bath");
+						status = QString(tr("%1 is taking a bath")).arg(translateName(type ? type->name : tr("(Loading...)")));
 						dT = dT2;
 					}
 				}
