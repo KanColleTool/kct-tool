@@ -737,6 +737,7 @@ void KCMainWindow::updateSettingThings()
 
 void KCMainWindow::loadData()
 {
+	client->loadMasterData();
 	client->loadAdmiral();
 	client->loadPort();
 	client->loadRepairs();
