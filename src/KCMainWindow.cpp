@@ -274,9 +274,6 @@ void KCMainWindow::_setupUI()
 
 		// Make the tabs point downwards
 		ui->fleetsTabBar->setShape(QTabBar::RoundedSouth);
-
-		// Add a tab for Fleet 1, the only fleet we can be sure is there
-		ui->fleetsTabBar->addTab(tr("Fleet %1").arg("1"));
 	}
 
 	// Set up the Constructions page
