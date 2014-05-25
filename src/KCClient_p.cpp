@@ -110,7 +110,21 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_req_kaisou/powerup", 0 }, // Modernization
 	{ "/kcsapi/api_req_kaisou/remodeling", 0 },
 	{ "/kcsapi/api_req_kaisou/slotset", 0 }, // Equip an item
-	{ "/kcsapi/api_req_hokyu/charge", 0 }, // TODO (Resupplying)
+	{ "/kcsapi/api_req_hokyu/charge",
+		pf {
+		  QVariantMap map = data.toMap();
+		  for(QVariant it : map.value("api_ship").toList())
+		  {
+			  QVariantMap shipMap = it.toMap();
+			  KCShip *ship = client->ships[shipMap.value("api_id").toInt()];
+			  if(ship)
+			  {
+				  ship->fuel = shipMap.value("api_fuel").toInt();
+				  ship->ammo = shipMap.value("api_bull").toInt();
+			  }
+		  }
+	  }
+	}, // Resupplying
 	{ "/kcsapi/api_req_hensei/change", 0 }, // Swap out ships
 	{ "/kcsapi/api_req_nyukyo/start", 0 }, // Start a bath
 	{ "/kcsapi/api_req_nyukyo/speedchange", 0 }, // Buckets are cool
