@@ -437,7 +437,7 @@ void KCMainWindow::updateFleetsPage()
 			QLabel *condLabel = findChild<QLabel*>(QString("fleetCond") + iS);
 			
 			if(ship->hp.cur < ship->hp.max)
-				hpBar->setToolTip(QString(tr("Repair Time: %1, Repair Cost: %2 Steel, %3 Fuel")).arg(ship->repairTime.toString("H:mm:ss"), QString::number(ship->repairCost.steel), QString::number(ship->repairCost.fuel)));
+				hpBar->setToolTip(tr("Repair Time: %1, Repair Cost: %2 Steel, %3 Fuel").arg(ship->repairTime.toString("H:mm:ss"), QString::number(ship->repairCost.steel), QString::number(ship->repairCost.fuel)));
 			else
 				hpBar->setToolTip(tr("Healthy"));
 
@@ -585,10 +585,7 @@ void KCMainWindow::updateConstructionsPage()
 			if(spoilCheckbox->isChecked())
 			{
 				KCShipType *ship = client->shipTypes[dock->shipID];
-				if(ship)
-					nameLabel->setText(translateName(ship->name));
-				else
-					nameLabel->setText(tr("(Loading...)"));
+				nameLabel->setText(ship ? translateName(ship->name) : tr("(Loading...)"));
 			}
 			else
 				nameLabel->setText(tr("???"));
@@ -626,7 +623,7 @@ void KCMainWindow::updateTimers()
 			if(fleet->mission.page > 0 && fleet->mission.no > 0 && fleet->mission.complete > QDateTime::currentDateTime())
 			{
 				busy = true;
-				status = QString(tr("Doing Expedition %1-%2")).arg(fleet->mission.page).arg(fleet->mission.no);
+				status = tr("Doing Expedition %1-%2").arg(fleet->mission.page).arg(fleet->mission.no);
 				dT = delta(fleet->mission.complete);
 			}
 
@@ -650,7 +647,7 @@ void KCMainWindow::updateTimers()
 						KCShip *ship = client->ships[fleet->ships[i]];
 						KCShipType *type = client->shipTypes[ship->type];
 						busy = true;
-						status = QString(tr("%1 is taking a bath")).arg(translateName(type ? type->name : tr("(Loading...)")));
+						status = tr("%1 is taking a bath").arg(type ? translateName(type->name) : tr("(Loading...)"));
 						dT = dT2;
 					}
 				}
@@ -899,14 +896,9 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 			if(client->constructionDocks[i] == dock)
 				spoil = findChild<QCheckBox*>(QString("constructionSpoil%1").arg(i+1))->isChecked();
 
-		if(type && spoil)
-			trayIcon->showMessage(
-				tr("Construction Completed!"),
-				tr("Say hello to %1!").arg(translateName(type->name)));
-		else
-			trayIcon->showMessage(
-				tr("Construction Completed!"),
-				tr("Say hello to your new shipgirl!"));
+		trayIcon->showMessage(
+			tr("Construction Completed!"),
+			tr("Say hello to %1!").arg((type && spoil) ? translateName(type->name) : tr("your new shipgirl")));
 
 		updateConstructionsPage();
 	} else {
@@ -915,14 +907,9 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 
 		if(ship) ship->hp.cur = ship->hp.max;
 
-		if(ship && type)
-			trayIcon->showMessage(
-				tr("Repair Completed!"),
-				tr("%1 is all healthy again!").arg(translateName(type->name)));
-		else
-			trayIcon->showMessage(
-				tr("Repair Completed!"),
-				tr("Your shipgirl is all healthy again!"));
+		trayIcon->showMessage(
+			tr("Repair Completed!"),
+			tr("%1 is all healthy again!").arg((ship && type) ? translateName(type->name) : tr("Your shipgirl")));
 
 		updateFleetsPage();
 		updateRepairsPage();
