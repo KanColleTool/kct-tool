@@ -42,7 +42,7 @@ list(APPEND CMAKE_CXX_FLAGS
 if(APPLE)
 	find_library(LIBOBJC objc)
 	find_library(CARBON Carbon)
-	set(KanColleTool_EXTRALIBS ${LIBOBJC} ${CARBON})
+	list(APPEND KanColleTool_EXTRALIBS ${LIBOBJC} ${CARBON})
 endif(APPLE)
 
 
@@ -56,8 +56,10 @@ file(GLOB KanColleTool_MAIN_CPP main.cpp)
 list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP})
 
 # Remove moc and uic files from the source list
-file(GLOB_RECURSE KanColleTool_MOCS moc_*.cpp *_automoc.cpp, ui_*.h)
-list(REMOVE_ITEM KanColleTool_SOURCES "${KanColleTool_MOCS}")
+file(GLOB KanColleTool_MOCS moc_*.cpp *_automoc.cpp ui_*.h)
+list(REMOVE_ITEM KanColleTool_SOURCES "" ${KanColleTool_MOCS})
+
+message("Sources: ${KanColleTool_SOURCES}")
 
 qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
 
