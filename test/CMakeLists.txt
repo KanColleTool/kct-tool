@@ -10,9 +10,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 include_directories("${PROJECT_SOURCE_DIR}/build")
 
+find_package(Qt5Core)
 find_package(Qt5Test)
-include_directories(${Qt5Test_INCLUDE_DIRS})
-add_definitions(${Qt5Test_DEFINITIONS})
+include_directories(${Qt5Core_INCLUDE_DIRS} ${Qt5Test_INCLUDE_DIRS})
+add_definitions(${Qt5Core_DEFINITIONS} ${Qt5Test_DEFINITIONS})
+message("Defs: ${Qt5Core_DEFINITIONS} ${Qt5Test_DEFINITIONS}")
 
 add_executable(KanColleToolTest KanColleToolTest.cpp KanColleToolTest.h)
 target_link_libraries(KanColleToolTest KCBase Qt5::Test)
