@@ -22,6 +22,10 @@ file(GLOB_RECURSE KanColleTool_SOURCES *.cpp *.h)
 file(GLOB KanColleTool_MAIN_CPP main.cpp)
 list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP})
 
+# Remove moc_* and *_automoc.cpp files from the source list
+file(GLOB_RECURSE KanColleTool_MOCS moc_*.cpp *_automoc.cpp)
+list(REMOVE_ITEM KanColleTool_SOURCES "${KanColleTool_MOCS}")
+
 if(APPLE)
 	find_library(LIBOBJC objc)
 	find_library(CARBON Carbon)
