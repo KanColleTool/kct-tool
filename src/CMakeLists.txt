@@ -13,10 +13,25 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 include_directories("${PROJECT_SOURCE_DIR}/lib/http-parser")
 
+
+
 find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
-message("QtCore Include Path: ${Qt5Core_INCLUDE_DIRS}")
+
+include_directories(
+	${Qt5Core_INCLUDE_DIRS}
+	${Qt5Widgets_INCLUDE_DIRS}
+	${Qt5Network_INCLUDE_DIRS}
+)
+
+if(APPLE)
+	find_library(LIBOBJC objc)
+	find_library(CARBON Carbon)
+	set(KanColleTool_EXTRALIBS ${LIBOBJC} ${CARBON})
+endif(APPLE)
+
+
 
 file(GLOB_RECURSE KanColleTool_FORMS ../forms/*.ui)
 file(GLOB_RECURSE KanColleTool_SOURCES *.cpp *.h)
@@ -26,12 +41,6 @@ list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP})
 # Remove moc_* and *_automoc.cpp files from the source list
 file(GLOB_RECURSE KanColleTool_MOCS moc_*.cpp *_automoc.cpp)
 list(REMOVE_ITEM KanColleTool_SOURCES "${KanColleTool_MOCS}")
-
-if(APPLE)
-	find_library(LIBOBJC objc)
-	find_library(CARBON Carbon)
-	set(KanColleTool_EXTRALIBS ${LIBOBJC} ${CARBON})
-endif(APPLE)
 
 qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
 
