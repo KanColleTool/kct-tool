@@ -11,6 +11,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 include_directories("${PROJECT_SOURCE_DIR}/build")
 
 find_package(Qt5Test)
+include_directories(${Qt5Test_INCLUDE_DIRS})
+add_definitions(${Qt5Test_DEFINITIONS})
 
 add_executable(KanColleToolTest KanColleToolTest.cpp KanColleToolTest.h)
 target_link_libraries(KanColleToolTest KCBase Qt5::Test)
