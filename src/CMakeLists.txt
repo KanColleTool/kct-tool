@@ -23,21 +23,21 @@ find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
 
-include_directories(
-	${Qt5Core_INCLUDE_DIRS}
-	${Qt5Widgets_INCLUDE_DIRS}
-	${Qt5Network_INCLUDE_DIRS}
-)
-add_definitions(
-	${Qt5Core_DEFINITIONS}
-	${Qt5Widgets_DEFINITIONS}
-	${Qt5Network_DEFINITIONS}
-)
-list(APPEND CMAKE_CXX_FLAGS
-	${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
-	${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}
-	${Qt5Network_EXECUTABLE_COMPILE_FLAGS}
-)
+#include_directories(
+#	${Qt5Core_INCLUDE_DIRS}
+#	${Qt5Widgets_INCLUDE_DIRS}
+#	${Qt5Network_INCLUDE_DIRS}
+#)
+#add_definitions(
+#	${Qt5Core_DEFINITIONS}
+#	${Qt5Widgets_DEFINITIONS}
+#	${Qt5Network_DEFINITIONS}
+#)
+#list(APPEND CMAKE_CXX_FLAGS
+#	${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
+#	${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}
+#	${Qt5Network_EXECUTABLE_COMPILE_FLAGS}
+#)
 
 if(APPLE)
 	find_library(LIBOBJC objc)
