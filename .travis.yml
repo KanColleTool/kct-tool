@@ -1,20 +1,18 @@
 language: cpp
 compiler: gcc
 cache: apt
-before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
-install:
-  - sudo apt-get install -qq g++-4.8
-  - sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+#before_install:
+  #- export DISPLAY=:99.0
+  #- sh -e /etc/init.d/xvfb start
+  #- sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+  #- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  #- sudo apt-get update -qq
+#install:
+  #- sudo apt-get install -qq g++-4.8
+  #- sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
+  #- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 script:
-  - ls -lA /usr/include/qt5/QtCore
-  - ls -lA /usr/include/qt5/
-  - ls -lA /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
-  - cmake .
-  - make all check
+  - cmake --version
+  #- cmake .
+  #- make all check
 
