@@ -23,21 +23,17 @@ find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
 
-#include_directories(
-#	${Qt5Core_INCLUDE_DIRS}
-#	${Qt5Widgets_INCLUDE_DIRS}
-#	${Qt5Network_INCLUDE_DIRS}
-#)
-#add_definitions(
-#	${Qt5Core_DEFINITIONS}
-#	${Qt5Widgets_DEFINITIONS}
-#	${Qt5Network_DEFINITIONS}
-#)
-#list(APPEND CMAKE_CXX_FLAGS
-#	${Qt5Core_EXECUTABLE_COMPILE_FLAGS}
-#	${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}
-#	${Qt5Network_EXECUTABLE_COMPILE_FLAGS}
-#)
+include_directories(
+	${Qt5Core_INCLUDE_DIRS}
+	${Qt5Widgets_INCLUDE_DIRS}
+	${Qt5Network_INCLUDE_DIRS}
+)
+add_definitions(
+	${Qt5Core_DEFINITIONS}
+	${Qt5Widgets_DEFINITIONS}
+	${Qt5Network_DEFINITIONS}
+)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} ${Qt5Network_EXECUTABLE_COMPILE_FLAGS}")
 
 if(APPLE)
 	find_library(LIBOBJC objc)
@@ -58,8 +54,6 @@ list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP})
 # Remove moc and uic files from the source list
 file(GLOB KanColleTool_MOCS moc_*.cpp *_automoc.cpp ui_*.h)
 list(REMOVE_ITEM KanColleTool_SOURCES "" ${KanColleTool_MOCS})
-
-message("Sources: ${KanColleTool_SOURCES}")
 
 qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
 
