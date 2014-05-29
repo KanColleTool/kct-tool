@@ -16,6 +16,7 @@ include_directories("${PROJECT_SOURCE_DIR}/lib/http-parser")
 find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
+message("QtCore Include Path: ${Qt5Core_INCLUDE_DIRS}")
 
 file(GLOB_RECURSE KanColleTool_FORMS ../forms/*.ui)
 file(GLOB_RECURSE KanColleTool_SOURCES *.cpp *.h)
