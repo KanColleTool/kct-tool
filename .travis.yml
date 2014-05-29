@@ -1,7 +1,5 @@
 language: cpp
-compiler:
-  - gcc
-  - clang
+compiler: gcc
 cache: apt
 before_install:
   - export DISPLAY=:99.0
