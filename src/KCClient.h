@@ -1,6 +1,7 @@
 #ifndef KCCLIENT_H
 #define KCCLIENT_H
 
+#include <functional>
 #include <QObject>
 #include <QJsonValue>
 #include <QUrlQuery>
