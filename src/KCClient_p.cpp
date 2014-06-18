@@ -1,4 +1,7 @@
 #include "KCClient.h"
+#include <functional>
+#include <map>
+#include <QString>
 
 #define pf [](KCClient *client, const QVariant &data)
 
