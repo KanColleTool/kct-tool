@@ -12,6 +12,13 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/build")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 
+# These three are managed by the version bump script!
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 9)
+set(VERSION_PATCH 2)
+
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
 
 
 #
@@ -78,5 +85,21 @@ target_link_libraries(KCBase
 #
 # --> Build the main application
 #
+
+# On OSX, make a custom Info.plist
+if(APPLE)
+	set(APPLE_GUI_EXECUTABLE "KanColleTool")
+	set(APPLE_GUI_BUNDLE_NAME "KanColleTool")
+	set(APPLE_GUI_COPYRIGHT "© 2013-2014 the KanColleTool team")
+	set(APPLE_GUI_ICON "KanColleTool.icns")
+	set(APPLE_GUI_IDENTIFIER "com.kancolletool.KanColleTool")
+	set(APPLE_GUI_SHORT_VERSION_STRING "${VERSION}")
+	set(APPLE_GUI_BUNDLE_VERSION "${VERSION}")
+	
+	configure_file(../Info.plist.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
+endif(APPLE)
+
 add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP})
 target_link_libraries(KanColleTool KCBase)
+set_target_properties(KanColleTool PROPERTIES
+	MACOSX_BUNDLE_INFO_PLIST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
