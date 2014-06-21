@@ -3,6 +3,7 @@
 # its sources. This would be stupid and roundabout if it wasn't for how it also
 # lets us share code between application and unit tests with no extra effort.
 # 
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
@@ -14,6 +15,15 @@ set(VERSION_MINOR 9)
 set(VERSION_PATCH 2)
 
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+# Info.plist values
+set(APPLE_GUI_EXECUTABLE "KanColleTool")
+set(APPLE_GUI_BUNDLE_NAME "KanColleTool")
+set(APPLE_GUI_COPYRIGHT "© 2013-2014 the KanColleTool team")
+set(APPLE_GUI_ICON "KanColleTool.icns")
+set(APPLE_GUI_IDENTIFIER "com.kancolletool.KanColleTool")
+set(APPLE_GUI_SHORT_VERSION_STRING "${VERSION}")
+set(APPLE_GUI_BUNDLE_VERSION "${VERSION}")
 
 
 
@@ -82,20 +92,17 @@ target_link_libraries(KCBase
 # --> Build the main application
 #
 
-# On OSX, make a custom Info.plist
 if(APPLE)
-	set(APPLE_GUI_EXECUTABLE "KanColleTool")
-	set(APPLE_GUI_BUNDLE_NAME "KanColleTool")
-	set(APPLE_GUI_COPYRIGHT "© 2013-2014 the KanColleTool team")
-	set(APPLE_GUI_ICON "KanColleTool.icns")
-	set(APPLE_GUI_IDENTIFIER "com.kancolletool.KanColleTool")
-	set(APPLE_GUI_SHORT_VERSION_STRING "${VERSION}")
-	set(APPLE_GUI_BUNDLE_VERSION "${VERSION}")
-	
+	# Make a custom Info.plist
 	configure_file(../Info.plist.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
+	
+	# Copy bundle resources
+	set_source_files_properties(../resources/KanColleTool.icns PROPERTIES
+		MACOSX_PACKAGE_LOCATION "Resources")
+	set(KanColleTool_EXTRASOURCES "../resources/KanColleTool.icns")
 endif(APPLE)
 
-add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP})
+add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanColleTool_EXTRASOURCES})
 target_link_libraries(KanColleTool KCBase)
 set_target_properties(KanColleTool PROPERTIES
 	MACOSX_BUNDLE_INFO_PLIST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
