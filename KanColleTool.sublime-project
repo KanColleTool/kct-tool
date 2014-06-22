@@ -3,8 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build" ],
-			"file_exclude_patterns": [ ".qmake.stash", "*.o", "moc_*.cpp", "ui_*.h", "qrc_*.cpp" ]
+			"folder_exclude_patterns": [ "*.xcodeproj", "cache", "bin", "build", "__", "CMakeFiles", "Testing" ],
+			"file_exclude_patterns": [ "Makefile", "CMakeCache.txt", "cmake_install.cmake", "CTestTestfile.cmake", "*automoc.cpp", "*.o", "moc_*.cpp", "ui_*.h", "qrc_*.cpp", "*.swp" ]
 		}
 	]
 }
