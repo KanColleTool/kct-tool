@@ -11,6 +11,8 @@ if(NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 endif(NOT WIN32)
 
+
+
 # These three are managed by the version bump script!
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 9)
@@ -38,23 +40,9 @@ find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
 
-include_directories(
-	${Qt5Core_INCLUDE_DIRS}
-	${Qt5Widgets_INCLUDE_DIRS}
-	${Qt5Network_INCLUDE_DIRS}
-)
-add_definitions(
-	${Qt5Core_DEFINITIONS}
-	${Qt5Widgets_DEFINITIONS}
-	${Qt5Network_DEFINITIONS}
-)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Core_EXECUTABLE_COMPILE_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} ${Qt5Network_EXECUTABLE_COMPILE_FLAGS}")
-
-if(APPLE)
-	find_library(LIBOBJC objc)
-	find_library(CARBON Carbon)
-	list(APPEND KanColleTool_EXTRALIBS ${LIBOBJC} ${CARBON})
-endif(APPLE)
+if(WIN32)
+	find_package(Qt5WinExtras)
+endif(WIN32)
 
 
 
@@ -78,22 +66,24 @@ qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
 #
 # --> Build the common library
 #
-add_library(KCBase
-	${KanColleTool_SOURCES}
-	${KanColleTool_UIHEADERS}
-	${PROJECT_SOURCE_DIR}/lib/http-parser/http_parser.c
-)
-target_link_libraries(KCBase
-	Qt5::Core Qt5::Widgets Qt5::Network
-	${KanColleTool_EXTRALIBS}
-)
+add_library(KCBase ${KanColleTool_SOURCES} ${KanColleTool_UIHEADERS} ${PROJECT_SOURCE_DIR}/lib/http-parser/http_parser.c)
+target_link_libraries(KCBase Qt5::Core Qt5::Widgets Qt5::Network)
+
+if(APPLE)
+	find_library(LIBOBJC objc)
+	find_library(CARBON Carbon)
+	target_link_libraries(KCBase ${LIBOBJC} ${CARBON})
+endif(APPLE)
+
+if(WIN32)
+	target_link_libraries(KCBase Qt5::WinExtras)
+endif(WIN32)
 
 
 
 #
 # --> Build the main application
 #
-
 if(APPLE)
 	# Make a custom Info.plist
 	configure_file(../Info.plist.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)

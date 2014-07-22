@@ -27,7 +27,7 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 		}
 	},
 
-	{ "/kcsapi/api_req_member/get_incentive", 0 }, // Login
+	{ "/kcsapi/api_req_member/get_incentive", nullptr }, // Login
 	{ "/kcsapi/api_start2",
 		pf {
 			QVariantMap map = data.toMap();
@@ -49,15 +49,17 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			emit client->receivedShipTypes();
 		}
 	},
-	{ "/kcsapi/api_get_master/stype", 0 }, // Ship types
-	{ "/kcsapi/api_get_master/slotitem", 0 },	// Items
-	{ "/kcsapi/api_get_master/furniture", 0 }, // Furniture
-	{ "/kcsapi/api_get_master/mission", 0 }, // Expeditions
+	{ "/kcsapi/api_get_master/stype", nullptr }, // Ship types
+	{ "/kcsapi/api_get_master/slotitem", nullptr },	// Items
+	{ "/kcsapi/api_get_master/furniture", nullptr }, // Furniture
+	{ "/kcsapi/api_get_master/mission", nullptr }, // Expeditions
+	
 	//  Sortie maps
-	{ "/kcsapi/api_get_master/mapinfo", 0 },
-	{ "/kcsapi/api_get_master/mapcell", 0 },
+	{ "/kcsapi/api_get_master/mapinfo", nullptr },
+	{ "/kcsapi/api_get_master/mapcell", nullptr },
+	
 	// ???
-	{ "/kcsapi/api_get_master/maparea", 0 },
+	{ "/kcsapi/api_get_master/maparea", nullptr },
 
 	// Member info -------------------------------------------------------------
 	{ "/kcsapi/api_get_member/basic", 
@@ -71,11 +73,13 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			emit client->receivedAdmiral();
 		}
 	},
-	{ "/kcsapi/api_get_member/record", 0 },
+	{ "/kcsapi/api_get_member/record", nullptr },
+	
 	//  Items
-	{ "/kcsapi/api_get_member/slotitem", 0 }, // Current items
-	{ "/kcsapi/api_get_member/unsetslot", 0 }, // Remove item
-	{ "/kcsapi/api_get_member/useitem", 0 },
+	{ "/kcsapi/api_get_member/slotitem", nullptr }, // Current items
+	{ "/kcsapi/api_get_member/unsetslot", nullptr }, // Remove item
+	{ "/kcsapi/api_get_member/useitem", nullptr },
+	
 	// ALL OF THE DATA
 	{ "/kcsapi/api_port/port",
 		pf {
@@ -88,12 +92,14 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			emit client->receivedShips();
 		}
 	},
+	
 	// Ships
 	{ "/kcsapi/api_get_member/ship2",
 		pf {
 		  modelizeResponse(data, client->ships, client);
 	  }
 	},
+	
 	//  Various statuses
 	{ "/kcsapi/api_get_member/ndock", // Repair Docks
 		pf {
@@ -107,15 +113,17 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			emit client->receivedConstructions();
 		}
 	},
+	
 	//  Quests
-	{ "/kcsapi/api_get_member/questlist", 0 },
-	{ "/kcsapi/api_req_quest/start", 0 }, // Start tracking
-	{ "/kcsapi/api_req_quest/stop", 0 }, // Stop tracking
-	{ "/kcsapi/api_req_quest/clearitemget", 0 }, // Finish quest
+	{ "/kcsapi/api_get_member/questlist", nullptr },
+	{ "/kcsapi/api_req_quest/start", nullptr }, // Start tracking
+	{ "/kcsapi/api_req_quest/stop", nullptr }, // Stop tracking
+	{ "/kcsapi/api_req_quest/clearitemget", nullptr }, // Finish quest
+	
 	//  Actions
-	{ "/kcsapi/api_req_kaisou/powerup", 0 }, // Modernization
-	{ "/kcsapi/api_req_kaisou/remodeling", 0 },
-	{ "/kcsapi/api_req_kaisou/slotset", 0 }, // Equip an item
+	{ "/kcsapi/api_req_kaisou/powerup", nullptr }, // Modernization
+	{ "/kcsapi/api_req_kaisou/remodeling", nullptr },
+	{ "/kcsapi/api_req_kaisou/slotset", nullptr }, // Equip an item
 	{ "/kcsapi/api_req_hokyu/charge",
 		pf {
 		  QVariantMap map = data.toMap();
@@ -131,36 +139,41 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 		  }
 	  }
 	}, // Resupplying
-	{ "/kcsapi/api_req_hensei/change", 0 }, // Swap out ships
-	{ "/kcsapi/api_req_nyukyo/start", 0 }, // Start a bath
-	{ "/kcsapi/api_req_nyukyo/speedchange", 0 }, // Buckets are cool
-	{ "/kcsapi/api_req_kousyou/createship", 0 },
-	{ "/kcsapi/api_req_kousyou/createship_speedchange", 0 }, // FLAME
-	{ "/kcsapi/api_req_kousyou/getship", 0 }, // Finish construction
-	{ "/kcsapi/api_req_kousyou/destroyship", 0 },
-	{ "/kcsapi/api_req_kousyou/createitem", 0 },
-	{ "/kcsapi/api_req_kousyou/destroyitem2", 0 },
-	{ "/kcsapi/api_get_member/actionlog", 0 },
+	{ "/kcsapi/api_req_hensei/change", nullptr }, // Swap out ships
+	{ "/kcsapi/api_req_nyukyo/start", nullptr }, // Start a bath
+	{ "/kcsapi/api_req_nyukyo/speedchange", nullptr }, // Buckets are cool
+	{ "/kcsapi/api_req_kousyou/createship", nullptr },
+	{ "/kcsapi/api_req_kousyou/createship_speedchange", nullptr }, // FLAME
+	{ "/kcsapi/api_req_kousyou/getship", nullptr }, // Finish construction
+	{ "/kcsapi/api_req_kousyou/destroyship", nullptr },
+	{ "/kcsapi/api_req_kousyou/createitem", nullptr },
+	{ "/kcsapi/api_req_kousyou/destroyitem2", nullptr },
+	{ "/kcsapi/api_get_member/actionlog", nullptr },
+	
 	//  Furniture
-	{ "/kcsapi/api_req_furniture/change", 0 },
-	{ "/kcsapi/api_get_member/furniture", 0 },
+	{ "/kcsapi/api_req_furniture/change", nullptr },
+	{ "/kcsapi/api_get_member/furniture", nullptr },
+	
 	//  Store
-	{ "/kcsapi/api_get_master/payitem", 0 }, // Load the pay shop
-	{ "/kcsapi/api_req_furniture/buy", 0 },
+	{ "/kcsapi/api_get_master/payitem", nullptr }, // Load the pay shop
+	{ "/kcsapi/api_req_furniture/buy", nullptr },
+	
 	// ???
-	{ "/kcsapi/api_get_member/deck_port", 0 },
-	{ "/kcsapi/api_get_master/useitem", 0 },
+	{ "/kcsapi/api_get_member/deck_port", nullptr },
+	{ "/kcsapi/api_get_master/useitem", nullptr },
 
 	// Battle info -------------------------------------------------------------
+	
 	//  Expeditions
-	{ "/kcsapi/api_req_mission/start", 0 },
-	{ "/kcsapi/api_req_mission/result", 0 },
+	{ "/kcsapi/api_req_mission/start", nullptr },
+	{ "/kcsapi/api_req_mission/result", nullptr },
+	
 	//  Sorties
-	{ "/kcsapi/api_req_map/start", 0 }, // Start a sortie
-	{ "/kcsapi/api_req_map/next", 0 }, // Next cell to go to
-	{ "/kcsapi/api_req_sortie/battle", 0 },
-	{ "/kcsapi/api_req_battle_midnight/battle", 0 },
-	{ "/kcsapi/api_req_sortie/battleresult", 0 },
+	{ "/kcsapi/api_req_map/start", nullptr }, // Start a sortie
+	{ "/kcsapi/api_req_map/next", nullptr }, // Next cell to go to
+	{ "/kcsapi/api_req_sortie/battle", nullptr },
+	{ "/kcsapi/api_req_battle_midnight/battle", nullptr },
+	{ "/kcsapi/api_req_sortie/battleresult", nullptr },
 	/*	pf {
 			Q_UNUSED(client);
 			//Q_UNUSED(data);
@@ -174,13 +187,14 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 			client->logger->logDrop(ship, world, map);
 		}
 	},*/
+	
 	//  Practice
-	{ "/kcsapi/api_get_member/practice", 0 },
-	{ "/kcsapi/api_req_member/getothersdeck", 0 },
-	{ "/kcsapi/api_req_practice/battle", 0 },
-	{ "/kcsapi/api_req_practice/midnight_battle", 0 },
-	{ "/kcsapi/api_req_practice/battle_result", 0 },
+	{ "/kcsapi/api_get_member/practice", nullptr },
+	{ "/kcsapi/api_req_member/getothersdeck", nullptr },
+	{ "/kcsapi/api_req_practice/battle", nullptr },
+	{ "/kcsapi/api_req_practice/midnight_battle", nullptr },
+	{ "/kcsapi/api_req_practice/battle_result", nullptr },
 
 	// Miscellaneous ------------------------------------------------------------
-	{ "/kcsapi/api_auth_member/logincheck", 0 },
+	{ "/kcsapi/api_auth_member/logincheck", nullptr }
 };

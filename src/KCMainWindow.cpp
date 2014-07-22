@@ -1,12 +1,5 @@
 #include "KCMainWindow.h"
 #include "ui_KCMainWindow.h"
-#include <QInputDialog>
-#include <QMessageBox>
-#include <QShortcut>
-#include <QSettings>
-#include <QUrl>
-#include <QUrlQuery>
-#include <QDebug>
 #include "KCSettingsDialog.h"
 #include "KCTranslator.h"
 #include "KCShipType.h"
@@ -15,6 +8,15 @@
 #include "KCMacUtils.h"
 #include "KCUtil.h"
 #include "KCDefaults.h"
+
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QPainter>
+#include <QShortcut>
+#include <QSettings>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QDebug>
 
 #ifdef Q_OS_WIN
 	#include <QtWinExtras>
