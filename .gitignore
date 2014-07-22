@@ -33,3 +33,4 @@ moc_*
 
 /bin/
 /build/
+*.dir
