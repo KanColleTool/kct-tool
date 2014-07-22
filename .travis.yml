@@ -12,6 +12,5 @@ install:
   - sudo apt-get install -qq qt5-qmake qtdeclarative5-dev qt5-default
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
 script:
-  - cmake .
-  - make all check
-
+  - cmake -G "Unix Makefiles" .
+  - make all check_tool
