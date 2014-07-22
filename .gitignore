@@ -13,10 +13,14 @@ xcuserdata
 *.swp
 [#]*[#]
 .\#*
+*.vcxproj
+*.vcxproj.*
+*.sln
 
 # CMake stuff
 CMakeCache.txt
 CMakeFiles
+CTestTestfile.cmake
 cmake_install.cmake
 *_automoc.cpp
 /Testing
