@@ -28,6 +28,6 @@ endif()
 
 
 
-set_property(TARGET KanColleTool PROPERTY FOLDER "Executables")
-set_property(TARGET KCBase PROPERTY FOLDER "Libraries")
+set_property(TARGET KanColleTool PROPERTY FOLDER "Tool")
+set_property(TARGET KCBase PROPERTY FOLDER "Tool")
 set_property(TARGET KanColleToolTest PROPERTY FOLDER "Tests")
