@@ -2,6 +2,7 @@
 #define KCSHIPMASTER_H
 
 #include "KCGameObject.h"
+
 #include <QObject>
 #include <QVariant>
 

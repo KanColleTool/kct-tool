@@ -6,7 +6,6 @@
 #include <QUrl>
 #include <QString>
 #include <QHash>
-
 #include <http_parser.h>
 
 class KCToolServer;

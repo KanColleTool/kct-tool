@@ -2,6 +2,7 @@
 #define KCSHIP_H
 
 #include "KCGameObject.h"
+
 #include <QObject>
 #include <QVariant>
 #include <QMap>

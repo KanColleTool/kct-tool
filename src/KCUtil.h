@@ -1,10 +1,11 @@
 #ifndef KCUTIL_H
 #define KCUTIL_H
 
+#include "crc32_tab.h"
+
 #include <QString>
 #include <QRegularExpression>
 #include <QTime>
-#include "crc32_tab.h"
 
 /*
  * Standard CRC32 function, based on the one in the Mac OS X Kernel.

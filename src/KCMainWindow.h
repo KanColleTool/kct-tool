@@ -1,6 +1,9 @@
 #ifndef KCMAINWINDOW_H
 #define KCMAINWINDOW_H
 
+#include "KCClient.h"
+#include "KCToolServer.h"
+
 #include <QMainWindow>
 #include <QMenu>
 #include <QSystemTrayIcon>
@@ -8,8 +11,6 @@
 #include <QPointer>
 #include <QTimer>
 #include <QNetworkAccessManager>
-#include "KCClient.h"
-#include "KCToolServer.h"
 
 namespace Ui {
 	class KCMainWindow;

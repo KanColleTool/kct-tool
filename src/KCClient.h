@@ -1,18 +1,19 @@
 #ifndef KCCLIENT_H
 #define KCCLIENT_H
 
+#include "KCAdmiral.h"
+#include "KCShipType.h"
+#include "KCShip.h"
+#include "KCFleet.h"
+#include "KCDock.h"
+
 #include <QObject>
 #include <QJsonValue>
 #include <QUrlQuery>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
-
-#include "KCAdmiral.h"
-#include "KCShipType.h"
-#include "KCShip.h"
-#include "KCFleet.h"
-#include "KCDock.h"
+#include <functional>
 
 class KCToolServer;
 class KCClient : public QObject
