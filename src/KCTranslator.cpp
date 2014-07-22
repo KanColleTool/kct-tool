@@ -1,4 +1,7 @@
 #include "KCTranslator.h"
+#include "KCUtil.h"
+#include "KCDefaults.h"
+
 #include <QMutex>
 #include <QUrl>
 #include <QByteArray>
@@ -8,8 +11,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QDebug>
-#include "KCUtil.h"
-#include "KCDefaults.h"
 
 KCTranslator* KCTranslator::m_instance = 0;
 
