@@ -1,4 +1,9 @@
 #include "KCClient.h"
+#include "KCShip.h"
+#include "KCShipType.h"
+#include "KCFleet.h"
+#include "KCUtil.h"
+
 #include <stdexcept>
 #include <QSettings>
 #include <QStandardPaths>
@@ -6,10 +11,6 @@
 #include <QJsonDocument>
 #include <QFile>
 #include <QDebug>
-#include "KCShip.h"
-#include "KCShipType.h"
-#include "KCFleet.h"
-#include "KCUtil.h"
 
 #define kClientUseCache 0
 

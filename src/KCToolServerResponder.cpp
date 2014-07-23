@@ -1,6 +1,7 @@
 #include "KCToolServerResponder.h"
 #include "KCToolServer.h"
 #include "KCClient.h"
+
 #include <QDebug>
 
 KCToolServerResponder::KCToolServerResponder(QTcpSocket *socket, KCToolServer *parent):

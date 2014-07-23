@@ -1,11 +1,6 @@
 # Hidden OS files
 .DS_Store
 
-# C++ and Qt Temporaries
-*.pro.user
-*.stash
-object_script*
-
 # Pods
 Pods
 
@@ -18,10 +13,28 @@ xcuserdata
 *.swp
 [#]*[#]
 .\#*
+*.vcxproj
+*.vcxproj.*
+*.sln
+
+# CMake stuff
+CMakeCache.txt
+CMakeFiles
+CTestTestfile.cmake
+cmake_install.cmake
+*_automoc.cpp
+/Testing
+__/
 
 # Built Products
 Makefile*
+moc_*.cpp
+qrc_*.cpp
 *.qm
+ui_*
+moc_*
+/src/version.h
 
 /build/
 /bin/
+*.dir

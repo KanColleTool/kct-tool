@@ -1,7 +1,8 @@
 #include "KCToolServer.h"
-#include <QTcpSocket>
 #include "KCClient.h"
 #include "KCToolServerResponder.h"
+
+#include <QTcpSocket>
 
 KCToolServer::KCToolServer(QObject *parent) :
 	QTcpServer(parent), client(0)

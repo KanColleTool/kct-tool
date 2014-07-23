@@ -1,6 +1,7 @@
 #include "KCShip.h"
-#include <QDebug>
 #include "KCShipType.h"
+
+#include <QDebug>
 
 KCShip::KCShip(const QVariantMap &data, int loadId, QObject *parent) :
 	KCGameObject(parent) {

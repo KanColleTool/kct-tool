@@ -1,6 +1,7 @@
 #include "KCDock.h"
 #include "KCUtil.h"
 #include "KCClient.h"
+
 #include <QDebug>
 #include <QRegExp>
 
