@@ -59,7 +59,7 @@ file(GLOB KanColleTool_MOCS moc_*.cpp *_automoc.cpp ui_*.h)
 list(REMOVE_ITEM KanColleTool_SOURCES "" ${KanColleTool_MOCS})
 
 qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
-qt5_add_resources(KanColleTool_RESOURCE_SOURCES ${KCTViewer_RESOURCES})
+qt5_add_resources(KanColleTool_RESOURCE_SOURCES ${KanColleTool_RESOURCES})
 
 
 
