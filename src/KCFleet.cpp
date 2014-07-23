@@ -34,21 +34,13 @@ void KCFleet::loadFrom(const QVariantMap &data, int loadId) {
 	extract(data, ships, 6, "api_ship");
 	extractCount(data, shipCount, "api_ship");
 
-	qDebug() << "page=" << mission.page << "no=" << mission.no << "complete=" << mission.complete << ">now?=" << (mission.complete > QDateTime::currentDateTime());
 	if(mission.page > 0 && mission.no > 0 && mission.complete > QDateTime::currentDateTime())
-	{
-		qDebug() << "-> Starting Mission Timer";
 		missionTimer.start(mission.complete.toMSecsSinceEpoch() - QDateTime::currentMSecsSinceEpoch());
-	}
 	else
-	{
-		qDebug() << "-> Stopping Mission Timer";
 		missionTimer.stop();
-	}
 }
 
 void KCFleet::onMissionTimeout()
 {
-	qDebug() << "KCFleet::onMissionTimeout()";
 	emit missionCompleted();
 }
