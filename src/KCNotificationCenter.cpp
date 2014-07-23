@@ -7,7 +7,6 @@ KCNotificationCenter& KCNotificationCenter::instance()
 	return _instance;
 }
 
-
 KCNotificationCenter::KCNotificationCenter(QObject *parent):
 	backend(QtDefault),
 	trayIcon(0)
