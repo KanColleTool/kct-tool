@@ -4,6 +4,7 @@
 KCFleet::KCFleet(const QVariantMap &data, int loadId, KCClient *parent) :
 	KCGameObject(parent) {
 	connect(this, SIGNAL(missionCompleted()), parent, SLOT(onMissionCompleted()));
+	connect(&missionTimer, SIGNAL(timeout()), this, SLOT(missionCompleted()));
 	missionTimer.setSingleShot(true);
 	loadFrom(data, loadId);
 }
