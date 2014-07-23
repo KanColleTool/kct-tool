@@ -8,6 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
+add_subdirectory(lib)
 add_subdirectory(src)
 add_subdirectory(test)
 enable_testing()
@@ -28,6 +29,6 @@ endif()
 
 
 
-set_property(TARGET KanColleTool PROPERTY FOLDER "Tool")
-set_property(TARGET KCBase PROPERTY FOLDER "Tool")
+set_property(TARGET KanColleTool KCBase PROPERTY FOLDER "Tool")
+set_property(TARGET KCSupport PROPERTY FOLDER "3rd Party")
 set_property(TARGET KanColleToolTest PROPERTY FOLDER "Tests")

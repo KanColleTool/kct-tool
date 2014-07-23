@@ -67,8 +67,8 @@ qt5_add_resources(KanColleTool_RESOURCE_SOURCES ${KanColleTool_RESOURCES})
 #
 # --> Build the common library
 #
-add_library(KCBase ${KanColleTool_SOURCES} ${KanColleTool_UIHEADERS} ${PROJECT_SOURCE_DIR}/lib/http-parser/http_parser.c)
-target_link_libraries(KCBase Qt5::Core Qt5::Widgets Qt5::Network)
+add_library(KCBase ${KanColleTool_SOURCES} ${KanColleTool_UIHEADERS})
+target_link_libraries(KCBase KCSupport Qt5::Core Qt5::Widgets Qt5::Network)
 
 if(APPLE)
 	find_library(LIBOBJC objc)
