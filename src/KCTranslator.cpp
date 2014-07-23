@@ -2,7 +2,6 @@
 #include "KCUtil.h"
 #include "KCDefaults.h"
 
-#include <QMutex>
 #include <QUrl>
 #include <QByteArray>
 #include <QJsonDocument>
@@ -12,35 +11,21 @@
 #include <QNetworkReply>
 #include <QDebug>
 
-KCTranslator* KCTranslator::m_instance = 0;
-
-// -- Singleton Instance
-KCTranslator* KCTranslator::instance()
+KCTranslator& KCTranslator::instance()
 {
-	static QMutex mutex;
-	if(!m_instance)
-	{
-		mutex.lock();
-		if(!m_instance)
-			m_instance = new KCTranslator;
-		mutex.unlock();
-	}
-
-	return m_instance;
+	static KCTranslator _instance;
+	return _instance;
 }
-// --
-
-
 
 KCTranslator::KCTranslator(QObject *parent):
 	QObject(parent)
 {
-
+	
 }
 
 KCTranslator::~KCTranslator()
 {
-
+	
 }
 
 QString KCTranslator::translate(const QString &line) const
@@ -79,7 +64,7 @@ void KCTranslator::translationRequestFinished()
 		return;
 	}
 	QByteArray body(reply->readAll());
-
+	
 	// Parse the JSON
 	QJsonParseError error;
 	QJsonDocument doc(QJsonDocument::fromJson(body, &error));
@@ -89,7 +74,7 @@ void KCTranslator::translationRequestFinished()
 		return;
 	}
 	QJsonObject root(doc.object());
-
+	
 	// Check the response
 	int success = (int) root.value("success").toDouble();
 	if(success != 1)
@@ -97,9 +82,9 @@ void KCTranslator::translationRequestFinished()
 		emit loadFailed(QString("API Error %1").arg(success));
 		return;
 	}
-
+	
 	// Parse the translation data
 	translation = root.value("translation").toObject().toVariantMap();
-
+	
 	emit loadFinished();
 }

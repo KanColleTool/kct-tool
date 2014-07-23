@@ -11,7 +11,7 @@ class KCTranslator : public QObject
 	Q_OBJECT
 
 public:
-	static KCTranslator* instance();
+	static KCTranslator& instance();
 
 public slots:
 	QString translate(const QString &line) const;
@@ -31,15 +31,12 @@ private:
 
 private:
 	// Singleton stuff
-	static KCTranslator *m_instance;
-
 	KCTranslator(QObject *parent = 0);
 	KCTranslator(const KCTranslator&);
-	virtual ~KCTranslator();
-
 	KCTranslator& operator=(const KCTranslator&);
+	virtual ~KCTranslator();
 };
 
-#define kcTranslate(_line) (KCTranslator::instance()->translate(_line))
+#define kcTranslate(_line) (KCTranslator::instance().translate(_line))
 
 #endif

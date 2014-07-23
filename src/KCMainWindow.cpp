@@ -51,10 +51,10 @@ bool KCMainWindow::init()
 	this->updateSettingThings();
 
 	// Load the translation
-	KCTranslator *tl = KCTranslator::instance();
-	connect(tl, SIGNAL(loadFinished()), this, SLOT(onTranslationLoadFinished()));
-	connect(tl, SIGNAL(loadFailed(QString)), this, SLOT(onTranslationLoadFailed(QString)));
-	tl->loadTranslation();
+	KCTranslator &tl = KCTranslator::instance();
+	connect(&tl, SIGNAL(loadFinished()), this, SLOT(onTranslationLoadFinished()));
+	connect(&tl, SIGNAL(loadFailed(QString)), this, SLOT(onTranslationLoadFailed(QString)));
+	tl.loadTranslation();
 
 	// Make a timer that updates the dock timers, with a 1sec interval
 	connect(&timerUpdateTimer, SIGNAL(timeout()), this, SLOT(updateTimers()));
@@ -780,7 +780,7 @@ void KCMainWindow::onTranslationLoadFailed(QString error)
 		QMessageBox::Ok|QMessageBox::Retry, QMessageBox::Retry
 	);
 	if(button == QMessageBox::Retry)
-		KCTranslator::instance()->loadTranslation();
+		KCTranslator::instance().loadTranslation();
 }
 
 void KCMainWindow::onReceivedAdmiral()
