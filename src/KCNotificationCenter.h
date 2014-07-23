@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QString>
 #include <QSystemTrayIcon>
+#include <growl.h>
 
 /**
  * Singleton for abstracting away the user's notification system, eg. Growl,
@@ -21,8 +22,8 @@ public:
 	/// Defines the type of backend to be used
 	enum Backend
 	{
-		QtDefault,	///< Qt's default system for the platform
-		Growl		///< Explicitly use Growl
+		DefaultBackend,	///< Qt's default system for the platform
+		GrowlBackend		///< Explicitly use Growl
 	};
 
 

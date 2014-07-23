@@ -32,7 +32,7 @@ set(APPLE_GUI_BUNDLE_VERSION "${VERSION}")
 #
 # --> Find libraries and stuff
 #
-include_directories("${PROJECT_SOURCE_DIR}/lib/http-parser")
+include("${PROJECT_SOURCE_DIR}/lib/includes.cmake")
 
 find_package(Qt5Core)
 find_package(Qt5Widgets)

@@ -8,7 +8,7 @@ KCNotificationCenter& KCNotificationCenter::instance()
 }
 
 KCNotificationCenter::KCNotificationCenter(QObject *parent):
-	backend(QtDefault),
+	backend(GrowlBackend),
 	trayIcon(0)
 {
 
@@ -24,11 +24,18 @@ void KCNotificationCenter::notify(const QString &id, const QString &title, const
 	if(!enabledNotifications.value(id, defaultToEnabled))
 		return;
 
-	switch(backend)
+	if(backend == GrowlBackend)
 	{
-	case Growl:
-		qWarning() << "Grown notifications are not yet implemented!";
-	default:
+		// We need to keep these byte arrays around, or constData() would yield a
+		// dangling pointer, as the byte arrays would be but fleeting temporaries
+		QByteArray utf8_id = id.toUtf8();
+		QByteArray utf8_title = title.toUtf8();
+		QByteArray utf8_message = message.toUtf8();
+		
+		growl("localhost", "KanColleTool", utf8_id.constData(), utf8_title.constData(), utf8_message.constData(), NULL, NULL, NULL);
+	}
+	else
+	{
 		trayIcon->showMessage(title, message);
 	}
 }
