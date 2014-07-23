@@ -32,7 +32,7 @@ void KCNotificationCenter::notify(const QString &id, const QString &title, const
 		QByteArray utf8_title = title.toUtf8();
 		QByteArray utf8_message = message.toUtf8();
 		
-		growl("localhost", "KanColleTool", utf8_id.constData(), utf8_title.constData(), utf8_message.constData(), NULL, NULL, NULL);
+		growl("localhost", "KanColleTool", utf8_id.constData(), utf8_title.constData(), utf8_message.constData(), "http://i.imgur.com/LeHyDub.png", NULL, NULL);
 	}
 	else
 	{
