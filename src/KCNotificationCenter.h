@@ -27,6 +27,9 @@ public:
 
 
 
+	/// Are notifications enabled at all?
+	bool enabled;
+
 	/// Which notification backend should we use?
 	Backend backend;
 

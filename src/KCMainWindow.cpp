@@ -8,6 +8,7 @@
 #include "KCMacUtils.h"
 #include "KCUtil.h"
 #include "KCDefaults.h"
+#include "KCNotificationCenter.h"
 
 #include <QInputDialog>
 #include <QMessageBox>
@@ -157,6 +158,8 @@ void KCMainWindow::_setupTrayIcon()
 	trayMenu->addAction(tr("Exit"), qApp, SLOT(quit()));
 	trayIcon->setContextMenu(this->trayMenu);
 #endif
+
+	KCNotificationCenter::instance().trayIcon = trayIcon;
 }
 
 void KCMainWindow::_setupUI()
@@ -307,7 +310,10 @@ void KCMainWindow::closeEvent(QCloseEvent *event)
 #if !defined(__APPLE__)
 		if(!settings.value("closeToTrayNotificationShown").toBool())
 		{
-			trayIcon->showMessage(tr("Still running!"), tr("KanColleTool is still running in the tray.\nYou can disable that in the settings."));
+			KCNotificationCenter::instance().notify("closeToTray",
+				tr("Still running!"),
+				tr("KanColleTool is still running in the tray.\nYou can disable that in the settings.")
+			);
 			settings.setValue("closeToTrayNotificationShown", true);
 		}
 #endif
@@ -723,16 +729,20 @@ void KCMainWindow::updateSettingThings()
 	}
 
 	// Notification flags
-	notify = settings.value("notify", kDefaultNotify).toBool();
-	notifyRepairs = settings.value("notifyRepairs", kDefaultNotifyRepairs).toBool();
-	notifyConstruction = settings.value("notifyConstruction", kDefaultNotifyConstruction).toBool();
-	notifyExpedition = settings.value("notifyExpedition", kDefaultNotifyExpedition).toBool();
+	KCNotificationCenter &nc = KCNotificationCenter::instance();
+
 	notifyExpeditionReminder = settings.value("notifyExpeditionReminder", kDefaultNotifyExpeditionReminder).toBool();
 	notifyExpeditionReminderInterval = settings.value("notifyExpeditionReminderInterval", kDefaultNotifyExpeditionReminderInterval).toInt();
 	notifyExpeditionReminderRepeat = settings.value("notifyExpeditionReminderRepeat", kDefaultNotifyExpeditionRepeat).toBool();
 	notifyExpeditionReminderRepeatInterval = settings.value("notifyExpeditionReminderRepeatInterval", kDefaultNotifyExpeditionRepeatInterval).toInt();
 	notifyExpeditionReminderSuspend = settings.value("notifyExpeditionReminderSuspend", kDefaultNotifyExpeditionSuspend).toBool();
 	notifyExpeditionReminderSuspendInterval = settings.value("notifyExpeditionReminderSuspendInterval", kDefaultNotifyExpeditionSuspendInterval).toInt();
+
+	nc.enabled = settings.value("notify", kDefaultNotify).toBool();
+	nc.enabledNotifications["repairComplete"] = settings.value("notifyRepairs", kDefaultNotifyRepairs).toBool();
+	nc.enabledNotifications["constructionComplete"] = settings.value("notifyConstruction", kDefaultNotifyConstruction).toBool();
+	nc.enabledNotifications["expeditionComplete"] = settings.value("notifyExpedition", kDefaultNotifyExpedition).toBool();
+	nc.enabledNotifications["expeditionReminder"] = notifyExpeditionReminder;
 
 	this->checkExpeditionStatus();
 }
@@ -899,9 +909,10 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 			if(client->constructionDocks[i] == dock)
 				spoil = findChild<QCheckBox*>(QString("constructionSpoil%1").arg(i+1))->isChecked();
 
-		trayIcon->showMessage(
+		KCNotificationCenter::instance().notify("constructionComplete",
 			tr("Construction Completed!"),
-			tr("Say hello to %1!").arg((type && spoil) ? translateName(type->name) : tr("your new shipgirl")));
+			tr("Say hello to %1!").arg((type && spoil) ? translateName(type->name) : tr("your new shipgirl"))
+		);
 
 		updateConstructionsPage();
 	} else {
@@ -910,9 +921,10 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 
 		if(ship) ship->hp.cur = ship->hp.max;
 
-		trayIcon->showMessage(
+		KCNotificationCenter::instance().notify("repairComplete",
 			tr("Repair Completed!"),
-			tr("%1 is all healthy again!").arg((ship && type) ? translateName(type->name) : tr("Your shipgirl")));
+			tr("%1 is all healthy again!").arg((ship && type) ? translateName(type->name) : tr("Your shipgirl"))
+		);
 
 		updateFleetsPage();
 		updateRepairsPage();
@@ -924,9 +936,10 @@ void KCMainWindow::onDockCompleted(KCDock *dock)
 void KCMainWindow::onMissionCompleted(KCFleet *fleet)
 {
 	int id = client->fleets.key(fleet);
-	trayIcon->showMessage(
+	KCNotificationCenter::instance().notify("expeditionComplete",
 		tr("Expedition Complete"),
-		tr("Fleet %1 returned from Expedition %2-%3").arg(id).arg(fleet->mission.page).arg(fleet->mission.no));
+		tr("Fleet %1 returned from Expedition %2-%3").arg(id).arg(fleet->mission.page).arg(fleet->mission.no)
+	);
 	updateTimers();
 
 	lastActivityAt = QDateTime::currentDateTime();
@@ -1020,7 +1033,7 @@ void KCMainWindow::on_fleetsTabBar_currentChanged(int index)
 
 void KCMainWindow::checkExpeditionStatus()
 {
-	if(notify && notifyExpeditionReminder)
+	if(notifyExpeditionReminder)
 	{
 		bool youShouldPutOutExpeditions = true;
 		foreach(KCFleet *fleet, client->fleets)
@@ -1047,11 +1060,12 @@ void KCMainWindow::checkExpeditionStatus()
 
 void KCMainWindow::onExpeditionReminderTimeout()
 {
-	trayIcon->showMessage(
+	KCNotificationCenter::instance().notify("expeditionReminder",
 		tr("Remember your expeditions!"),
-		tr("You currently don't have any expeditions out.\nYou can disable these messages in the settings."));
+		tr("You currently don't have any expeditions out.\nYou can disable these messages in the settings.")
+	);
 
-	if(notify && notifyExpeditionReminder && notifyExpeditionReminderRepeat &&
+	if(notifyExpeditionReminder && notifyExpeditionReminderRepeat &&
 			(!notifyExpeditionReminderSuspend || lastActivityAt.secsTo(QDateTime::currentDateTime()) < notifyExpeditionReminderSuspendInterval))
 		expeditionReminderTimer.start(notifyExpeditionReminderRepeatInterval * 1000);
 }

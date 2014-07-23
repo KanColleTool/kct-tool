@@ -104,7 +104,7 @@ private:
 	QNetworkAccessManager manager;
 
 	bool translation;
-	bool notify, notifyRepairs, notifyConstruction, notifyExpedition;
+	//bool notify, notifyRepairs, notifyConstruction, notifyExpedition;
 	bool notifyExpeditionReminder, notifyExpeditionReminderRepeat, notifyExpeditionReminderSuspend;
 	int notifyExpeditionReminderInterval, notifyExpeditionReminderRepeatInterval, notifyExpeditionReminderSuspendInterval;
 

@@ -14,6 +14,11 @@ KCNotificationCenter::KCNotificationCenter(QObject *parent):
 
 }
 
+KCNotificationCenter::~KCNotificationCenter()
+{
+
+}
+
 void KCNotificationCenter::notify(const QString &id, const QString &title, const QString &message, bool defaultToEnabled)
 {
 	if(!enabledNotifications.value(id, defaultToEnabled))

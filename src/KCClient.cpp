@@ -57,6 +57,7 @@ void KCClient::loadConstructions() {
 }
 
 void KCClient::onDockCompleted() {
+	qDebug() << "KCClient::onDockCompleted()";
 	emit dockCompleted(qobject_cast<KCDock*>(QObject::sender()));
 }
 
@@ -65,6 +66,7 @@ void KCClient::onDockShipChanged() {
 }
 
 void KCClient::onMissionCompleted() {
+	qDebug() << "KCClient::onMissionCompleted()";
 	emit missionCompleted(qobject_cast<KCFleet*>(QObject::sender()));
 }
 
