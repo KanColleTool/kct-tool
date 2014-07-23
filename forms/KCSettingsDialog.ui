@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>450</height>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -306,6 +306,75 @@ If you would like to provide an alternate translation, contact us and we'll work
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="notificationSystemContainer" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Notification System</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="notificationBackendDefaultRadio">
+        <property name="text">
+         <string>Default</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The system's default notification system:&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mac&lt;/span&gt;: Notification Center&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Windows&lt;/span&gt;: Tray Bubbles&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Linux&lt;/span&gt;: libnotify&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="indent">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="notificationBackendGrowlRadio">
+        <property name="text">
+         <string>Growl</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The third party Growl notification system. Requires manual installation.&lt;br/&gt;Recommended on Windows, a matter of taste on Mac.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="indent">
+         <number>20</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

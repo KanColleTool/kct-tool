@@ -1,6 +1,7 @@
 #include "KCSettingsDialog.h"
 #include "ui_KCSettingsDialog.h"
 #include "KCMainWindow.h"
+#include "KCNotificationCenter.h"
 #include "KCDefaults.h"
 
 KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
@@ -33,6 +34,10 @@ KCSettingsDialog::KCSettingsDialog(KCMainWindow *parent, Qt::WindowFlags f):
 		settings.value("notifyExpeditionReminderSuspend", kDefaultNotifyExpeditionSuspend).toBool());
 	ui->notifyExpeditionReminderSuspendInterval->setValue(
 		settings.value("notifyExpeditionReminderSuspendInterval", kDefaultNotifyExpeditionSuspendInterval).toInt() / 60);
+
+	KCNotificationCenter::Backend backend = (KCNotificationCenter::Backend)settings.value("notificationBackend", kDefaultNotificationBackend).toInt();
+	ui->notificationBackendDefaultRadio->setChecked(backend == KCNotificationCenter::DefaultBackend);
+	ui->notificationBackendGrowlRadio->setChecked(backend == KCNotificationCenter::GrowlBackend);
 
 	// Disable the "?"-button on Windows
 	this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -85,6 +90,12 @@ void KCSettingsDialog::applySettings()
 	settings.setValue("notifyExpeditionReminderRepeatInterval", ui->notifyExpeditionReminderRepeatInterval->value() * 60);
 	settings.setValue("notifyExpeditionReminderSuspend", ui->notifyExpeditionReminderSuspendCheckbox->isChecked());
 	settings.setValue("notifyExpeditionReminderSuspendInterval", ui->notifyExpeditionReminderSuspendInterval->value() * 60);
+	
+	KCNotificationCenter::Backend backend = KCNotificationCenter::DefaultBackend;
+	if(ui->notificationBackendGrowlRadio->isChecked())
+		backend = KCNotificationCenter::GrowlBackend;
+	settings.setValue("notificationBackend", backend);
+
 	settings.sync();
 
 	emit apply();

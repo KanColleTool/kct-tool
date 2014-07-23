@@ -8,7 +8,7 @@ KCNotificationCenter& KCNotificationCenter::instance()
 }
 
 KCNotificationCenter::KCNotificationCenter(QObject *parent):
-	backend(GrowlBackend),
+	backend(DefaultBackend),
 	trayIcon(0)
 {
 

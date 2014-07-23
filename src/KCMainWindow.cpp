@@ -744,6 +744,8 @@ void KCMainWindow::updateSettingThings()
 	nc.enabledNotifications["expeditionComplete"] = settings.value("notifyExpedition", kDefaultNotifyExpedition).toBool();
 	nc.enabledNotifications["expeditionReminder"] = notifyExpeditionReminder;
 
+	nc.backend = (KCNotificationCenter::Backend)settings.value("notificationBackend", kDefaultNotificationBackend).toInt();
+
 	this->checkExpeditionStatus();
 }
 
