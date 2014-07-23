@@ -24,13 +24,17 @@ CTestTestfile.cmake
 cmake_install.cmake
 *_automoc.cpp
 /Testing
+__/
 
 # Built Products
 Makefile*
+moc_*.cpp
+qrc_*.cpp
 *.qm
 ui_*
 moc_*
+/src/version.h
 
-/bin/
 /build/
+/bin/
 *.dir

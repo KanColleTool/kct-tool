@@ -4,8 +4,8 @@
     IDI_ICON1           ICON    DISCARDABLE "../resources/KanColleTool.ico"
 
     VS_VERSION_INFO     VERSIONINFO
-    FILEVERSION         0, 9, 1, 0
-    PRODUCTVERSION      0, 9, 1, 0
+    FILEVERSION         KCT_VERSION_MAJOR, KCT_VERSION_MINOR, KCT_VERSION_PATCH, 0
+    PRODUCTVERSION      KCT_VERSION_MAJOR, KCT_VERSION_MINOR, KCT_VERSION_PATCH, 0
     FILEFLAGSMASK       0x3fL
     FILEFLAGS           0
     FILEOS              VOS_NT_WINDOWS32
@@ -24,7 +24,7 @@
                 VALUE   "FileDescription",  "KanColleTool\0"
                 VALUE   "FileVersion",      KCT_VERSION "\0"
                 VALUE   "InternalName",     "KanColleTool\0"
-                VALUE   "LegalCopyright",   "Copyright 2014 by the KanColle team\0"
+                VALUE   "LegalCopyright",   "Copyright 2014 the KanColle team\0"
                 VALUE   "OriginalFilename", "KanColleTool.exe\0"
                 VALUE   "ProductName",      "KanColleTool\0"
                 VALUE   "ProductVersion",   KCT_VERSION "\0"

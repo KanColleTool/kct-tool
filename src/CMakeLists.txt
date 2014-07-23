@@ -11,14 +11,12 @@ if(NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
 endif(NOT WIN32)
 
-
-
 # These three are managed by the version bump script!
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 9)
 set(VERSION_PATCH 2)
 
-set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+configure_file(version.h.in version.h)
 
 # Info.plist values
 set(APPLE_GUI_EXECUTABLE "KanColleTool")
@@ -51,14 +49,17 @@ endif(WIN32)
 #
 file(GLOB_RECURSE KanColleTool_FORMS ../forms/*.ui)
 file(GLOB_RECURSE KanColleTool_SOURCES *.cpp *.h)
+file(GLOB_RECURSE KanColleTool_RESOURCES ../resources/*.qrc)
 file(GLOB KanColleTool_MAIN_CPP main.cpp)
-list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP})
+file(GLOB KanColleTool_VERSION_H version.h)
+list(REMOVE_ITEM KanColleTool_SOURCES ${KanColleTool_MAIN_CPP} ${KanColleTool_VERSION_H})
 
 # Remove moc and uic files from the source list
 file(GLOB KanColleTool_MOCS moc_*.cpp *_automoc.cpp ui_*.h)
 list(REMOVE_ITEM KanColleTool_SOURCES "" ${KanColleTool_MOCS})
 
 qt5_wrap_ui(KanColleTool_UIHEADERS ${KanColleTool_FORMS})
+qt5_add_resources(KanColleTool_RESOURCE_SOURCES ${KCTViewer_RESOURCES})
 
 
 
@@ -86,15 +87,14 @@ endif(WIN32)
 #
 if(APPLE)
 	# Make a custom Info.plist
-	configure_file(../Info.plist.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
+	configure_file(Info.plist.in ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
 	
 	# Copy bundle resources
-	set_source_files_properties(../resources/KanColleTool.icns PROPERTIES
-		MACOSX_PACKAGE_LOCATION "Resources")
+	set_source_files_properties(../resources/KanColleTool.icns PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 	set(KanColleTool_EXTRASOURCES "../resources/KanColleTool.icns")
 endif(APPLE)
 
-add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanColleTool_EXTRASOURCES} KanColleTool.rc)
+add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanColleTool_RESOURCE_SOURCES} ${KanColleTool_EXTRASOURCES} KanColleTool.rc)
 target_link_libraries(KanColleTool KCBase)
 set_target_properties(KanColleTool PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
 
