@@ -94,7 +94,7 @@ if(APPLE)
 	set(KanColleTool_EXTRASOURCES "../resources/KanColleTool.icns")
 endif(APPLE)
 
-add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanColleTool_EXTRASOURCES})
+add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanColleTool_EXTRASOURCES} KanColleTool.rc)
 target_link_libraries(KanColleTool KCBase)
 set_target_properties(KanColleTool PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
 
