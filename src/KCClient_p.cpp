@@ -100,6 +100,7 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 	{ "/kcsapi/api_get_member/ship2",
 		pf {
 		  modelizeResponse(data, client->ships, client);
+		  emit client->receivedFleets();
 	  }
 	},
 	
