@@ -26,6 +26,7 @@
 KCMainWindow::KCMainWindow(QWidget *parent) :
 	QMainWindow(parent), ui(new Ui::KCMainWindow),
 	trayIcon(0), trayMenu(0), client(0), server(0),
+	translation(false),
 	lastActivityAt(QDateTime::currentDateTime())
 {
 	
@@ -777,10 +778,10 @@ void KCMainWindow::onTranslationLoadFinished()
 {
 	qDebug() << "Received Translation Data!";
 	// Update all the things!
-	updateFleetsPage();
-	updateShipsPage();
-	updateRepairsPage();
-	updateConstructionsPage();
+	this->updateFleetsPage();
+	this->updateShipsPage();
+	this->updateRepairsPage();
+	this->updateConstructionsPage();
 }
 
 void KCMainWindow::onTranslationLoadFailed(QString error)
