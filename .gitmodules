@@ -1,3 +1,6 @@
 [submodule "lib/gntp-send"]
 	path = lib/gntp-send
 	url = https://github.com/mattn/gntp-send.git
+[submodule "lib/ehttp"]
+	path = lib/ehttp
+	url = https://github.com/ehttp/ehttp.git
