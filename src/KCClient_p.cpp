@@ -140,6 +140,7 @@ const std::map<QString, KCClient::processFunc> KCClient::processFuncs = {
 				  ship->ammo = shipMap.value("api_bull").toInt();
 			  }
 		  }
+		  emit client->receivedFleets();
 	  }
 	}, // Resupplying
 	{ "/kcsapi/api_req_hensei/change", nullptr }, // Swap out ships
