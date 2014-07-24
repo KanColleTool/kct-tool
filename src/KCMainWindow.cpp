@@ -93,9 +93,13 @@ void KCMainWindow::postConstructorSetup()
 QString KCMainWindow::translateName(const QString &name)
 {
 	if(translation)
-		return QString("%1 (%2)").arg(kcTranslate(name), name);
-	else
-		return name;
+	{
+		QString translation = kcTranslate(name);
+		if(translation != name)
+			return QString("%1 (%2)").arg(translation, name);
+	}
+
+	return name;
 }
 
 bool KCMainWindow::_setupServer()
