@@ -103,7 +103,7 @@ set_target_properties(KanColleTool PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_R
 #
 # --> Installation
 #
-install(TARGETS KanColleTool RUNTIME DESTINATION bin COMPONENT Tool)
+install(TARGETS KanColleTool RUNTIME DESTINATION bin)
 
 
 
