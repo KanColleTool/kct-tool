@@ -1,8 +1,5 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 2.8.12)
 project(KanColleTool)
-
-cmake_policy(SET CMP0020 NEW)
-cmake_policy(SET CMP0028 NEW)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
@@ -32,3 +29,4 @@ endif()
 set_property(TARGET KanColleTool KCBase PROPERTY FOLDER "Tool")
 set_property(TARGET KCSupport PROPERTY FOLDER "3rd Party")
 set_property(TARGET KanColleToolTest PROPERTY FOLDER "Tests")
+
