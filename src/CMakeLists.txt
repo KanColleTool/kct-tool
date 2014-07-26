@@ -98,6 +98,10 @@ add_executable(KanColleTool WIN32 MACOSX_BUNDLE ${KanColleTool_MAIN_CPP} ${KanCo
 target_link_libraries(KanColleTool KCBase)
 set_target_properties(KanColleTool PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Info.plist)
 
+if(UNIX AND NOT APPLE)
+    set_property(TARGET KanColleTool PROPERTY OUTPUT_NAME "kancolletool")
+endif()
+
 
 
 #
