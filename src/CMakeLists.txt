@@ -107,7 +107,7 @@ endif()
 #
 # --> Installation
 #
-install(TARGETS KanColleTool RUNTIME DESTINATION bin)
+install(TARGETS KanColleTool RUNTIME DESTINATION bin BUNDLE DESTINATION .)
 
 
 
