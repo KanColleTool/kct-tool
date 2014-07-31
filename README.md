@@ -3,21 +3,9 @@ KanColleTool
 
 [![Build Status](https://travis-ci.org/KanColleTool/kct-tool.png?branch=master)](https://travis-ci.org/KanColleTool/kct-tool)
 
-KanColleTool is a tool for KanColle players.
-That may have been the most redundant sentence I've ever written.
+**KanColleTool** (aka **KCT**), the main part of [KanColleTool](https://github.com/KanColleTool/KanColleTool).
 
-KanColleTool consists of two parts, the tool (KCT) and the viewer (KCTV). The Tool displays information gathered from the game, while the viewer is a wrapper around the game to let it and the Tool work more smoothly. This is the tool. The viewer is [here](/KanColleTool/viewer).
+It takes data collected by the [Viewer](https://github.com/KanColleTool/kct-viewer) or [MacViewer](https://github.com/KanColleTool/kct-macviewer), and extracts information out of it.
 
-Its features include:
-
-* Viewing hidden statistics, such as Condition
-* Notifications for quests, repairs and construction
-* Optional spoilers for constructions
-
-If you think of anything I should include, please tell me; either open an [issue](http://github.com/KanColleTool/KanColleTool/issues/), mention [@uppfinnarn](http://twitter.com/uppfinnarn), or send an email to [kctool@sauyon.com](mailto:kctool@sauyon.com).
-
-Downloads and FAQ can be found at <http://kancolletool.github.io/>.
-
----
-
-This tool is entirely separate from @Grabacr07's [KanColleViewer](https://github.com/Grabacr07/KanColleViewer). I didn't even know of their project when I started mine, and all of my work has been separate from theirs.
+Some of it is just nice to have when the game isn't running (or when it's just not onscreen), while some of it isn't visible in-game at all.  
+Some of it is used to provide notifications when things such as constructions, reparations and expeditions finish.
