@@ -46,16 +46,6 @@ public:
 	int equipmentSlots;
 
 	int voicef;
-
-	// Unknown values, saved to be able to look for exceptions from the
-	// patterns we know (like _baku != {0,0})
-	int _atap[2], _bakk[2], _baku[2];
-	int _defeq[4], _grow[8], _gumax[4];
-	int _houk[2], _houm[2], _raik[2], _raim[2];
-	int _sakb[2], _tous[2];
-	int _sokuh;
-	QVariant _homemes, _gomes, _gomes2;
-	QVariant _missions, _systems, _touchs[3];
 };
 
 #endif
