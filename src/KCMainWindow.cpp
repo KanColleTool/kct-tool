@@ -143,7 +143,7 @@ void KCMainWindow::_setupClient()
 void KCMainWindow::_setupTrayIcon()
 {
 	// Create the Tray Icon
-	trayIcon = new QSystemTrayIcon(QIcon(":/KanColleTool.png"), this);
+	trayIcon = new QSystemTrayIcon(QIcon(":/kancolletool.png"), this);
 	connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 			this, SLOT(onTrayIconActivated(QSystemTrayIcon::ActivationReason)));
 	trayIcon->show();
