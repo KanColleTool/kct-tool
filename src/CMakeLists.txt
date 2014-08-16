@@ -107,14 +107,6 @@ endif()
 #
 # --> Installation
 #
-if(APPLE)
-	get_property(KanColleTool_BINARY TARGET KanColleTool PROPERTY LOCATION)
-	install(CODE "
-		include(BundleUtilities)
-		fixup_bundle(${KanColleTool_BINARY} \"\" \"\")
-	")
-endif()
-
 install(TARGETS KanColleTool RUNTIME DESTINATION bin BUNDLE DESTINATION .)
 
 
