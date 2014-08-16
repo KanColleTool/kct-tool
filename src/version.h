@@ -1,4 +1,0 @@
-#define KCT_VERSION_MAJOR 0
-#define KCT_VERSION_MINOR 9
-#define KCT_VERSION_PATCH 2
-#define KCT_VERSION "0.9.2"
