@@ -28,31 +28,45 @@ public:
 	// Extract a single item from a variant map into a T&
 	template<typename T>
 	static void extract(const QVariantMap &source, T& dest, const QString& key) {
-		dest = source[key].value<T>();
+		const QVariant &prop = source[key];
+		if(!prop.isNull())
+			dest = source[key].value<T>();
+		else dest = T();
 	}
 
 	// Extract a list of items from a variant map into a T[]
 	template<typename T>
 	static void extract(const QVariantMap &source, T dest[], int count, const QString& key) {
-		QSequentialIterable iter = source[key].value<QSequentialIterable>();
-		int i = 0;
-		foreach(const QVariant &v, iter)
+		const QVariant &prop = source[key];
+		if(!prop.isNull())
 		{
-			dest[i] = v.value<T>();
-			if(++i >= count) break;
+			int i = 0;
+			foreach(const QVariant &v, prop.value<QSequentialIterable>())
+			{
+				dest[i] = v.value<T>();
+				if(++i >= count) break;
+			}
 		}
+		else
+			for(int i = 0; i < count; i++)
+				dest[i] = T();
 	}
 
 	// Extract a single item from a list into a T&
 	template<typename T>
 	static void extract(const QVariantMap &source, T& dest, const QString &key, int index) {
-		QSequentialIterable iter = source[key].value<QSequentialIterable>();
-		dest = iter.at(index).value<T>();
+		const QVariant &prop = source[key];
+		if(!prop.isNull())
+			dest = prop.value<QSequentialIterable>().at(index).value<T>();
+		else dest = T();
 	}
 
 	// Extract just the count of a list into an int&
 	static void extractCount(const QVariantMap &source, int& dest, const QString &key) {
-		dest = source[key].value<QSequentialIterable>().size();
+		const QVariant &prop = source[key];
+		if(!prop.isNull())
+			dest = prop.value<QSequentialIterable>().size();
+		else dest = 0;
 	}
 
 	// Extract a timestamp given as msecs since start of epoch into a QDateTime
