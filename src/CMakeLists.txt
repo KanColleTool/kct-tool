@@ -107,7 +107,16 @@ endif()
 #
 # --> Installation
 #
-install(TARGETS KanColleTool RUNTIME DESTINATION bin BUNDLE DESTINATION .)
+if(WIN32)
+	set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION ".")
+	include(InstallRequiredSystemLibraries)
+endif()
+
+set(KanColleTool_RUNTIME_DESTINATION "bin")
+if(WIN32)
+	set(KanColleTool_RUNTIME_DESTINATION ".")
+endif()
+install(TARGETS KanColleTool RUNTIME DESTINATION ${KanColleTool_RUNTIME_DESTINATION} BUNDLE DESTINATION .)
 
 
 
