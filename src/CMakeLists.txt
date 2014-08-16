@@ -14,7 +14,7 @@ endif()
 # These three are managed by the version bump script!
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 9)
-set(VERSION_PATCH 2)
+set(VERSION_PATCH 3)
 
 configure_file(version.h.in version.h)
 
