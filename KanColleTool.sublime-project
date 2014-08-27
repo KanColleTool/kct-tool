@@ -3,8 +3,8 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build" ],
-			"file_exclude_patterns": [ ".qmake.stash", "*.o", "moc_*.cpp", "ui_*.h", "qrc_*.cpp" ]
+			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build", "CMakeFiles", "__" ],
+			"file_exclude_patterns": [ "CMakeCache.txt", "cmake_install.cmake", "CTestTestfile.cmake", "*_automoc.cpp", "moc_*.cpp", "ui_*.h", "qrc_*.cpp", "Makefile" ]
 		}
 	]
 }
