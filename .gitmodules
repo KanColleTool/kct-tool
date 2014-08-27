@@ -4,3 +4,6 @@
 [submodule "lib/ehttp"]
 	path = lib/ehttp
 	url = https://github.com/ehttp/ehttp.git
+[submodule "lib/kclib"]
+	path = lib/kclib
+	url = https://github.com/KanColleTool/kclib.git
