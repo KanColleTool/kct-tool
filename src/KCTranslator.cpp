@@ -18,7 +18,7 @@ KCTranslator& KCTranslator::instance()
 }
 
 KCTranslator::KCTranslator(QObject *parent):
-	QObject(parent)
+	QObject(parent), translator(new LKTranslator())
 {
 	
 }
@@ -30,7 +30,7 @@ KCTranslator::~KCTranslator()
 
 QString KCTranslator::translate(const QString &line) const
 {
-	QString realLine = unescape(line);
+	/*QString realLine = unescape(line);
 	QByteArray utf8 = realLine.toUtf8();
 	uint32_t crc = crc32(0, utf8.constData(), utf8.size());
 
@@ -45,16 +45,17 @@ QString KCTranslator::translate(const QString &line) const
 	{
 		//qDebug() << "No TL:" << realLine;
 		return line;
-	}
+	}*/
 }
 
 void KCTranslator::loadTranslation(QString language)
 {
-	QNetworkReply *reply = manager.get(QNetworkRequest(QString("http://api.comeonandsl.am/translation/%1/").arg(language)));
-	connect(reply, SIGNAL(finished()), this, SLOT(translationRequestFinished()));
+	translator->requestTranslation(language.toStdString());
+	/*QNetworkReply *reply = manager.get(QNetworkRequest(QString("http://api.comeonandsl.am/translation/%1/").arg(language)));
+	connect(reply, SIGNAL(finished()), this, SLOT(translationRequestFinished()));*/
 }
 
-void KCTranslator::translationRequestFinished()
+/*void KCTranslator::translationRequestFinished()
 {
 	// Read the response body
 	QNetworkReply *reply(qobject_cast<QNetworkReply*>(QObject::sender()));
@@ -87,4 +88,4 @@ void KCTranslator::translationRequestFinished()
 	translation = root.value("translation").toObject().toVariantMap();
 	
 	emit loadFinished();
-}
+}*/

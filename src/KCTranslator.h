@@ -15,20 +15,18 @@ public:
 
 public slots:
 	QString translate(const QString &line) const;
-
 	void loadTranslation(QString language = "en");
 
 signals:
 	void loadFinished();
 	void loadFailed(QString error);
 
-private slots:
-	void translationRequestFinished();
+/*private slots:
+	void translationRequestFinished();*/
 
 private:
-	QNetworkAccessManager manager;
-	QVariantMap translation;
-
+	LKTranslator *translator;
+	
 private:
 	// Singleton stuff
 	KCTranslator(QObject *parent = 0);
