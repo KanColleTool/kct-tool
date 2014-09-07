@@ -16,6 +16,9 @@ xcuserdata
 *.vcxproj
 *.vcxproj.*
 *.sln
+.project
+.cproject
+*.ninja
 
 # CMake stuff
 CMakeCache.txt
