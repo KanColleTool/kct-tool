@@ -4,7 +4,7 @@
 		{
 			"path": ".",
 			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build", "CMakeFiles", "__", "Testing" ],
-			"file_exclude_patterns": [ "CMakeCache.txt", "cmake_install.cmake", "CTestTestfile.cmake", "*_automoc.cpp", "moc_*.cpp", "ui_*.h", "qrc_*.cpp", "Makefile" ]
+			"file_exclude_patterns": [ "CMakeCache.txt", "cmake_install.cmake", "CTestTestfile.cmake", "*_automoc.cpp", "moc_*.cpp", "ui_*.h", "qrc_*.cpp", "Makefile", ".ninja_*", "*.ninja" ]
 		}
 	],
 	"settings":
