@@ -6,5 +6,16 @@
 			"folder_exclude_patterns": [ "KanColleTool.app", "cache", "bin", "build", "CMakeFiles", "__", "Testing" ],
 			"file_exclude_patterns": [ "CMakeCache.txt", "cmake_install.cmake", "CTestTestfile.cmake", "*_automoc.cpp", "moc_*.cpp", "ui_*.h", "qrc_*.cpp", "Makefile" ]
 		}
+	],
+	"settings":
+	{
+		"tab_size": 4
+	},
+	"build_systems":
+	[
+		{
+			"name": "Ninja",
+			"shell_cmd": "ninja"
+		}
 	]
 }
