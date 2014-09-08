@@ -19,6 +19,8 @@ xcuserdata
 .project
 .cproject
 *.ninja
+.ninja_deps
+.ninja_log
 
 # CMake stuff
 CMakeCache.txt

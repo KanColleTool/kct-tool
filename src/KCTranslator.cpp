@@ -46,6 +46,8 @@ QString KCTranslator::translate(const QString &line) const
 		//qDebug() << "No TL:" << realLine;
 		return line;
 	}*/
+	
+	return line;
 }
 
 void KCTranslator::loadTranslation(QString language)

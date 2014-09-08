@@ -1,6 +1,8 @@
 #ifndef KCTRANSLATOR_H
 #define KCTRANSLATOR_H
 
+#include <LKTranslator.h>
+
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QVariant>
