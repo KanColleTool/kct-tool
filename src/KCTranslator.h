@@ -16,18 +16,19 @@ public:
 	static KCTranslator& instance();
 
 public slots:
-	QString translate(const QString &line) const;
+	QString translate(const QString &line);
 	void loadTranslation(QString language = "en");
 
 signals:
 	void loadFinished();
 	void loadFailed(QString error);
 
-/*private slots:
-	void translationRequestFinished();*/
+private slots:
+	void translationRequestFinished();
 
-private:
-	LKTranslator *translator;
+protected:
+	QNetworkAccessManager manager;
+	LKTranslator translator;
 	
 private:
 	// Singleton stuff
