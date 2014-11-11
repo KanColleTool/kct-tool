@@ -79,7 +79,7 @@ void KCTranslator::translationRequestFinished()
 	translator.loadStatus = LKTranslator::LoadStatusLoaded;
 	translator.translationData.clear();
 	for(auto it = translation.begin(); it != translation.end(); it++)
-		translator.translationData[crc32(it.key().toStdString())] = it.value().toString().toStdString();
+		translator.translationData[it.key().toUInt()] = it.value().toString().toStdString();
 	
 	emit loadFinished();
 }
