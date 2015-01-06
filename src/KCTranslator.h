@@ -1,8 +1,6 @@
 #ifndef KCTRANSLATOR_H
 #define KCTRANSLATOR_H
 
-#include <LKTranslator.h>
-
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QVariant>
@@ -16,7 +14,8 @@ public:
 	static KCTranslator& instance();
 
 public slots:
-	QString translate(const QString &line);
+	QString translate(const QString &line) const;
+
 	void loadTranslation(QString language = "en");
 
 signals:
@@ -26,10 +25,10 @@ signals:
 private slots:
 	void translationRequestFinished();
 
-protected:
+private:
 	QNetworkAccessManager manager;
-	LKTranslator translator;
-	
+	QVariantMap translation;
+
 private:
 	// Singleton stuff
 	KCTranslator(QObject *parent = 0);

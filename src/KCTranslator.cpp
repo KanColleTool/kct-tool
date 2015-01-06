@@ -1,7 +1,6 @@
 #include "KCTranslator.h"
 #include "KCUtil.h"
 #include "KCDefaults.h"
-#include <LKUtil.h>
 
 #include <QUrl>
 #include <QByteArray>
@@ -29,16 +28,30 @@ KCTranslator::~KCTranslator()
 	
 }
 
-QString KCTranslator::translate(const QString &line)
+QString KCTranslator::translate(const QString &line) const
 {
-	return QString::fromStdString(translator.translate(line.toStdString()));
+	QString realLine = unescape(line);
+	QByteArray utf8 = realLine.toUtf8();
+	uint32_t crc = crc32(0, utf8.constData(), utf8.size());
+
+	QString key = QString::number(crc);
+	QVariant value = translation.value(key);
+	if(value.isValid())
+	{
+		qDebug() << "TL:" << realLine << "->" << value.toString();
+		return value.toString();
+	}
+	else
+	{
+		qDebug() << "No TL:" << realLine;
+		return line;
+	}
 }
 
 void KCTranslator::loadTranslation(QString language)
 {
-	translator.loadStatus = LKTranslator::LoadStatusLoading;
-	
-	QNetworkReply *reply = manager.get(QNetworkRequest(QString("http://api.comeonandsl.am/translation/%1/").arg(language)));
+	//QNetworkReply *reply = manager.get(QNetworkRequest(QString("http://api.comeonandsl.am/translation/%1/").arg(language)));
+	QNetworkReply *reply = manager.get(QNetworkRequest(QString("https://yukariin.github.io/en.json")));
 	connect(reply, SIGNAL(finished()), this, SLOT(translationRequestFinished()));
 }
 
@@ -48,7 +61,6 @@ void KCTranslator::translationRequestFinished()
 	QNetworkReply *reply(qobject_cast<QNetworkReply*>(QObject::sender()));
 	if(reply->error() != QNetworkReply::NoError)
 	{
-		translator.loadStatus = LKTranslator::LoadStatusError;
 		emit loadFailed(QString("Network Error: %1").arg(reply->errorString()));
 		return;
 	}
@@ -59,7 +71,6 @@ void KCTranslator::translationRequestFinished()
 	QJsonDocument doc(QJsonDocument::fromJson(body, &error));
 	if(error.error != QJsonParseError::NoError)
 	{
-		translator.loadStatus = LKTranslator::LoadStatusError;
 		emit loadFailed(QString("JSON Error: %1").arg(error.errorString()));
 		return;
 	}
@@ -69,17 +80,12 @@ void KCTranslator::translationRequestFinished()
 	int success = (int) root.value("success").toDouble();
 	if(success != 1)
 	{
-		translator.loadStatus = LKTranslator::LoadStatusError;
 		emit loadFailed(QString("API Error %1").arg(success));
 		return;
 	}
 	
 	// Parse the translation data
-	QVariantMap translation = root.value("translation").toObject().toVariantMap();
-	translator.loadStatus = LKTranslator::LoadStatusLoaded;
-	translator.translationData.clear();
-	for(auto it = translation.begin(); it != translation.end(); it++)
-		translator.translationData[it.key().toUInt()] = it.value().toString().toStdString();
+	translation = root.value("translation").toObject().toVariantMap();
 	
 	emit loadFinished();
 }
