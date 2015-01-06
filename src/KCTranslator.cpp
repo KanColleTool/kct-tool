@@ -20,12 +20,12 @@ KCTranslator& KCTranslator::instance()
 KCTranslator::KCTranslator(QObject *parent):
 	QObject(parent)
 {
-	
+
 }
 
 KCTranslator::~KCTranslator()
 {
-	
+
 }
 
 QString KCTranslator::translate(const QString &line) const
@@ -38,12 +38,12 @@ QString KCTranslator::translate(const QString &line) const
 	QVariant value = translation.value(key);
 	if(value.isValid())
 	{
-		qDebug() << "TL:" << realLine << "->" << value.toString();
+		//qDebug() << "TL:" << realLine << "->" << value.toString();
 		return value.toString();
 	}
 	else
 	{
-		qDebug() << "No TL:" << realLine;
+		//qDebug() << "No TL:" << realLine;
 		return line;
 	}
 }
