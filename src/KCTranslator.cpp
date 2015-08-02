@@ -50,7 +50,7 @@ QString KCTranslator::translate(const QString &line) const
 
 void KCTranslator::loadTranslation(QString language)
 {
-	QNetworkReply *reply = manager.get(QNetworkRequest(QString("https://yukariin.github.io/%1.json").arg(language)));
+	QNetworkReply *reply = manager.get(QNetworkRequest(QString("http://yukariin.github.io/%1.json").arg(language)));
 	connect(reply, SIGNAL(finished()), this, SLOT(translationRequestFinished()));
 }
 
