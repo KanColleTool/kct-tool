@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(KanColleTool)
 
+IF(WIN32)
+   #Set to allow xp compatibility
+  set(CMAKE_GENERATOR_TOOLSET "v120_xp" CACHE STRING "Platform toolset" FORCE)
+ENDIF(WIN32)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
