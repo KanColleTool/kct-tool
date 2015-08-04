@@ -15,17 +15,9 @@ endif()
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 9)
 set(VERSION_PATCH 4)
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 configure_file(version.h.in version.h)
-
-# Info.plist values
-set(APPLE_GUI_EXECUTABLE "KanColleTool")
-set(APPLE_GUI_BUNDLE_NAME "KanColleTool")
-set(APPLE_GUI_COPYRIGHT "© 2013-2014 the KanColleTool team")
-set(APPLE_GUI_ICON "KanColleTool.icns")
-set(APPLE_GUI_IDENTIFIER "com.kancolletool.KanColleTool")
-set(APPLE_GUI_SHORT_VERSION_STRING "${VERSION}")
-set(APPLE_GUI_BUNDLE_VERSION "${VERSION}")
 
 
 
